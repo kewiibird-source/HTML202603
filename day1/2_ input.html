@@ -13,6 +13,8 @@
         <!-- autofocus 최초 포커스 활성화 -->
         <div>
             <label>
+                <!-- 오토포커스 : 페이지에 들어가면 자동으로 포커스가 잡힘 -->
+                <!-- 플레이스홀더 입력란에 글자를 넣을 수 있음-->
                 아이디 : <input type="text" autofocus placeholder="아이디 입력하셈">
             </label>
             <input type="button" value="중복체크">
@@ -24,11 +26,13 @@
         </div>
         <div>
             성별 : 
+            <!-- 그룹으로 묶지 않으면 중복허용이 됨 -->
             <label> <input type="radio" name="gender" checked> 남자 </label>
             <label> <input type="radio" name="gender"> 여자 </label>
         </div>
         <div>
             취미 :
+            <!-- 체크박스는 중복허용인데 그룹으로 묶는 이유는 데이터베이스와 연관되어있따 -->
             <label><input type="checkbox" name="hobby" checked>코딩<label>
             <label><input type="checkbox" name="hobby">독서<label>
             <label><input type="checkbox" name="hobby">운동<label>
@@ -46,6 +50,7 @@
         <div>
             나이대 :
             <select>
+                <!-- 드랍다운형태 -->
                 <option> :: 선택 :: </option>
                 <option>10대</option>
                 <option>20대</option>
@@ -59,6 +64,7 @@
             <div><textarea rows="5" cols="20" placeholder="자기소개입력하셈"></textarea></div>
         </div>
         <div>
+            <!-- 눌렀을때 이벤트를 주는 역할 => js -->
             <button>가입하기</button>
             <button>취소</button>
         </div>

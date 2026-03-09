@@ -1,0 +1,17 @@
+div {
+        color: green;
+    }
+    /* id로 스타일을 줄때 */
+        #title {
+        font-weight: bold;
+        font-size: 30px;
+        color: brown;
+    }
+    /* class로 스타일을 줄때 */
+    .subject {
+        font-style: italic;
+    }
+    .core {
+        text-decoration: underline;
+        font-weight: bold;
+    }

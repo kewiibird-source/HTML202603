@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        div {
+            background-color: beige;
+            color: brown;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- css 적용 방법은 크게 3가지 -->
+    <!-- 1. 확장자.css 파일에 정의하고 html 파일에서 참조(링크) 하는 방법 -->
+    <!-- 프로젝트 단위에서 가장 많이 사용되는 방법 -->
+    <!-- 화면별 공통성을 부여하기 위해 사용된다. / 작업할 단위가 많을때! -->
+
+    <!-- 2. head 태그안에 style 태그로 정의하는 방법 -->
+    <!-- 재사용을 잘 하지 않거나, 개별단위로 작업할 때 -->
+    <!-- 각 화면의 통일성이 필요 없을 때 -->
+
+    <!-- 3. 태그안에 직접 style 속성을 부여하는 방법 -->
+    <!-- 가장 쉽고 빠른 방법이지만, 가독성이 떨어짐 -->
+    <!-- 회사에서는 협업이 중요하고, 유지보수가 힘들기 때문에 3번은 잘 안쓴다(사용하는경우도있음) -->
+
+    <!-- 스타일 적용되는 우선순위 3>2>1 -->
+
+    <!-- 3번 -->
+    <div style="
+        background-color: rgba(233, 111, 111, 0.664); 
+        color: rgb(255, 255, 255); 
+        font-size: 30px;
+        font-style: italic;">3번 <span style="color: rgb(171, 190, 0);">방법!</span>
+    </div>
+
+    <!-- 2번 -->
+    <!-- 1,2번 공통 태그이름, id, class명 등을 통해서 스타일 부여-->
+    <div>
+        2번 방법_1
+    </div>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            /* 바깥쪽 여백은 margin 사용 (안쪽여백은 padding) */
+            /* top, bottom, left, right 개별 적용 가능 */
+            /* 2개씩(top,bottom / left, right) 혹은 4개 한번에 적용 가능 */
+            /* 개별속성적용 */
+            margin-top: 10px;
+            margin-bottom: 5px;
+            margin-left: 10px;
+            margin-right: 5px;
+
+            /* 4개를 속성 하나로 (t, r, b, l) */
+            margin: 10px 5px 5px 10px;
+
+            /* 2개씩 묶어서 t,b l,r */
+            margin: 5px 10px;
+
+            /* 한번에 일괄 적용 t,b,l,r */
+            margin: 50px;
+        }
+
+        .pd {
+            padding: 50px 10px;
+        }
+
+        .box1 {
+            width: 200px;
+            height: 200px;
+            border: 2px dashed black;
+            /* border-width: 2px;
+            border-style: dashed;
+            border-color: aqua; */
+            background-color: darkseagreen;
+            text-align: center;
+            line-height: 200px;
+        }
+        .box2 {
+            width: 200px;
+            height: 200px;
+            border: 2px dashed black;
+            /* border-radius: 10px; 둥근모서리 */
+            border-radius: 50%; /* 50%가 최대 */
+            background-color: darkseagreen;
+            text-align: center;
+            line-height: 200px;
+            margin-top: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="box1 pd">box1</div>
+    <div class="box2">box2</div>
+</body>
+</html>
