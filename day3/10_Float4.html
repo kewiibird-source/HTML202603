@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            width: 1000px;
+            margin: 5px auto;
+        }
+        #header {
+            width: 100%; /*100% 전체영역*/
+            height: 150px;
+            background-color: aliceblue;
+            box-sizing: border-box; 
+        }
+        #menu {
+            width: 180px;
+            height: 600px;
+            background-color: lavender;
+            float: left;
+            box-sizing: border-box;
+        }
+        #contents {
+            width: 570px;
+            height: 600px;
+            border: 2px solid black;
+            background-color: azure;
+            float: left;
+            box-sizing: border-box; 
+            /* padding이나 border를 합친 사이즈로 맞춰줌 - 따로 계산안해도됨 */
+        }
+        #sidebar {
+            width: 250px;
+            height: 600px;
+            background-color: floralwhite;
+            float: left;
+            box-sizing: border-box; 
+        }
+        #footer {
+            width: 100%;
+            height: 150px;
+            background-color: #eee;
+            clear: both;
+            box-sizing: border-box; 
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            검색 메뉴~
+        </div>
+        <div id="menu">
+            메뉴
+        </div>
+        <div id="contents">
+            주요기능넣기~
+        </div>
+        <div id="sidebar">
+            로긘
+        </div>
+        <div id="footer">
+            정보
+        </div>
+    </div>
+
+</body>
+</html>

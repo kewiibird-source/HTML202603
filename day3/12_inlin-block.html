@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            margin: 5px;
+        }
+        .box1 {
+            width: 150px;
+            height: 150px;
+            border: 2px solid black;
+            display: block; /* 디폴트값 */
+        }
+        .span1 {
+            width: 150px;
+            height: 150px;
+            border: 2px solid black;
+            display: inline; /* 디폴트값 */
+        }
+        .box2 {
+            width: 150px;
+            height: 150px;
+            border: 2px solid black;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">div 박스</div>
+    <div class="box1">div 박스</div>
+    <hr>
+    <span class="span1">span 박스</span>
+    <span class="span1">span 박스</span>
+    <hr>
+    <!-- inline-block -->
+    <!-- block처럼 크기를 지정할 수 있으면서 -->
+    <!-- inlin처럼 나란히 배열이 가능한 속성 -->
+
+    <div class="box2">div 박스</div>
+    <div class="box2">div 박스</div>
+
+    <div style="margin-top: 1000px;"></div>
+</body>
+</html>

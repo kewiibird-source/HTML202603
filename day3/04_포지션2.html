@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 130px;
+            height: 130px;
+            border: 2px solid black;
+            text-align: center;
+            line-height: 130px;
+            color: white;
+        }
+        .box1 {
+            background-color: darkcyan;
+        }
+        .box2 {
+            background-color: aquamarine;
+            position: absolute;
+            top: 10px;
+            left: 30px;
+        }
+        .box3 {
+            background-color: greenyellow;
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            /* border-radius: 50%; */
+        }
+    </style>
+</head>
+<body>
+    <!-- absolute 부모 요소의 영향을 받아서 배치 -->
+    <!-- 부모(상위) 요소중에서 static이 아닌 요소를 기준으로 배치 -->
+    <!-- 부모(상위) 요소가 모두 static일 경우(static이 아닌걸 못찾았을때) -->
+    <!-- body태그를 기준으로 배치된다 -->
+    <!-- relative와 조합해서 많이 사용된다. -->
+
+    <div class="box1">box1</div>
+    <div class="box2">box2</div>
+    <hr>
+    
+    <h3>relative와 absolute의 조합</h3> 
+    <div style="width: 700px; height: 300px; position: relative;">
+        <!-- 상위요소중 relative로 된 박스를 기준으로 배치됐음 -->
+        <div class="box3"></div>
+    </div>
+    
+</body>
+</html>
