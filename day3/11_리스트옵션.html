@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .list1 {
+            list-style-type:square ;
+        }
+        .list2 {
+            list-style-image: url("../media/dot.png");
+        }
+        /* list3 밑에 있는 li에만 적용함 */
+        /* list3, li > list3와 모든 li에 적용함 */
+        .list3 li {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <ul class="list1">
+        <li>자바</li>
+        <li>오라클</li>
+        <li>html</li>
+    </ul>
+    <hr>
+    <ul class="list2">
+        <li>자바</li>
+        <li>오라클</li>
+        <li>html</li>
+    </ul>
+    <hr>
+    <ul class="list3">
+        <li>자바</li>
+        <li>오라클</li>
+        <li>html</li>
+    </ul>
+</body>
+</html>

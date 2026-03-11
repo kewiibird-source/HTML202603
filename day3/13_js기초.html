@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>test</div>
+</body>
+</html>
+<script>
+    // 자바스크립트 변수
+    // 자바처럼 변수 선언 시 정수, 실수, 불린 등 상세히 구분하지 않는다.
+    // var let 에 다 담으면 된다
+    // const 상수!
+    let a = 10;
+    let b = 10.5;
+    let c = true;
+    let d = "heee";
+    let e = [1,2,3,4];
+    let f = {name : "홍길동", age : 13};
+    let g = new Date();
+    let h = function(){
+        alert("안녕");
+    };
+    a = "홍길동";
+
+    // alert : 알림창
+    // alert(a);
+
+    // comfirm : 확인/취소 선택
+    // let result = confirm("정말삭제할?");
+    // if(result){ // result == true
+    //     alert("삭제되었음")
+    // } else {
+    //     alert("취소됐음")
+    // }
+
+    // if(confirm("정말삭제할?")){ 
+    //     alert("삭제되었음")
+    // } else {
+    //     alert("취소됐음")
+    // }
+
+    // prompt 잘 안씀
+    // let name = prompt("이름 입력하셈")
+    // alert(name + "님 환영");
+
+    // console.log(); 자바의 프린트문
+    console.log(a);
+
+    if(a == "홍길동"){ // true
+        console.log("1번 참!")
+    } else {
+        console.log("1번 거짓!")
+    }
+    
+    if(1 === "1"){ // false
+        console.log("2번 참!")
+    } else {
+        console.log("2번 거짓!")
+    }
+</script>
