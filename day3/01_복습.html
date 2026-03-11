@@ -79,4 +79,87 @@
      <div style="margin-bottom: 300px;"></div>
     <hr>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 테이블에 대한 css */
+        table, tr, th, td {
+            border : 2px solid black; /* 2px 크기의 검은색 선(solid) */
+            border-collapse: collapse;  /* 겹치는 선을 하나로 */
+            padding : 5px 20px; /* 상하 5px 좌우 20px */
+            text-align: center;
+        }
+        th {
+            background-color: #eee;
+        }
+        td {
+            width: 300px;
+            text-align: left;
+        }
+        /* 태그, 아이디, 클래스로 css 적용하기 */
+        span {
+            color: green;
+        }
+        #txt1 {
+            color: red;
+            font-weight: bold;
+        }
+        .txt2 {
+            background-color: bisque;
+        }
+        /* 마우스를 갖다댔을때 이벤트 발생 */
+        span:hover {
+            background-color: aqua;
+        }
+    </style>
+</head>
+<body>
+    <!-- 리스트 -->
+    <!-- ol, ul -->
+     <ol type="A">
+        <li>자바</li>
+        <li>자바</li>
+        <li>자바</li>
+     </ol>
+     <hr>
+     <ul>
+        <li>자바</li>
+        <li>자바</li>
+        <li>자바</li>
+     </ul>
+     <hr>
+
+    <!-- 링크 & 미디어 -->
+     <a href="../day2/13.예제2.html">
+        <img src="../media/tom5.png" width="200px">
+     </a>
+    <hr>
+
+    <!-- 테이블 -->
+     <table>
+        <tr>
+            <th>모집 기간</th>
+            <td>3월 5일 ~ 3월 10일</td>
+        </tr>
+     </table>
+    <hr>
+
+    <!-- css적용 대상 -->
+    <!-- 태그 / id / class -->
+    <!-- 태그는 같은 태그인 모든 대상 적용 / id 유니크 / class 여러개 동일하게 적용 -->
+      <span class="txt2">테스트1</span>
+      <br>
+      <span id="txt1" class="txt2">테스트2</span>
+      <br>
+      <span class="txt2">테스트3</span>
+    <!-- 밑 여백을 줘서 스크롤 가능하게 함 -->
+     <div style="margin-bottom: 300px;"></div>
+    <hr>
+</body>
+>>>>>>> ed8f2d784f8378f2311ee9a08da172a724c481d3
 </html>
