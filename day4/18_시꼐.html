@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            width: 400px;
+            height: 20px auto;
+        }
+        #time {
+         font-size: 50px;
+         font-weight: bold;
+         color: blue;
+         text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="time"></div>
+    </div>
+</body>
+</html>
+<script>
+    setInterval(()=>{
+        let datetime = new Date();
+        let obj = document.querySelector("#time");
+        if(datetime.getSeconds < 10){
+            let second = "0" + datetime.getSeconds()
+        } else {
+            second = datetime.getSeconds()
+        };
+        let time = datetime.getHours() + ":" + datetime.getMinutes() + ":" + second;
+        // let second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+        // let time = datetime.getHours() + ":" + datetime.getMinutes() + ":" + second;
+        
+        
+        
+
+        obj.innerHTML = time;
+    }, 1000);
+</script>

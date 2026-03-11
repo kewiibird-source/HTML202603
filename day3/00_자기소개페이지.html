@@ -5,19 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>안녕하시구리</title>
     <style>
-        body {
-            background-color: #eeeeee62;
-        }
         div {
             margin: 10px;
         }
         #container {
             margin: 20px auto;
-            width: 600px;
-            height: 800px;
-            border: 1px solid #fff;
-            /* background-color: white; */
-            /* background-image: url(../media/tom1.jpg); */
+            width: 800px;
+            border: 0px solid #d8d8d8;
+            background-color: rgba(255, 255, 255, 0.521);
+            /* background-image: url(tom1.jpg); */
             box-shadow: 10px 10px 11px #eee;
             border-radius: 5%;
             box-sizing: border-box;
@@ -40,82 +36,140 @@
         }
         #info {
             box-sizing: border-box;
-            width: 300px;
-            height: 200px;
+            width: 460px;
+            height: 720px;
             border-radius: 5%;
-            border: 0px solid #ffffff00;
-            float: left;
+            border: 0px solid #ffffff;
+            float: right;
+            background-color: rgb(255, 255, 255);
+            padding: 30px 30px 30px 40px;
+            line-height: 20px;
             text-align: left;
         }
-        #longstick {
-            width: 5px;
-            height: 520px;
-            border: 3px solid #eee;
-            float: left;
-            box-sizing: border-box;
-            margin-left: 30px;
+        .info2 {
+            border-left: 5px solid lavender ;
+            padding-left: 10px;
         }
         #main {
             box-sizing: border-box;
-            width: 480px;
-            height: 520px;
-            border-radius: 5%;
-            border: 0px solid #999999;
-            float: right;
-            padding: 20px 30px;
+            width: 350px;
+            height: 720px;
+            border-radius: 6%;
+            border: 0px solid #ffffff;
+            /* float: right; */
+            padding: 10px;
             text-align: left;
-            background-color: #eeeeee42;
+            background-color: lavender;
         }
         .intro {
             font-size: large;
         }
         table, tr, th, td {
-            border: 1px solid #0000006b;
+            border: 1px solid #eee;
             border-collapse: collapse;
-            padding: 5px;
+            padding: 6px;
+            text-align: center;
         }
+        th {
+            background-color: ghostwhite;
+        }
+        .box1 {
+            width: 235px;
+            height: 460px;
+            border: 0px black;
+            background-color: #ffffff3a;
+            text-align: center;
+            line-height: 200px;
+            box-sizing: border-box;
+            float: left;
+            border-radius: 10%;
+        }
+        .bold {
+            height: 30px;
+            font-size: x-large;
+            font-weight: bold;
+            margin-top: 30px;
+        }
+        .side {
+            height: 20px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        #click{
+            background: white;
+            color: rgb(0, 0, 0);
+            padding: 5px 15px;
+            width: 20px;
+            height: 20px;
+            border-radius: 80px;
+            text-decoration: none;
+            font-weight: bold;
+
+        }
+        #click:hover {
+            background: #eee;
+        }
+        
     </style>
 </head>
 <body>
     <div id="container">
         <div id="pro"></div>
         <div id="info">
-            <h1>aaaa</h1>
-            <p></p>
-        </div>
-        <div id="longstick"></div>
-        <div id="main">
-            <h2 class="intro">자기소개</h2>
-            <p>도마뱀</p>
-            <h2 class="intro">Experience</h2>
+               <h2 class="info2">자기소개</h2>
+            <p>프로그래밍에 관심이 많습니다.<br>
+                현재 열심히 공부하며 코딩 중!</p>
+            <h2 class="info2">Experience</h2>
                 <ul>
-                    <li>도마뱀</li>
+                    <li>도마뱀 대학교</li>
                     <ul>
-                        <li>도마뱀</li>
-                        <li>도마뱀</li>
+                        <li>도마뱀 응용프로그래밍 개발(JAVA)</li>
+                        <li>도마뱀 app 개발(안드로이드)</li>
                     </ul>
                 </ul>
-            <h2 class="intro">보유 기술</h2>
                 <ul>
-                    <li>도마뱀</li>
-                    <li>도마뱀</li>
-                    <li>도마뱀</li>
+                    <li>파충류 학원</li>
+                    <ul>
+                        <li>도마뱀 기반 프로젝트</li>
+                        <li>도마뱀 서비스 운영</li>
+                    </ul>
                 </ul>
-            <h2 class="intro">Eduaction</h2>
+            <h2 class="info2">보유 기술</h2>
+                <ul>
+                    <li>Java</li>
+                    <li>Oracle</li>
+                    <li>HTML / Css</li>
+                </ul>
+            <h2 class="info2">Education</h2>
                 <table>
                     <tr>
-                        <th>도마뱀</th>
-                        <td>도마뱀</td>
-                        <td>도마뱀</td>
-                        <td>도마뱀</td>
+                        <th>출신학교</th>
+                        <th>전공</th>
+                        <th>기간</th>
+                        <th>구분</th>
                     </tr>
                     <tr>
-                        <th>도마뱀</th>
-                        <td>도마뱀</td>
-                        <td>도마뱀</td>
-                        <td>도마뱀</td>
+                        <td>도마뱀 대학교</td>
+                        <td>파충류 학과</td>
+                        <td>2014.3 ~ 2018.2</td>
+                        <td>졸업</td>
+                    </tr>
+                    <tr>
+                        <td>도마뱀 고등학교</td>
+                        <td>도마뱀 학과</td>
+                        <td>2010.3 ~ 2014.2</td>
+                        <td>졸업</td>
                     </tr>
                 </table>
+        </div>
+        <div id="main">
+        <div class="box1">
+            <div class="bold">Lizard</div>
+            <div class="side">📞010-0000-0000</div>
+            <div class="side">✉️doma01@dodo.com</div>
+            <div class="bold">GitHub</div>
+            <a id="click" href="https://github.com/kewiibird-source/HTML202603">클릭!</a>
+        </div>
         </div>
         </div>
     </div>

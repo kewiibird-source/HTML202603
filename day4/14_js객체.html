@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <button onclick="fnText()">클릭</button>
+    </div>
+    <div id="txt"></div>
+</body>
+</html>
+<script>
+    function fnText(){
+        // document.write("안녕"); 화면에 새롭게 작성됨
+        let obj = document.querySelector("#txt");
+        // obj.innerText = "안녕하세요!";
+        // innerText 는 태그를 못씀 (문자열그대로나옴)
+        // innerHTML 은 문법처럼 태그 사용 가능, 스타일 가능
+        obj.innerHTML = "<h1 style ='color:blue'>안녕하세요!</h1>";
+    }
+</script>

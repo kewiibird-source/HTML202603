@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>select</title>
+    <style>
+        div {
+            color: maroon;
+        }
+        div, span { /* div, span 둘다 적용 */
+            font-size: 15px;
+        }
+        div span { /* div 모든 하위요소인 span태그에 적용 */
+            font-weight: bold;
+        }
+        div > span { /* div 바로 하위요소인 span태그에 적용 */
+                    /* 손자뻘 태그 (div->p->span)에는 적용 안된다 */
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <span>html 재밈ㅆ다</span>
+        <p>
+            <span>javascript도 재밌나?</span>
+            <a>
+                <span>jquery도 재밌을까?</span>
+            </a>
+        </p>
+        <span>html 재밈ㅆ다~</span>
+    </div>
+</body>
+</html>

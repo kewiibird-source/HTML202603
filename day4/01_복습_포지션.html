@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포지션복습</title>
+    <style>
+        div {
+            width: 150px;
+            height: 150px;
+            border: 2px solid #000;
+            margin-top: 5px;
+            text-align: center;
+            line-height: 150px;
+        }
+        .box1 {background-color: aqua;}
+        .box2 {
+            background-color: rgba(0, 255, 255, 0.411);
+            position: relative;
+            top: 20px;
+            left: 50px;
+        }
+        .box3 {
+            background-color: rgba(0, 255, 255, 0.171);
+            position: fixed;
+            /* body를 기준으로, 스크롤이 생기면 화면에 위치고정 */
+            top: 30px;
+            right: 50px;
+        }
+        .box4 {
+            background-color: rgba(0, 255, 255, 0.048);
+            position: absolute;
+            top: 50px;
+            left: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="box1">box1</div>
+    <div class="box2">box2</div>
+    <div class="box3">box3</div>
+    <br>
+    <hr>
+    <div class="box4">box4-부모없음</div>
+    <div style="width: 500px; height: 500px; position: relative;">
+        포지션이 스테틱이 아닌 box4의 부모
+        <div class="box4">box4-부모있을때</div>
+    </div>
+
+    <div style="margin-bottom: 1000px;"></div>
+</body>
+</html>

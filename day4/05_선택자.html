@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택자2</title>
+    <style>
+        div+p { /* div태그 다음에 오는 첫번째(자식x, 형제o) p태그에 적용 */
+            color: blue;
+        }
+        div ~ p { /* div태그 다음에 오는 모든(자식x, 형제o) p태그에 적용 */
+            font-style: italic;
+        }
+        a[href] { /* a태그 중에서 []안 속성을 가진(href) 태그에 적용 */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div>안녕하세요</div>
+    <p><a>반갑습니다</a></p>
+    <p><a href="javascript:;">프로그래밍 공부중 입니다.</a></p>
+    <div>
+        <p>ㅎㅎㅎ</p>
+    </div>
+</body>
+</html>

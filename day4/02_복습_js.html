@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>js복습</title>
+</head>
+<body>
+    <button onclick="fnAlert()">알림창</button>
+    <button onclick="fnConfirm()">확인창</button>
+    <button onclick="fnGuGuDan()">구구단</button>
+</body>
+</html>
+<script>
+    // 변수타입은 let 쓰삼, 상수는 const
+    
+    // 리턴 타입 없슴
+    // alert 알림창
+    // script 영역에서 줄바꿈 \n 사용
+    function fnAlert(){
+        alert("하이? \n반가워");
+    }
+    // comfirm 확인창 [확인|취소] 버튼이 있은
+    function fnConfirm(){
+        if(confirm("정말삭제?")){
+            alert("삭제됨!");
+        } else {
+            alert("취소됨!");
+        }
+    }
+    // 누르면 구구단 호출
+    function fnGuGuDan(){
+        for(let i=2; i<=10; i++){
+                    document.write(`<div style="color:red">== ${i}단 ==</div>`)
+            for(let j=1; j<=9; j++){
+                document.write(`${i} * ${j} = ${i*j} <br>`);
+                // "<div style='color:blue'>" 쌍따 안에서는 작따 구별해주기
+            }
+            document.write(`<hr>`)
+        }
+    }
+    console.log("zzz")
+</script>

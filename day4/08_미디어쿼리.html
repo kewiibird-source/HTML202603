@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미디어쿼리2</title>
+    <style>
+        #container {
+            width: 1150px;
+            margin: 50px auto;
+        }
+        .card {
+            position: relative;
+            width: 550px;
+            height: 250px;
+            margin: 10px;
+            border: 2px solid black;
+            box-sizing: border-box;
+            background-color: rgba(245, 245, 220, 0.596);
+            float: left;
+        }
+        img {
+            width: 270px;
+            height: 246px;
+        }
+        .word {
+            position: absolute;
+            left: 310px;
+            top: 60px;
+            text-align: center;
+            width: 200px;
+        }
+        @media screen and (max-width : 1024px){
+            #container {
+            /* 가운데정렬을위해 600으로 줄여줌 */
+            width: 600px;
+            }
+            .card {
+            clear: both;
+            }
+        }
+        @media screen and (max-width : 500px){
+            #container {
+            width: 300px;
+            }
+            .card {
+            width: 250px;
+            height: 550px;
+            }
+            .word {
+            left: 20px;
+            top: 325px;
+            }
+            img {
+            width: 246px;
+            height: 270px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="card">
+            <img src="../media/tom5.png">
+            <div class="word">
+                <h2>아유... 하기 싫어</h2>
+                <h3>- 거성 박명수 -</h3>
+            </div>
+        </div>
+        <div class="card">
+            <img src="../media/tom4.png">
+            <div class="word">
+                <h2>그냥 놀고 싶다</h2>
+                <h3>- 거성 박명수 -</h3>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

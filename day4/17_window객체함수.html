@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    // alert, confrim => window 안에 있는 함수임
+    // window.alert(), window.confirm()
+    // window 생략 가능한 내장 함수!!
+
+    // 다른 내장 함수
+    // setTimeout, setInterval
+    
+    // function fnAlert(){
+    //     alert("5초후 실행!")
+    // }
+
+    // setTimeout(fnAlert, 5000); 
+    // 2개의 인자를 받는다.
+    // 첫번째는 실행할 함수, 두번째는 시간 값 
+    // 두번째 인자의 시간만큼 대기한 후 첫번째 인자의 함수 실행 
+
+    // setTimeout(function(){
+    //     alert("5초뒤 실행")
+    // }, 5000);
+
+    // setTimeout(()=>{
+    //     alert("5초뒤 실행")
+    // }, 5000);
+
+    // setInterval
+    // 두번째 인자 시간을 기준으로 주기적으로 반복 실행
+    let i = 1;
+    setInterval(()=>{
+        console.log("HTML 재밌지? " + i++)
+    }, 5000);
+
+</script>

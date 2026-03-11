@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 600px;
+            height: 400px;
+        }
+        .grad1 {
+            /* 선형 그라데이션 */
+            background: blue; /* 그라데이션 지원안하는 환경에서 보이는 색 */
+            background: linear-gradient(to right bottom, blue, white);
+        }
+        .grad2 {
+            background: blue;
+            background: linear-gradient(90deg, rgb(4, 0, 255), rgb(0, 162, 255) ,white);
+        }
+        .grad3 {
+            background: blue;
+            background: linear-gradient(90deg, blue 13%, rgb(0, 162, 255) 20% ,white);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="grad3">밍</div>
+</body>
+</html>

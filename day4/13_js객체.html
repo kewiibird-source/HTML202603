@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1:hover {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="color: red; font-style: italic;" onclick="fnChange()" id="txt">
+        html 너무 재밌어요!
+    </h1>
+</body>
+</html>
+<script>
+    function fnChange(){
+       let obj = document.querySelector("#txt");
+       console.log(obj.style.fontStyle);
+       console.log(obj.style.color);
+       if(obj.style.color == "red"){
+        obj.style.color = "blue";
+        obj.style.fontStyle = "nomal"
+       } else {
+        obj.style.color = "red";
+        obj.style.fontStyle = "italic"
+       }
+    }
+</script>

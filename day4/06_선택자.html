@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>선택자3</title>
+    <style>
+        table, tr, th, td {
+            border: 2px solid black;
+            padding: 5px 15px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+        tr:nth-child(2) { /* tr태그중 2번째 요소만 적용 */
+            color: blue;
+        }
+        tr:nth-child(2n) { /* 2n, even 짝수 - 2n+1, odd 홀수 */
+            background-color: #ccc;
+        }
+        tr:first-child {
+            background-color: black;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>이름</th>
+            <th>자바</th>
+            <th>오라클</th>
+            <th>html</th>
+        </tr>
+        <tr>
+            <td>홍길동</td>
+            <td>90</td>
+            <td>95</td>
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>망나뇽</td>
+            <td>75</td>
+            <td>85</td>
+            <td>90</td>
+        </tr>
+        <tr>
+            <td>뿔충이</td>
+            <td>80</td>
+            <td>88</td>
+            <td>76</td>
+        </tr>
+        <tr>
+            <td>고오스</td>
+            <td>98</td>
+            <td>81</td>
+            <td>95</td>
+        </tr>
+    </table>
+</body>
+</html>
