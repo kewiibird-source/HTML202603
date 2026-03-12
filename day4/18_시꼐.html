@@ -27,18 +27,18 @@
     setInterval(()=>{
         let datetime = new Date();
         let obj = document.querySelector("#time");
-        if(datetime.getSeconds < 10){
-            let second = "0" + datetime.getSeconds()
-        } else {
-            second = datetime.getSeconds()
-        };
-        let time = datetime.getHours() + ":" + datetime.getMinutes() + ":" + second;
-        // let second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+        // if(datetime.getSeconds < 10){
+        //     let second = "0" + datetime.getSeconds()
+        // } else {
+        //     second = datetime.getSeconds()
+        // };
         // let time = datetime.getHours() + ":" + datetime.getMinutes() + ":" + second;
-        
-        
-        
 
+        let second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+        let time = datetime.getHours() + ":" + datetime.getMinutes() + ":" + second;
+
+        
+        
         obj.innerHTML = time;
     }, 1000);
 </script>

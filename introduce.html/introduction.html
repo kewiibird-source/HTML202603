@@ -83,6 +83,7 @@
             box-sizing: border-box;
             float: left;
             border-radius: 10%;
+            position: relative;
         }
         .bold {
             height: 30px;
@@ -109,7 +110,17 @@
         #click:hover {
             background: #eee;
         }
-        
+        #time {
+         font-size: 20px;
+         font-weight: bold;
+         color: black;
+         text-align: center;
+         /* height: 150px;
+         font-size: 30px; */
+         position: absolute;
+         left: 70px;
+         bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -169,9 +180,19 @@
             <div class="side">✉️doma01@dodo.com</div>
             <div class="bold">GitHub</div>
             <a id="click" href="https://github.com/kewiibird-source/HTML202603">클릭!</a>
+            <div id="time"></div>
         </div>
         </div>
         </div>
     </div>
 </body>
 </html>
+<script>
+    setInterval(()=>{
+        let datetime = new Date();
+        let obj = document.querySelector("#time");
+        let second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+        let time = datetime.getHours() + ":" + datetime.getMinutes() + ":" + second;
+        obj.innerHTML = time;
+    }, 1000);
+</script>

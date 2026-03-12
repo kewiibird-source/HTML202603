@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #eeeeeea2;
+        }
+        div {
+            /* border: 1px solid black; */
+            box-sizing: border-box;
+        }
+        #container {
+            margin: 30px auto;
+            width: 700px;
+            height: 700px;
+            border: 1px solid #eeeeee75;
+            border-radius: 30px;
+            box-shadow: 20px 30px 15px #dedede;
+            
+        }
+        #side {
+            width: 250px;
+            height: 698px;
+            border-radius: 30px;
+            float: left;
+            position: relative;
+            background-color: rgba(133, 133, 133, 0.401);
+        }
+        #main {
+            width: 447px;
+            height: 698px;
+            /* border: 1px solid black; */
+            float: left;
+            position: relative;
+        }
+        #img {
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            float: left;
+            background-image: url(p1.png);
+            background-size: cover;
+            position: absolute;
+            top: 35px;
+            left: 30px;
+            box-shadow: -5px 5px 20px #dedede;
+            background-color: whitesmoke;
+        }
+        #img:hover {
+            background-image: url(p2.png);
+            background-size: cover;
+        }
+        #time {
+         font-size: 20px;
+         font-weight: bold;
+         color: black;
+         text-align: center;
+         /* height: 150px;
+         font-size: 30px; */
+         position: absolute;
+         left: 86px;
+         bottom: 150px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="side">
+            <div id="img">
+
+            </div>
+            <div id="time"></div>
+        </div>
+        <div id="main">
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    setInterval(()=>{
+        let datetime = new Date();
+        let obj = document.querySelector("#time");
+        let second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+        let time = datetime.getHours() + ":" + datetime.getMinutes() + ":" + second;
+        obj.innerHTML = time;
+    }, 1000);
+</script>
