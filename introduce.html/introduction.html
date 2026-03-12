@@ -192,7 +192,8 @@
         let datetime = new Date();
         let obj = document.querySelector("#time");
         let second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-        let time = datetime.getHours() + ":" + datetime.getMinutes() + ":" + second;
+        let minutes = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+        let time = datetime.getHours() + ":" + minutes + ":" + second;
         obj.innerHTML = time;
     }, 1000);
 </script>
