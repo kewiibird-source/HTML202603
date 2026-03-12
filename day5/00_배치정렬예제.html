@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06연습문제</title>
+    <style>
+        body {
+            background-color: #eee;
+        }
+        div {
+            box-sizing: border-box;
+        }
+        #container {
+            height: 1000px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            /* position: relative; */
+        }
+        #top {
+            height: 80px;
+            background-color: white;
+            border-radius: 20px;
+            position: relative;
+            
+        }
+        #title {
+            font-size: x-large;
+            font-weight: bold;
+        }
+        #menuin {
+            display: flex; 
+            justify-content: space-between; 
+               
+        }
+        #menu {
+            width: 78px;
+            height: 40px;
+            font-size: 15px;
+            background-color: #dfdfdf;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            color: #7a7a7a;
+
+        }
+        #menu:hover {
+            background-color: #cacaca;
+        }
+
+        #main {
+            height: 700px;
+            
+        }
+        .card {
+            width: 330px;
+            height: 500px;
+            background-color: white;
+            display: inline-block;
+            border-radius: 15px;
+            margin: 10px;
+            position: relative;
+        }
+        img {
+            width: 200px;
+            height: 200px;
+            float: left;
+            left: 100px;
+            position: absolute;
+            top: 50px;
+            left: 65px;
+            border: 1px solid #eee;
+            border-radius: 30px;
+        }
+        p {
+            text-align: left;
+            margin: 30px;
+            float: left;
+        }
+        .abc {
+            font-weight: bold;
+            font-size: larger;
+        }
+        #info {
+            position: absolute;
+            top: 200px;
+        }
+        #buybutton {
+            width: 270px;
+            height: 40px;
+            background-color: #008cff;
+            color: white;
+            text-align: center;
+            border-radius: 5px;
+        }
+        #buybutton:hover {
+            background-color: #007add;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        
+        <div id="top">
+            <div id="menuin">
+             <div id="title">좋은쇼핑몰</div>
+             <div id="menuin">
+               <div id="menu">로그아웃</div>
+               <div id="menu">장바구니</div>
+               <div id="menu">찜목록</div>
+             </div>
+             
+            </div>
+        </div>
+        
+        <div id="main">
+            <div class="card">
+                <img src="../media/프로필1.png">
+                <div id="info">
+                    <p class="abc">상품A</p>
+                    <p>이 상품은 아주 훌륭합니다. 설명할 필요가 없어요</p>
+                    <p id="buybutton">구매하기</p>
+                </div>
+                
+                
+                
+            </div>
+            <div class="card">
+                <img src="../media/프로필1.png">
+                <div id="info">
+                    <p class="abc">상품B</p>
+                    <p>이 상품은 기가 막힙니다. 꼭 구매하세요. 가성비 좋고 어쩌구 그냥 좋습니다.ㅎㅎㅎ</p>
+                    <p id="buybutton">구매하기</p>
+                </div>
+                
+            </div>
+            <div class="card">
+                <img src="../media/프로필1.png">
+                <div id="info">
+                    <p class="abc">상품C</p>
+                    <p>최고의 가성비.</p>
+                    <p id="buybutton">구매하기</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+</html>

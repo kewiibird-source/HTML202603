@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트찍기</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div id="txt"></div>
+</body>
+</html>
+<script>
+    let txt = "안녕하세요. 반갑습니다!"
+    let currentText = "";
+    let i = 0;
+    let obj = document.querySelector("#txt");
+    let id = setInterval(()=>{
+        currentText = currentText + txt.charAt(i);
+        obj.innerHTML = currentText;
+        i++;
+        if(i > txt.length){
+            // clearInterval(id);
+            currentText = "";
+            i = 0;
+        }
+        
+    },300);
+</script>

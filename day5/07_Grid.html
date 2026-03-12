@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            width: 700px;
+            display: grid;
+            /* 비율에맞게 등분해줌 1fr */
+            /* grid-template-columns: 1fr 1fr 2fr; */
+            grid-auto-columns: repeat(3,1fr);
+            grid-auto-rows: minmax(100px, auto);
+        }
+        .box {
+            border: 1px solid black;
+            padding: 5px 10px;
+            font-size: 15px;
+        }
+        .box:nth-child(2n+1) { 
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="box">대통령이 궐위되거나 사고로 인하여 직무를 수행할 수 없을 때에는 국무총리, 법률이 정한 국무위원의 순서로 그 권한을 대행한다. 헌법에 의하여 체결·공포된 조약과 일반적으로 승인된 국제법규는 국내법과 같은 효력을 가진다. 국가안전보장회의는 대통령이 주재한다. 위원은 탄핵 또는 금고 이상의 형의 선고에 의하지 아니하고는 파면되지 아니한다.
+
+        대통령으로 선거될 수 있는 자는 국회의원의 피선거권이 있고 선거일 현재 40세에 달하여야 한다. 대통령은 내란 또는 외환의 죄를 범한 경우를 제외하고는 재직중 형사상의 소추를 받지 아니한다. 국가는 모성의 보호를 위하여 노력하여야 한다. 국무총리·국무위원 또는 정부위원은 국회나 그 위원회에 출석하여 국정처리상황을 보고하거나 의견을 진술하고 질문에 응답할 수 있다.</div>
+        <div class="box">대한민국의 영토는 한반도와 그 부속도서로 한다. 모든 국민은 신체의 자유를 가진다. 누구든지 법률에 의하지 아니하고는 체포·구속·압수·수색 또는 심문을 받지 아니하며, 법률과 적법한 절차에 의하지 아니하고는 처벌·보안처분 또는 강제노역을 받지 아니한다.</div>
+        <div class="box">농업생산성의 제고와 농지의 합리적인 이용을 위하거나 불가피한 사정으로 발생하는 농지의 임대차와 위탁경영은 법률이 정하는 바에 의하여 인정된다.
+
+        대통령은 법률안의 일부에 대하여 또는 법률안을 수정하여 재의를 요구할 수 없다.</div>
+        <div class="box">ggg</div>
+        <div class="box">zzz</div>
+        <div class="box">q6qq</div>
+
+    </div>
+</body>
+</html>

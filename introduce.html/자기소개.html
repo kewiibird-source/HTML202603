@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        body {
-            background-color: #eeeeeea2;
-        }
+        /* body {
+            background: linear-gradient(rgba(255, 255, 255, 0.432) rgba(255, 250, 250, 0.411))
+        } */
         div {
             /* border: 1px solid black; */
             box-sizing: border-box;
@@ -27,7 +27,18 @@
             border-radius: 30px;
             float: left;
             position: relative;
-            background-color: rgba(133, 133, 133, 0.401);
+            background-color: #fff;
+            text-align: center;
+        }
+        #sideInfo {
+            width: 200px;
+            height: 400px;
+            background-color: #dedede23;
+            border-radius: 10px;
+            position: absolute;
+            left: 25px;
+            top: 210px;
+            text-align: center;
         }
         #main {
             width: 447px;
@@ -37,32 +48,30 @@
             position: relative;
         }
         #img {
-            width: 190px;
-            height: 190px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             float: left;
-            background-image: url(p1.png);
+            background-image: url(../media/m1.png);
             background-size: cover;
             position: absolute;
             top: 35px;
-            left: 30px;
-            box-shadow: -5px 5px 20px #dedede;
-            background-color: whitesmoke;
+            left: 48px;
+            box-shadow: -5px 5px 20px #ebebebcc;
+            background-color: rgba(245, 245, 245, 0.719);
         }
         #img:hover {
-            background-image: url(p2.png);
+            background-image: url(../media/m2.png);
             background-size: cover;
         }
         #time {
-         font-size: 20px;
-         font-weight: bold;
+         font-size: 15px;
+         /* font-weight: bold; */
          color: black;
          text-align: center;
-         /* height: 150px;
-         font-size: 30px; */
          position: absolute;
-         left: 86px;
-         bottom: 150px;
+         left: 76px;
+         bottom: 50px;
         }
         
     </style>
@@ -70,13 +79,19 @@
 <body>
     <div id="container">
         <div id="side">
-            <div id="img">
-
+            <div id="img"></div>
+            <div id="sideInfo">
+                <h1>Hong Gildong</h1>    
+                <p>프로그래밍 재밌다</p>
+                <p>Incheon, Korea</p>
+                <p>test@naver.com</p>
+                <h2>SNS</h2>
+                <h3><a href="#">클릭!</a></h3>
             </div>
             <div id="time"></div>
         </div>
         <div id="main">
-
+            <p>자기소개</p>
         </div>
     </div>
 </body>
@@ -86,7 +101,8 @@
         let datetime = new Date();
         let obj = document.querySelector("#time");
         let second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-        let time = datetime.getHours() + ":" + datetime.getMinutes() + ":" + second;
-        obj.innerHTML = time;
+        let minutes = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+        // let time = datetime.getHours() + ":" + minutes + ":" + second;
+        obj.innerHTML = "" + datetime.getHours() + "시" + minutes + "분" + second + "초" ;
     }, 1000);
 </script>

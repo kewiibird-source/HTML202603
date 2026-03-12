@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>align</title>
+    <style>
+        #container {
+            height: 200px;
+            border: 2px solid black;
+            background-color: #eee;
+            display: flex;
+            /* justify-content: space-around; */
+            /* flex로 설정한 부모요소에 바로 적용시키면 된다 */
+        }
+        .box {
+            width: 100px;
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: lightblue;
+            text-align: center;
+        }
+        .order1 {
+            /* 상단을 기준으로 정렬  */
+            align-items: flex-start;
+        }
+        .order2 {
+            /* 하단을 기준으로 정렬 */
+            align-items: flex-end;
+        }
+        .order3 {
+            /* 중앙을 기준으로 정렬 */
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div id="container" class="order3">
+        <div class="box" style="font-size: 50px;">1</div>
+        <div class="box">2</div>
+        <div class="box" style="font-size: 50px;">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+    </div>
+</body>
+</html>

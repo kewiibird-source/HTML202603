@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex</title>
+    <style>
+        #container {
+            width: 900px;
+            border: 2px solid black;
+            background-color: #eee;
+            display: flex;
+        }
+        .box {
+            width: 100px;
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: lavender;
+            text-align: center;
+        }
+        .dir1 {
+            /* 디폴트 row (왼->오 정렬) */
+            flex-direction: row;
+        }
+        .dir2 {
+            /* row-reverse (오->왼 정렬) */
+            flex-direction: row-reverse;
+        }
+        .dir3 {
+            /* column (위->아래 정렬) */
+            flex-direction: column;
+        }
+        .dir4 {
+            /* column (아래->위 정렬) */
+            flex-direction: column-reverse;
+        }
+    </style>
+</head>
+<body>
+    <!-- flex -->
+    <!-- 부모요소와 자식요소로 이루어짐 -->
+    <!-- 부모요소 : flex를 설정하는 컨테이너(감싸는애들) -->
+    <!-- 자식요소 : 부모의 flex 규칙에 따라 정렬되는 아이템 -->
+    <div id="container" class="dir4">
+        <div class="box">1</div>
+        <div class="box">2</div>
+        <div class="box">3</div>
+        <div class="box">4</div>
+        <div class="box">5</div>
+    </div>
+</body>
+</html>

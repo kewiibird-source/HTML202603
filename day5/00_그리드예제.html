@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container > div {
+            /* border: 1px solid black; */
+            border-radius: 5px;
+            text-align: left;
+            color: white;
+            font-weight: bold;
+            font-size: large;
+            padding: 10px;
+            margin: 5px;
+            box-sizing: border-box;
+        }
+
+        #container {
+            display: grid;
+            gap: 10px;
+            grid-template-columns: 200px 1fr;
+            grid-template-rows: 150px minmax(600px,auto) 150px;
+            grid-template-areas: 
+            "header header"
+            "side content"
+            "footer footer";
+        }
+        .header {
+            grid-area: header;
+            background-color: rgba(255, 53, 53, 0.596);
+        }
+        .side {
+            grid-area: side;
+            background-color: rgba(0, 231, 231, 0.651);
+        }
+        .content {
+            grid-area: content;
+            background-color: #ccc;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-auto-rows: 150px;
+            gap: 20px;
+        }
+        .footer {
+            grid-area: footer;
+            background-color: skyblue;
+        }
+        #wii {
+            width: 200px;
+            height: 100px;
+            background-color: white;
+            color: black;
+            font-weight: normal;
+            font-size: medium;
+            padding: 15px;
+            margin: 20px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="header">헤더</div>
+        <div class="side">사이드</div>
+        <div class="content">
+            <div id="wii">위젯1</div>
+            <div id="wii">위젯2</div>
+            <div id="wii">위젯3</div>
+            <div id="wii">위젯4</div>
+            <div id="wii">위젯5</div>
+        </div>
+        <div class="footer">푸터</div>
+    </div>
+</body>
+</html>
