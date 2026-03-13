@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json</title>
+</head>
+
+<body>
+    <div id="container">
+        <ul id="stu-list">
+
+        </ul>
+    </div>
+</body>
+
+</html>
+<script>
+    // json은 리스트안에 맵이 있는 형태
+    // STUDENT 테이블에 데이터를 요청하면
+    // 아래처럼 넘겨준다.
+
+    // 서버에서 데이터를 리턴 받았다는 가정하에 JSON 다뤄보기
+    let list = [
+        {
+            "STU_NO": "20153075",
+            "STU_NAME": "옥한빛",
+            "STU_DEPT": "기계"
+        },
+        {
+            "STU_NO": "20153088",
+            "STU_NAME": "이태연",
+            "STU_DEPT": "기계"
+        },
+        {
+            "STU_NO": "20143054",
+            "STU_NAME": "유가인",
+            "STU_DEPT": "기계"
+        },
+        {
+            "STU_NO": "20152088",
+            "STU_NAME": "조민우",
+            "STU_DEPT": "전기전자"
+        },
+        {
+            "STU_NO": "20142021",
+            "STU_NAME": "심수정",
+            "STU_DEPT": "전기전자"
+        },
+        {
+            "STU_NO": "20132003",
+            "STU_NAME": "박희철",
+            "STU_DEPT": "전기전자"
+        },
+        {
+            "STU_NO": "20151062",
+            "STU_NAME": "김인중",
+            "STU_DEPT": "컴퓨터정보"
+        }
+    ]
+
+    let stuList = document.querySelector("#stu-list");
+    for(let i=0; i<list.length; i++){
+        console.log(list[i].STU_NAME);
+        let li = document.createElement("li");
+        li.innerHTML = list[i].STU_NO + " " + list[i].STU_NAME;
+        stuList.appendChild(li);
+    }
+
+</script>

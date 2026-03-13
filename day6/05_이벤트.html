@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트처리</title>
+</head>
+<body>
+    <a href="javascript:;" onclick="fnEvent()">
+        <img id="img" src="../media/m1.png" width="300" height="300">
+    </a>
+</body>
+</html>
+<script>
+    // 클릭했을때 이미지 바꾸기
+    // img 객체로 가져와서
+    // src 참조 => 주소변경
+    function fnEvent(){
+        let img = document.querySelector("#img");
+        img.src = "../media/m2.png";
+    }
+</script>

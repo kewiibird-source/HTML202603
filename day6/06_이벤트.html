@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트처리2</title>
+</head>
+<body>
+    <img id="img" src="../media/m1.png" width="200" height="200">
+
+</body>
+</html>
+<script>
+    // let img = document.querySelector("#img");
+    // img.addEventListener("click", ()=>{
+    //     img.src = "../media/m2.png";
+    // });
+
+    // 이벤트 종류
+    // click => 마우스 클릭 했을 때
+    // dbclick => 더블 클릭 했을 때
+    // mouseover, mouseout => 마우스 올라갔을 때, 떨어졌을 때
+    // mousedown => 마우스 누르는 시점에
+    // mouseup => 마우스 뗏을 때
+    // mousemove => 마우스 움직일 때
+
+    let imgList = [
+        "../media/m2.png",
+        "../media/tom1.jpg",
+        "../media/tom2.png"
+    ]
+    let img = document.querySelector("#img");
+    img.addEventListener("mouseover", ()=>{
+        let ran = Math.floor(Math.random()*3);
+        img.src = imgList[ran];
+    });
+    img.addEventListener("mouseout", ()=>{
+        img.src = "../media/m1.png";
+    });
+
+</script>

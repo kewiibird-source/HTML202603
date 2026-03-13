@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>팝업</title>
+</head>
+<body>
+    <button onclick="fnPopup()">팝업!</button>
+</body>
+</html>
+<script>
+    console.log("width ==>", screen.width);
+    console.log("height ==>", screen.height);
+
+    console.log("width ==>", screen.availWidth);
+    console.log("height ==>", screen.availHeight);
+
+    function fnPopup(){
+        // window.open(인자1, 인자2, 인자3)
+        // 인자1 : 팝업을 띄울 주소
+        // 인자2 : 팝업의 이름을 지정하면 같은 이름의 팝업은 1번만 열리게 된다
+        // 인자3 : 크기(width, height) 및 위치(left, top ...)
+        window.open("../day4/18_시꼐.html", "time", "width=400, height=150, left=30, top=50");
+    }
+</script>

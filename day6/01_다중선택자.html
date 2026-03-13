@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다중선택자</title>
+</head>
+<body>
+    <div> 관심언어 : 
+        <label><input type="checkbox" name="subject" value="java">자바</label>
+        <label><input type="checkbox" name="subject" value="oracle">오라클</label>
+        <label><input type="checkbox" name="subject" value="html">HTML</label>
+        <label><input type="checkbox" name="subject" value="cpp">C++</label>
+        <label><input type="checkbox" name="subject" value="flutter">FLUTTER</label>
+    </div>
+    <button onclick="fnSubject()">확인</button>
+</body>
+</html>
+<script>
+    // 사용자가체크박스로 어떤걸 선택했는가를 알아내자
+    // value="java" 벨류값을 지정해줘야함
+    function fnSubject(){
+        let list = document.querySelectorAll("input[name='subject']:checked");
+        console.log(list);
+        for(let i=0; i<list.length; i++){
+            console.log(list[i].value);
+        }
+    }
+</script>

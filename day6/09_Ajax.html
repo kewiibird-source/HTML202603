@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery.Ajax</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<style>
+    table, th, tr, td {
+        border: 1px solid black;
+        padding: 5px 10px;
+        text-align: center;
+        border-collapse: collapse;
+    }
+    </style>
+<body>
+    <div id="container">
+        <div id="contents">
+
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    // 비동기통신
+    // 서버와 통신하는 함수 - 보통 데이터를 주고 받는다.
+    $.ajax({ // jQuery를 $로 대체해서 작성
+        url : "https://jsonplaceholder.typicode.com/users", // 요청하고자 하는 서버 주소
+        dataType : "json", // 응답받은 데이터 타입
+        type : "GET", // 요청(호출) 방식. 대표적으로 GET, POST
+        data : {}, // 서버에 요청할 때 보내는 값
+        success : function(data){ // 호출이 성공적으로 끝났을 때 실행하는 함수
+            console.log(data);
+            let contents = document.querySelector("#contents");
+            let table = document.createElement("table");
+            let tr = document.createElement("tr");
+            
+            tr.innerHTML = 
+                "<th>아이디</th>" + "<th>이름</th>" + "<th>이메일</th>" + "<th>웹사이트</th>";
+            table.appendChild(tr);
+
+            for(let i=0; i<data.length; i++){
+                let stu = document.createElement("tr");
+                stu.innerHTML = 
+                `<td>${data[i].id}</td>` + `<td>${data[i].name}</td>` + `<td>${data[i].email}</td>` + `<td>${data[i].website}</td>`;
+                table.appendChild(stu);
+            }
+
+            contents.appendChild(table); // <table></table>
+        }   
+    });
+</script>

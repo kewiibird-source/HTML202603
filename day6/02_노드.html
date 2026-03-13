@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>노드</title>
+</head>
+<body>
+    <h1>과목 목록</h1>
+    <h3 id="js">자바스크립트</h3>
+    <hr>
+    <div id="list">
+        <p id="java">자바</p>
+        <p id="oracle" style="color: blue;">오라클</p>
+        <p id="html">html</p>
+    </div>
+    <hr>
+    <!-- 자식요소 맨뒤에 추가(이어붙이기) -->
+    <button onclick="fnAppend()">appendChild</button>
+    <!-- 선택한 노드 이전에 넣기 -->
+    <button onclick="fnBefore()">insertBefore</button>
+    <!-- 태그 만들기 -->
+    <button onclick="fnCreateNode()">createElement</button>
+    <!-- 태그의 속성 만들기 -->
+    <button onclick="fnCreateAttr()">createAttribute</button>
+    <!-- 자식요소 제거하기 -->
+    <button onclick="fnRemoveNode()">removeChild</button>
+    <!-- 속성 제거 -->
+     <button onclick="fnRemoveAttr()">removeAttribute</button>
+    <!-- 노드 복사 -->
+     <button onclick="fnCloneNode()">cloneNode</button>
+</body>
+</html>
+<script>
+    // 자바스크립트를 리스트 목록의 맨 뒤로 보내기
+    function fnAppend(){
+        let list = document.querySelector("#list");
+        let js = document.querySelector("#js");
+        list.appendChild(js);
+    }
+    function fnBefore(){
+        let list = document.querySelector("#list");
+        let js = document.querySelector("#js");
+        let html = document.querySelector("#html");
+        list.insertBefore(js, html); // (추가할거, 어디앞에넣을지)
+    }
+    function fnCreateNode(){
+        let list = document.querySelector("#list");
+        let flutter = document.createElement("p"); // <p></P>
+        flutter.innerHTML = "flutter"
+        list.appendChild(flutter);
+    }
+    function fnCreateAttr(){
+        let list = document.querySelector("#list");
+        let flutter = document.createElement("p"); // <p></P>
+        flutter.innerHTML = "flutter" // <p>flutter</P>
+
+        let style = document.createAttribute("style");
+        style.value = "color : red; font-weight : bold";
+        flutter.setAttributeNode(style); 
+        // <p style = "color : red; font-weight : bold">flutter</P>
+
+        list.appendChild(flutter);
+    }
+    function fnRemoveNode(){
+        let list = document.querySelector("#list");
+        let oracle = document.querySelector("#oracle");
+        list.removeChild(oracle);
+    }
+    function fnRemoveAttr(){
+        let oracle = document.querySelector("#oracle");
+        oracle.removeAttribute("style");
+    }
+    function fnCloneNode(){
+        let list = document.querySelector("#list");
+        let js = document.querySelector("#js");
+        list.appendChild(js.cloneNode(true));
+    }
+</script>

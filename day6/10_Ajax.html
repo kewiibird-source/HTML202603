@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stujQuery.Ajax</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<style>
+    table, th, tr, td {
+        border: 1px solid black;
+        padding: 5px 10px;
+        text-align: center;
+        border-collapse: collapse;
+    }
+    </style>
+<body>
+
+    <div id="contents"></div>
+</body>
+</html>
+<script>
+    // 비동기통신
+    // 서버와 통신하는 함수 - 보통 데이터를 주고 받는다.
+    $.ajax({ // jQuery를 $로 대체해서 작성
+        url : "http://192.168.30.57:3009/list", // 요청하고자 하는 서버 주소
+        dataType : "json", // 응답받은 데이터 타입
+        type : "GET", // 요청(호출) 방식. 대표적으로 GET, POST
+        data : {}, // 서버에 요청할 때 보내는 값
+        success : function(data){ // 호출이 성공적으로 끝났을 때 실행하는 함수
+            let list = data.list;
+            console.log(list);
+
+
+            let contents = document.querySelector("#contents");
+            let table = document.createElement("table");
+            let tr = document.createElement("tr");
+            
+            tr.innerHTML = 
+                "<th>학번</th>" + "<th>이름</th>" + "<th>학과</th>" + "<th>학년</th>" + "<th>키</th>" + "<th>삭제</th>";
+            table.appendChild(tr);
+
+            for(let i=0; i<list.length; i++){
+                let stu = document.createElement("tr");
+                stu.innerHTML = 
+                `<td>${list[i].STU_NO}</td>` + 
+                `<td>${list[i].STU_NAME}</td>` + 
+                `<td>${list[i].STU_DEPT}</td>` + 
+                `<td>${list[i].STU_GRADE}</td>` +
+                `<td>${list[i].STU_HEIGHT || ""}</td>` +
+                `<td><button>삭제</button></td>`;
+                table.appendChild(stu);
+            }
+
+            contents.appendChild(table); // <table></table>
+        }   
+    });
+
+    function fnRemove(stuNo){
+        if(!confirm("정말 삭제?")){
+            return;
+        }
+        $.ajax({ 
+        url : "http://192.168.30.57:3009/delete", 
+        dataType : "json", 
+        type : "GET", 
+        data : {stuNo : stuNo},  // stuNo으로 생략가능
+        success : function(data){
+            alert("삭제 되었다!");
+            location.reload();
+        }
+        })
+    }
+</script>
