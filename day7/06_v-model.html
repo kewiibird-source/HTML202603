@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06_v-model</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- html. 반드시 id가 app인 태그 안에서 작업 -->
+        <!-- (script 맨 하단 app.mount('#app'); 여기 아이디와 같아야 함) -->
+        <div style="height: 30px;"> 
+            <span v-if="sum != ''"> 결과 : {{sum}} </span>
+        </div>
+        <hr>
+        <div>숫자1 : <input v-model="num1"></div>
+        <div>숫자2 : <input v-model="num2"></div>
+        <div>
+            <button @click="fnSum(num1, num2)">더하기</button>
+            <button @click="fnClear">초기화</button>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                num1 : "",
+                num2 : "",
+                sum : ""
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnSum : function(){
+                let self = this;
+                self.sum = parseInt(self.num1) + Number(self.num2);
+                // this.sum = parseInt(this.num1) + Number(this.num2);
+                // ajax 사용할땐 this를 self에 넣어 간접접근 하는게 좋다
+            },
+            fnClear : function(){
+                let self = this;
+                self.num1 = "";
+                self.num2 = "";
+                self.sum = "";
+            }
+            
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+        }
+    });
+
+    app.mount('#app');
+</script>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body {
+            background-color: #eeeeee9f;
+            box-sizing: border-box;
+        }
+        #container {
+            border: 1px solid #eee;
+            margin: 100px auto;
+            width: 450px;
+            height: 730px;
+            border-radius: 20px;
+            background-color: white;
+            text-align: center;
+            padding: 30px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        #txtContainer {
+            top: 125px;
+        }
+        h2, p, span {
+            margin: 13px 10px;
+        }
+        p{
+            color: rgb(100, 100, 100);
+            text-align: left;
+            /* font-weight: bold; */
+            font-size: small;
+            margin-bottom: 0px;
+        }
+        h2 {
+            margin-bottom: 3px;
+        }
+        #txt1 {
+            text-align: center;
+            font-weight: normal;
+            font-size: medium;
+            color: #c0c0c0;
+            margin-top: 0px;
+            display: inline-block;
+        }
+        span {
+            color: rgb(204, 204, 204);
+        }
+        #inputbox {
+            padding: 18px;
+            border-radius: 10px;
+            border: 1.8px solid #eee;
+            width: 300px;
+            margin: 10px 15px;
+            font-size: 15px;
+        }
+        #idbox {
+            padding: 18px;
+            border-radius: 10px;
+            border: 1.8px solid #eee;
+            width: 235px;
+            margin: 10px 15px;
+            font-size: 15px;
+        }
+        #join {
+            border-radius: 10px;
+            border: 0px solid #fff;
+            background-color: rgb(80, 156, 243);
+            color: white;
+            padding: 15px;
+            width: 340px;
+            margin: 20px 15px;
+        }
+        /* #join:hover {
+            background-color: rgb(72, 133, 202);
+            pointer-events: visible;
+        } */
+        #login {
+            color: rgb(80, 156, 243);
+            /* margin-left: 0px; */
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="container">
+            <div>
+                <h2>회원가입</h2>
+                <p id="txt1">새로운 계정을 만들어 서비스를 시작하세요.</p>
+            </div>
+            <div id="txtContainer">
+                <p>이름</p>
+                <input type="text" placeholder="홍길동" id="inputbox">
+                <p>아이디</p>
+                <input type="text" placeholder="아이디를 입력해주세요." id="idbox" v-model="userId">
+                <button @click="fnCheck">중복체크</button>
+                <p>비밀번호</p>
+                <input type="password" placeholder="8자 이상 입력" id="inputbox">
+                <p>비밀번호 확인</p>
+                <input type="password" placeholder="비밀번호를 다시 입력하세요" id="inputbox">
+                <button id="join">가입하기</button>
+                <div id="txt1">이미 계정이 있으신가요?</div>
+                <span id="login">로그인</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                userId : "",
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnCheck: function () {
+                let self = this; // ajax 안에서 this 사용은 권장하지 않음!
+                let param = {
+                    userId : self.userId
+                };
+                $.ajax({
+                    url: "http://192.168.30.57:3009/id-check",
+                    dataType: "json",
+                    type: "GET",
+                    data : param,
+                    // data: {userId : self.userId}, 
+                    success: function (data) {
+                        // console.log(data);
+                        if(data.success){
+                            alert(data.message); // 사용가능
+
+                        } else {
+                            alert(data.message); // 이미사용중
+                        }
+                    }
+                });
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+        }
+    });
+
+    app.mount('#app');
+</script>

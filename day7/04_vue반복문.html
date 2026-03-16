@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04_vue반복문</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        table, th, tr, td {
+            border: 2px solid black;
+            padding: 5px 10px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- html. 반드시 id가 app인 태그 안에서 작업 -->
+        <!-- (script 맨 하단 app.mount('#app'); 여기 아이디와 같아야 함) -->
+        <div v-for = "item in numberList"> 
+            <!-- for문에서 item이라는 표현은 임의로 지으면 되는데 보통 item을 많이씀 -->
+            <span v-if = "item >= 6" style = "color: blue;">{{item}}</span>
+            <span v-else>{{item}}</span>
+        </div>
+        <hr>
+        <div v-for = "(item, index) in strList">
+            <span>{{index+1}}. {{item}}</span>
+        </div>
+        <hr>
+        <table>
+            <tr>
+                <th>No.</th>
+                <th>이름</th>
+                <th>나이</th>
+                <th>주소</th>
+            </tr>
+            <tr v-for = "(item, index) in jsonData">
+                <!-- json 형태의 데이터 map => 키값으로 가져와야하니까 item.name -->
+                <td>{{index+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.age}}</td>
+                <td>{{item.addr}}</td>
+            </tr>
+        </table>
+        
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                numberList : [10, 5, 3, 7, 9],
+                strList : ["짜장면", "제육", "김치찌개", "라면+김밥"],
+                jsonData : [
+                    {name : "홍길동", age : 40, addr : "인천"},
+                    {name : "김첫수", age : 20, addr : "서울"},
+                    {name : "김영힉", age : 30, addr : "제주도"}
+                ]
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+        }
+    });
+
+    app.mount('#app');
+</script>

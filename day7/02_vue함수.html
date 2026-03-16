@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02_vue함수</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- html. 반드시 id가 app인 태그 안에서 작업 -->
+        <!-- (script 맨 하단 app.mount('#app'); 여기 아이디와 같아야 함) -->
+        <div>
+            {{name}}
+        </div>
+        <div>
+            <button @click = "fnChange">클릭!</button> 
+            <!-- vue는 @click , 함수뒤에 ()괄호 붙여야하는데 생략 가능. 단 인자값 보내야하면 필수 -->
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                name : "홍길동",
+                age : 30
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnChange : function(){
+                // alert(this.name); 
+                // this.name => return에 있는 변수를 의미, 참조할때는 항상 this 
+                if(this.name == '홍길동'){
+                    this.name = "김철수";
+                } else {
+                    this.name = "홍길동";
+                }
+            },
+            fnAlert : function(name){
+                alert(name + "님 안녕하세요!");
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            this.fnAlert("홍길동"); // methods와 mounted 영역이 다르기떄문에 this를 앞에 써라!
+        }
+    });
+
+    app.mount('#app');
+</script>

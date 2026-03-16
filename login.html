@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body {
+            background-color: #eeeeee9f;
+            box-sizing: border-box;
+        }
+        #container {
+            border: 1px solid #eee;
+            margin: 100px auto;
+            width: 450px;
+            height: 550px;
+            border-radius: 20px;
+            background-color: white;
+            text-align: center;
+            padding: 30px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        #txtContainer {
+            position: absolute;
+            top: 140px;
+        }
+        h2, p, span {
+            margin: 13px 10px;
+        }
+        #line {
+            border-left: 2px solid #eee ;
+        }
+        h2 {
+            margin-bottom: 3px;
+        }
+        p{
+            color: rgb(100, 100, 100);
+            text-align: left;
+            /* font-weight: bold; */
+            font-size: small;
+            margin-bottom: 0px;
+            margin-top: 5px;
+        }
+        #txt1 {
+            text-align: center;
+            font-weight: normal;
+            font-size: medium;
+            color: #c0c0c0;
+        }
+        span {
+            color: rgb(204, 204, 204);
+        }
+        #inputbox {
+            padding: 18px;
+            border-radius: 10px;
+            border: 1.8px solid #eee;
+            width: 320px;
+            margin: 10px 15px;
+            font-size: 15px;
+        }
+        #login {
+            border-radius: 10px;
+            background-color: rgb(87, 158, 240);
+            color: white;
+            padding: 15px;
+            width: 320px;
+            margin: 20px 15px;
+        }
+        #login:hover {
+            background-color: rgb(72, 133, 202);
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="container">
+            <div>
+                <h2>환영합니다</h2>
+                <p id="txt1">서비스 이용을 위해 로그인해주세요.</p>
+            </div>
+            <div id="txtContainer">
+                <p>아이디</p>
+                <input type="text" placeholder="아이디를 입력해주세요." id="inputbox" v-model="userId">
+                <p>비밀번호</p>
+                <input type="password" placeholder="비밀번호를 입력해주세요." id="inputbox" v-model="pwd">
+                <div id="login" @click="fnLogin()">로그인</div>
+                <span>비밀번호 찾기</span>
+                <span id="line"></span>
+                <span><a href="join.html">회원가입</a></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                userId : "",
+                pwd : ""
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnLogin: function () {
+                let self = this; // ajax 안에서 this 사용은 권장하지 않음!
+                let param = {
+                    userId : self.userId,
+                    pwd : self.pwd
+                }
+                $.ajax({
+                    url: "http://192.168.30.57:3009/login",
+                    dataType: "json",
+                    type: "GET",
+                    data : param,
+                    // data: {userId : self.userId, pwd : self.pwd}, 
+                    success: function (data) {
+                        // console.log(data); 서버에서 어떤 데이터가 넘어오는지 확인용
+                        
+                        if(data.success){
+                            alert(data.message);
+                        }
+                    }
+                });
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+        }
+    });
+
+    app.mount('#app');
+</script>

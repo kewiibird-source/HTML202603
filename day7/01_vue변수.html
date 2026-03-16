@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_vue변수</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- html. 반드시 id가 app인 태그 안에서 작업 -->
+        <!-- (script 맨 하단 app.mount('#app'); 여기 아이디와 같아야 함) -->
+        <div style="color: aqua;">{{name}}</div>
+        <div>{{list[0]}}</div>
+        <div>{{map.age}}</div>
+        <!-- return에 선언한 변수를 가져와줌, 값이 변경되면 화면에 바로 적용됨 -->
+        <div>{{jsonData[1]}}</div>
+        <div>{{jsonData[1].name}}</div>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                name : "홍길동",
+                age : 30,
+                list : [1,2,3,4,5],
+                map : {name : "홍길동", age : 30},
+                jsonData : [
+                    {name : "홍길동", age : 60},
+                    {name : "김첫수", age : 20},
+                    {name : "김영힉", age : 130}
+                ]
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnTest : function(){
+                alert("안녕");
+            },
+            fnSample : function(){}
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+        }
+    });
+
+    app.mount('#app');
+</script>
