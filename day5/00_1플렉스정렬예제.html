@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex 실습 완성본</title>
+    <style>
+        body {
+            background-color: #f4f4f9;
+        }
+        #container {
+            margin: 0; 
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: black;
+            padding: 8px 16px;
+            background: #eee;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        .menu {
+            display: flex;
+        }
+
+        .menu a:hover {
+            background: #ccc;
+        }
+
+        .navbar {
+            background-color: white;
+            padding: 20px 30px;
+            box-shadow: 0 2px 4px #eee;
+            display: flex;
+            justify-content: space-between; /* 양쪽 끝으로 */
+           
+        }
+        .card-container {
+            padding: 40px;
+            display: flex;
+            flex-wrap: wrap; /* 다음줄 자동 넘김 */
+           
+            justify-content: center; /* 중앙에 배치 */
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            width: 250px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+            display: flex;
+            flex-direction: column; /* 세로 배치 */
+        }
+
+        img {
+            width: 200px;
+            height: 200px;
+            margin: 20px;
+            border-radius: 30px;
+            border: 2px solid #ccc;
+        }
+
+        .card-title {
+            font-size: 18px;
+            margin-top: 0;
+        }
+
+        .card-desc {
+            color: #666;
+            font-size: 14px;
+            height: 70px;
+        }
+
+        .buy-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .buy-btn:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div class="navbar">
+            <div class="logo">좋은쇼핑몰</div>
+            <div class="menu">
+                <a href="javascript:;">찜목록</a>
+                <a href="javascript:;">장바구니</a>
+                <a href="javascript:;">로그아웃</a>
+            </div>
+        </div>
+
+        <div class="card-container">
+            <div class="card">
+                <img src="img1.png">
+                <h2 class="card-title">상품 A</h2>
+                <p class="card-desc">이 상품은 아주 훌륭합니다. 설명할 필요가 없어요</p>
+                <button class="buy-btn">구매하기</button>
+            </div>
+            <div class="card">
+                <img src="img2.jpg">
+                <h2 class="card-title">상품 B</h2>
+                <p class="card-desc">이 상품은 기가 막힙니다. 꼭 구매하세요. 가성비 좋고 어쩌구 저쩌구 그냥 좋습니다. ㅎㅎㅎ</p>
+                <button class="buy-btn">구매하기</button>
+            </div>
+            <div class="card">
+                <img src="img3.jpg">
+                <h2 class="card-title">상품 C</h2>
+                <p class="card-desc">최고의 가성비.</p>
+                <button class="buy-btn">구매하기</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

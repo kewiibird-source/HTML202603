@@ -67,10 +67,21 @@
             font-size: 15px;
         }
         #join {
+            /* 아이디중복확인 했을때 중복된 아이디일때 */
             border-radius: 10px;
             border: 0px solid #fff;
             background-color: rgb(80, 156, 243);
             color: white;
+            padding: 15px;
+            width: 340px;
+            margin: 20px 15px;
+        }
+        #join-false { 
+            /* 아이디중복확인 했을때 사용가능일때 */
+            border-radius: 10px;
+            border: 0px solid #fff;
+            /* background-color: rgb(80, 156, 243); */
+            color: rgb(110, 110, 110);
             padding: 15px;
             width: 340px;
             margin: 20px 15px;
@@ -83,6 +94,16 @@
             color: rgb(80, 156, 243);
             /* margin-left: 0px; */
         }
+        .warring-area {
+            height: 12px;   
+            text-align: left;
+        }
+        .warring-txt {
+            color: red;
+            font-size: 12px;
+            margin: 2px 5px;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
@@ -94,17 +115,29 @@
             </div>
             <div id="txtContainer">
                 <p>이름</p>
-                <input type="text" placeholder="홍길동" id="inputbox">
+                    <input type="text" v-model="name" placeholder="홍길동" id="inputbox">
                 <p>아이디</p>
-                <input type="text" placeholder="아이디를 입력해주세요." id="idbox" v-model="userId">
-                <button @click="fnCheck">중복체크</button>
+                    <input type="text" v-if="!result" placeholder="아이디를 입력해주세요." id="idbox" v-model="userId">
+                    <input type="text" v-else disabled placeholder="아이디를 입력해주세요." id="idbox" v-model="userId">
+                    <button @click="fnCheck">중복체크</button> <!-- 중복체크 -->
                 <p>비밀번호</p>
-                <input type="password" placeholder="8자 이상 입력" id="inputbox">
+                    <input type="password" v-model="pwd1" placeholder="4자 이상 입력" id="inputbox">
+                    <div class="warring-area">
+                        <span v-if="pwd1.length < 4 && pwd1 != ''" class="warring-txt">
+                            * 비밀번호4글자이상
+                        </span>
+                    </div>
                 <p>비밀번호 확인</p>
-                <input type="password" placeholder="비밀번호를 다시 입력하세요" id="inputbox">
-                <button id="join">가입하기</button>
+                    <input type="password" v-model="pwd2" placeholder="비밀번호를 다시 입력하세요" id="inputbox">
+                    <div class="warring-area">
+                        <span class="warring-txt" v-if="pwd1 != pwd2">
+                            * 비밀번호 일치하지 않음
+                        </span>
+                    </div>
+                <button id="join" v-if="result" @click="fnSignup">가입하기</button>
+                <button id="join-false" v-else disabled>가입하기</button>
                 <div id="txt1">이미 계정이 있으신가요?</div>
-                <span id="login">로그인</span>
+                <span id="login"><a href="login.html">로그인</a></span>
             </div>
         </div>
     </div>
@@ -116,12 +149,23 @@
             return {
                 // 변수 - (key : value)
                 userId : "",
+                result : false,
+                name : "",
+                pwd1 : "",
+                pwd2 : ""
             };
         },
         methods: {
             // 함수(메소드) - (key : function())
             fnCheck: function () {
                 let self = this; // ajax 안에서 this 사용은 권장하지 않음!
+                
+                // userId로 서버에 체크하기전에 4자리가 넘는지 확인
+                if(self.userId.lenght < 4){
+                    alert("아이디는 4글자 이상");
+                    return;
+                }
+
                 let param = {
                     userId : self.userId
                 };
@@ -132,16 +176,42 @@
                     data : param,
                     // data: {userId : self.userId}, 
                     success: function (data) {
-                        // console.log(data);
-                        if(data.success){
-                            alert(data.message); // 사용가능
+                        alert(data.message);
+                        self.result = data.success;
+                    }
+                });
+            }, // fnCheck 끝
 
-                        } else {
-                            alert(data.message); // 이미사용중
-                        }
+            fnSignup: function(){
+                let self = this;
+
+                if(self.pwd1.length < 4){
+                    alert("비밀번호 4글자 이상!");
+                    return;
+                }
+                if(self.pwd1 != self.pwd2){
+                    alert("비밀번호 확인하삼");
+                    return;
+                }
+
+                let param = {
+                    userId : self.userId,
+                    name : self.name,
+                    pwd : self.pwd1, 
+                    // 우리가 갖고있는 데이터는 임의의 이름으로 서버에서 받기로한(보내주기로한) 이름은 정해진대로! 
+                };
+
+                $.ajax({
+                    url: "http://192.168.30.57:3009/add",
+                    dataType: "json",
+                    type: "GET",
+                    data : param,
+                    success: function (data) {
+                        location.href="login.html"
                     }
                 });
             }
+            
         }, // methods
         mounted() {
             // 처음 시작할 때 실행되는 부분

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid 실습 완성본</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #f0f2f5;
+      color: #333;
+    }
+
+    .box {
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px #eee;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .header {
+      background-color: #ff6b6b;
+      color: white;
+    }
+    .side {
+      background-color: #4ecdc4;
+      color: white;
+    }
+    .content {
+      background-color: #ccc;
+      box-shadow: none;
+      padding: 20px;
+    }
+    .widget {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px #eee;
+    }
+    .footer {
+      background-color: #45b7d1;
+      color: white;
+    }
+
+    .dashboard-container {
+      display: grid;
+      gap: 20px;
+
+      
+      grid-template-columns: 250px 1fr; /* 사이드 공간을 위해 2개로 나눔. 250px과 나머지*/
+      grid-template-rows: 150px minmax(500px, auto) 150px; /* 헤더, 메인, 푸터 3개 영역 */
+
+      grid-template-areas:
+        "header header"
+        "side content" /* 왼쪽은 사이드바, 오른쪽은 콘텐츠 */
+        "footer footer";
+    }
+
+    .header { grid-area: header; }
+    .side { grid-area: side; }
+    .content { grid-area: content; }
+    .footer { grid-area: footer; }
+
+    .content {
+      display: grid;
+      gap: 20px; 
+
+       /* auto-fit 으로 공간이 남으면 알아서 칸을 채우고 아니면 여러 줄로*/
+       /* 최소 200px을 유지하고, 자리가 남으면 1비율(1fr)로 똑같이 늘어남  */
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+
+      grid-auto-rows: 150px; /* 길이 맞춤 */
+    }
+
+    /* 화면 작아졌을 때 */
+    @media (max-width: 768px) {
+      .dashboard-container {
+       
+        grid-template-columns: 1fr; /*  1열로 세로 배치 */
+        grid-template-rows: 150px 150px 1fr 150px; /* 헤더 사이드 컨텐츠 푸터 순서대로 크기 */
+
+        /* 1줄로 */
+        grid-template-areas:
+          "header"
+          "side"
+          "content"
+          "footer";
+      }
+    }
+    .word {
+      margin-top : 25px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="dashboard-container">
+
+    <div class="box header">헤더 영역~~</div>
+    <div class="box side">사이드영역~~</div>
+
+    <div class="box content">
+      <div class="widget">
+        위젯 1<div class="word">방문자 수: 1,234명</div>
+      </div>
+      <div class="widget">위젯 2
+        <div class="word">매출: 5,123,120원</div>
+      </div>
+      <div class="widget">
+        위젯 3<div class="word">신규 가입: 42명</div>
+      </div>
+      <div class="widget">
+        위젯 4<div class="word">서버 상태: 양호</div>
+      </div>
+      <div class="widget">
+        위젯 5<div class="word">최근 알림이 없습니다.</div>
+      </div>
+    </div>
+
+    <div class="box footer">하단 영역~~</div>
+  </div>
+
+</body>
+
+</html>

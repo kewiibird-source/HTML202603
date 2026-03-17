@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grid 활용 실습</title>
+</head>
+<style>
+        #container > div { /* 컨테이너 바로 하위요소인 div태그에 적용 */
+            border: 1px solid #000;
+            border-radius: 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #container { /* 컨테이너 그리드 적용 */
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 300px 1fr;
+            grid-template-rows: 200px minmax(600px,auto) 200px;
+            grid-template-areas: 
+            "header header"
+            "side content"
+            "footer footer";
+        }
+
+        /* 그리드 구역 네임 */
+        .header {grid-area: header;}
+        .side {grid-area: side;}
+        .content {grid-area: content;}
+        .footer {grid-area: footer;}
+
+        /* 상품카드 구역 content */
+        .content {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-auto-rows: 230px;
+            padding: 20px;
+        }
+        #product-card {
+            background-color: #eee;
+            border-radius: 20px;
+            padding: 10px;
+        }
+        .card-img {
+            /* width: 100%; */
+            height: 70%;
+            border-radius: 50%;
+            background-size: contain;
+        }
+        .card-info {
+            padding: 5px;
+            margin-right: 50%;
+        }
+        .card-txt1 {
+            /* font-size: 17px; */
+        }
+        .card-txt2 {
+            font-weight: bold;
+            color: rosybrown;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="header"></div>
+        <div class="side"></div>
+        <div class="content">
+
+            <div id="product-card">
+                <img src="/media/프로필1.png" class="card-img">
+                <div class="card-info">
+                    <div class="card-txt1">갤럭시S24</div>
+                    <div class="card-txt2">15,900원</div>
+                </div>
+            </div>
+
+            <div id="product-card">
+                <img src="/media/프로필1.png" class="card-img">
+                <div class="card-info">
+                    <div>갤럭시S24</div>
+                    <div>15,900원</div>
+                </div>
+            </div>
+
+            <div id="product-card">
+                <img src="/media/프로필1.png" class="card-img">
+                <div class="card-info">
+                    <div>갤럭시S24</div>
+                    <div>15,900원</div>
+                </div>
+            </div>
+
+            <div id="product-card">
+                <img src="/media/프로필1.png" class="card-img">
+                <div class="card-info">
+                    <div>갤럭시S24</div>
+                    <div>15,900원</div>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer"></div>
+    </div>
+</body>
+</html>

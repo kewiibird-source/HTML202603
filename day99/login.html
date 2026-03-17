@@ -83,9 +83,9 @@
             </div>
             <div id="txtContainer">
                 <p>아이디</p>
-                <input type="text" placeholder="아이디를 입력해주세요." id="inputbox" v-model="userId">
+                    <input type="text" placeholder="아이디를 입력해주세요." id="inputbox" v-model="userId">
                 <p>비밀번호</p>
-                <input type="password" placeholder="비밀번호를 입력해주세요." id="inputbox" v-model="pwd">
+                    <input type="password" @keyup.enter="fnLogin" placeholder="비밀번호를 입력해주세요." id="inputbox" v-model="pwd">
                 <div id="login" @click="fnLogin()">로그인</div>
                 <span>비밀번호 찾기</span>
                 <span id="line"></span>
@@ -120,10 +120,10 @@
                     // data: {userId : self.userId, pwd : self.pwd}, 
                     success: function (data) {
                         // console.log(data); 서버에서 어떤 데이터가 넘어오는지 확인용
-                        
                         if(data.success){
                             alert(data.message);
                         }
+                        location.href="main.html"
                     }
                 });
             }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grid 실습 완성본</title>
+  <link rel="stylesheet" href="제품리스트.css">
+</head>
+
+<body>
+
+  <div class="dashboard-container">
+
+    <div class="box header">
+      <div class="header-logo">
+        <img src="logo.png" class="logo-image">
+      </div>
+
+      <div class="header-search">
+        <input type="text" placeholder="검색어를 입력하세요...">
+        <button type="button" class="search-btn">검색</button>
+      </div>
+
+      <div class="header-utils">
+        <button class="notification-btn">
+          🔔
+          <span class="badge">3</span>
+        </button>
+        <div class="user-profile">
+          <div class="avatar">👨‍💻</div>
+          <span class="username">홍길동</span>
+        </div>
+      </div>
+    </div>
+    <div class="box side">
+      <div class="side-title">카테고리</div>
+      <ul class="category-list">
+        <li><a href="#" class="active">전체 상품</a></li>
+        <li><a href="#">스마트폰</a></li>
+        <li><a href="#">게임기</a></li>
+        <li><a href="#">노트북</a></li>
+        <li><a href="#">기타</a></li>
+      </ul>
+
+      <div class="side-title">가격대</div>
+      <ul class="filter-list">
+        <li><label><input type="checkbox"> 1만원 이하</label></li>
+        <li><label><input type="checkbox"> 1만원 ~ 3만원</label></li>
+        <li><label><input type="checkbox"> 3만원 ~ 5만원</label></li>
+        <li><label><input type="checkbox"> 5만원 이상</label></li>
+      </ul>
+    </div>
+
+    <div class="box content">
+      <div class="product-card">
+        <img src="../media/m1.png" alt="상품 1" class="product-img">
+        <div class="product-info">
+          <div class="product-name">갤럭시 S24</div>
+          <div class="product-price">15,900원</div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="../media/m2.png" alt="상품 2" class="product-img">
+        <div class="product-info">
+          <div class="product-name">아이폰 15</div>
+          <div class="product-price">39,000원</div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="../media/m1.png" alt="상품 3" class="product-img">
+        <div class="product-info">
+          <div class="product-name">LG OLED TV</div>
+          <div class="product-price">28,500원</div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="../media/m2.png" alt="상품 4" class="product-img">
+        <div class="product-info">
+          <div class="product-name">맥북 에어 M3</div>
+          <div class="product-price">45,000원</div>
+        </div>
+      </div>
+      
+      <div class="product-card">
+        <img src="../media/m1.png" alt="상품 5" class="product-img">
+        <div class="product-info">
+          <div class="product-name">갤럭시 북4</div>
+          <div class="product-price">19,000원</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="box footer">하단 영역~~</div>
+  </div>
+
+</body>
+
+</html>
