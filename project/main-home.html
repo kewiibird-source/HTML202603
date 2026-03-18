@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main-home</title>
+</head>
+<style>
+        #container > div { /* 컨테이너 바로 하위요소인 div태그에 적용 */
+            /* border: 1px solid #000; */
+            border-radius: 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #container { /* 컨테이너 그리드 적용 */
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 300px 1fr;
+            grid-template-rows: 160px minmax(600px, 1fr) 160px;
+            grid-template-areas: 
+            "header header"
+            "side content"
+            "footer footer";
+            margin: 20px;
+        }
+
+        .box {
+            padding: 20px;
+        }
+
+        /* 그리드 구역 네임 */
+        .header {grid-area: header;}
+        .side {grid-area: side;}
+        .content {grid-area: content;}
+        .footer {grid-area: footer;}
+
+        /* header 영역 */
+        .header {
+            background-color: aliceblue;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        /* 로고 이미지 */
+        .top-logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .logo-img {
+            height: 120px;
+            width: auto; /*auto*/
+            object-fit: contain;
+            border-radius: 30px;
+            box-shadow: 5px 5px 5px #c7c7c74f;
+        }
+        /* 검색창 */
+        .top-search {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 8px;
+            padding: 5px 5px 5px 15px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 2px 4px #c7c7c74f;
+        }
+        .top-search input {
+            border: none;
+            width: 100%;
+            outline: none;
+            font-size: 15px;
+        }
+        /* 검색버튼 */
+        .top-search button {
+            background-color: #99cd32a6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .top-search button:hover {
+            background-color: #357ABD;
+        }
+        /* 프로필 */
+        .top-pro {
+            display: flex;
+            padding: 20px;
+            align-items: center;
+        }
+        .top-pro button {
+            display: flex;
+            border: none;
+            font-size: 30px;
+            background: transparent;
+            cursor: pointer;
+        }
+        .top-pro div {
+            font-size: 20px;
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 2px solid #eee; 
+        }
+
+        /* side 영역 */
+        .side {
+            background-color: ivory;
+        }
+        .side-title {
+            font-weight: bold;
+            text-align: left;
+            font-size: larger;
+            margin-top: 20px;
+            padding: 8px;
+            border-radius: 10px;
+            background-color: #d6d6d6;
+        }
+        .side ul {
+            list-style: none; /* 기본 점(bullet) 제거 */
+            text-align: left;
+            margin: 0px;
+            padding: 10px;
+        }
+        
+        .category-list li {
+            font-size: large;
+            padding: 9px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .side li:hover {
+            background-color: #e7e7e7;
+        }
+
+        .price-list li {
+            font-size: medium;
+            padding: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .side a {
+            text-decoration: none; 
+            color: black;
+        }
+        
+
+        /* 상품카드 구역 content */
+        .content {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-auto-rows: 230px;
+            /* padding: 15px; */
+            background-color: whitesmoke;
+        }
+        #product-card {
+            background-color: white;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        .card-img {
+            /* width: 100%; */
+            height: 150px; 
+            object-fit: contain; 
+            border-bottom: 1px solid #e7e7e7; 
+            margin-top: 5px;
+            border-radius: 10%;
+            /* background-color: #eee; */
+        }
+        .card-info {
+            padding: 10px;
+            /* margin-right: 50%; */
+        }
+        .card-txt1 {
+            font-size: 17px;
+        }
+        .card-txt2 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e26e6e;
+        }
+
+        /* footer 영역 */
+        .footer {
+            background-color: lavender;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="container">
+            <div class="box header">
+
+                <div class="top-logo">
+                    <img class="logo-img" src="../media/logo.png">
+                </div>
+                
+                <div class="top-search">
+                    <input type="text" placeholder="검색어를 입력하세요...">
+                    <button>검색</button>
+                </div>
+
+                <div class="top-pro">
+                    <button>🔔</button>
+                    <div>
+                        <span>👶</span>
+                        <span>홍길동</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="box side">
+
+                <div class="side-title">카테고리</div>
+                    <ul class="category-list">
+                        <li><a href="#">전체 상품</a></li>
+                        <li><a href="#">스마트폰</a></li>
+                        <li><a href="#">게임기</a></li>
+                        <li><a href="#">노트북</a></li>
+                        <li><a href="#">기타</a></li>
+                    </ul>
+
+                    <div class="side-title">가격대</div>
+                    <ul class="price-list">
+                        <li><label><input type="checkbox"> 1만원 이하</label></li>
+                        <li><label><input type="checkbox"> 1만원 ~ 3만원</label></li>
+                        <li><label><input type="checkbox"> 3만원 ~ 5만원</label></li>
+                        <li><label><input type="checkbox"> 5만원 이상</label></li>
+                    </ul>
+
+                </div>
+            <div class="box content">
+
+                <div id="product-card">
+                    <img src="/media/m1.png" class="card-img">
+                    <div class="card-info">
+                        <div class="card-txt1">갤럭시S24</div>
+                        <div class="card-txt2">15,900원</div>
+                    </div>
+                </div>
+
+                <div id="product-card">
+                    <img src="/media/m2.png" class="card-img">
+                    <div class="card-info">
+                        <div class="card-txt1">아이폰 15</div>
+                        <div class="card-txt2">39,900원</div>
+                    </div>
+                </div>
+
+                <div id="product-card">
+                    <img src="/media/m3.png" class="card-img">
+                    <div class="card-info">
+                        <div class="card-txt1">LG OLED TV</div>
+                        <div class="card-txt2">77,500원</div>
+                    </div>
+                </div>
+
+                <div id="product-card">
+                    <img src="/media/m4.png" class="card-img">
+                    <div class="card-info">
+                        <div class="card-txt1">맥북 에어 M3</div>
+                        <div class="card-txt2">88,900원</div>
+                    </div>
+                </div>
+
+                <div id="product-card">
+                    <img src="/media/m5.png" class="card-img">
+                    <div class="card-info">
+                        <div class="card-txt1">갤럭시 북4</div>
+                        <div class="card-txt2">95,500원</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="box footer"></div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main-home(ajax)</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- 슬라이드 외부 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8.4.7/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.7/swiper-bundle.min.js"></script>
+</head>
+<style>
+        #container > div { /* 컨테이너 바로 하위요소인 div태그에 적용 */
+            /* border: 1px solid #000; */
+            border-radius: 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        #container { /* 컨테이너 그리드 적용 */
+            display: grid;
+            gap: 20px;
+            grid-template-columns: 300px 1fr;
+            grid-template-rows: 160px minmax(200px, auto) minmax(800px, auto) 160px;
+            grid-template-areas: 
+            "header header"
+            "banner banner"
+            "side content"
+            "footer footer";
+            margin: 20px;
+        }
+
+        .box {
+            padding: 20px;
+        }
+
+        /* 그리드 구역 네임 */
+        .header {grid-area: header;}
+        .banner {grid-area: banner;}
+        .side {grid-area: side;}
+        .content {grid-area: content;}
+        .footer {grid-area: footer;}
+
+        /* header 영역 */
+        .header {
+            background-color: aliceblue;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        /* 로고 이미지 */
+        .top-logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .logo-img {
+            height: 120px;
+            width: auto; /*auto*/
+            object-fit: contain;
+            border-radius: 30px;
+            box-shadow: 5px 5px 5px #c7c7c74f;
+        }
+        /* 슬라이드 */
+        .swiper {
+            width: 100%;
+            height: 100%;
+            /* wdith : 800px 등 원하는 크기 가능 */
+            /* 좌우여백꽉채움 */
+        }
+        /* 슬라이드 안의 이미지가 영역에 딱 맞게 들어가도록 설정 */
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            display: block;
+            border-radius: 20px;
+            padding: 0;
+        }
+
+        /* 검색창 */
+        .top-search {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 8px;
+            padding: 5px 5px 5px 15px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 2px 4px #c7c7c74f;
+        }
+        .top-search input {
+            border: none;
+            width: 100%;
+            outline: none;
+            font-size: 15px;
+        }
+        /* 검색버튼 */
+        .top-search button {
+            background-color: #99cd32a6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .top-search button:hover {
+            background-color: #357ABD;
+        }
+        /* 프로필 */
+        .top-pro {
+            display: flex;
+            padding: 20px;
+            align-items: center;
+        }
+        .top-pro-btn {
+            display: flex;
+            border: none;
+            font-size: 30px;
+            background: transparent;
+            cursor: pointer;
+        }
+        .top-pro div {
+            font-size: 20px;
+            padding: 10px;
+            cursor: pointer;
+            border-bottom: 2px solid #eee; 
+        }
+        .logout {
+            font-size: 15px;
+        }
+
+        /* side 영역 */
+        .side {
+            background-color: ivory;
+        }
+        .side-title {
+            font-weight: bold;
+            text-align: left;
+            font-size: larger;
+            margin-top: 20px;
+            padding: 8px;
+            border-radius: 10px;
+            background-color: #F2EADD;
+        }
+        .side ul {
+            list-style: none; /* 기본 점(bullet) 제거 */
+            text-align: left;
+            margin: 0px;
+            padding: 10px;
+        }
+        
+        .category-list li {
+            font-size: large;
+            padding: 9px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .side li:hover {
+            background-color: #F2EADD;
+        }
+
+        .price-list li {
+            font-size: medium;
+            padding: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .side a {
+            text-decoration: none; 
+            color: black;
+            display: block; /* 글자 옆 공백 눌러도 선택될 수 있게 */
+        }
+        
+
+        /* 상품카드 구역 content */
+        .content {
+            display: grid;
+            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-auto-rows: 300px;
+            /* padding: 15px; */
+            background-color: whitesmoke;
+        }
+        #product-card {
+            background-color: white;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .card-img {
+            /* width: 100%; */
+            height: 150px; 
+            object-fit: contain; 
+            border-bottom: 1px solid #e7e7e7; 
+            margin-top: 5px;
+            border-radius: 10%;
+            /* background-color: #eee; */
+        }
+        .card-info {
+            padding: 10px;
+            /* margin-right: 50%; */
+        }
+        .card-txt1 {
+            font-size: 17px;
+        }
+        .card-txt2 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e26e6e;
+        }
+        .card-txt3 {
+            font-size: 15px;
+        }
+
+        /* footer 영역 */
+        .footer {
+            background-color: #D9DED1;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="container">
+            <div class="box header">
+
+                <div class="top-logo">
+                    <img class="logo-img" src="../media/tom1배경제거.png">
+                </div>
+                
+                <div class="top-search">
+                    <input type="text" v-model="keyword" @keyup.enter="fnList" placeholder="검색어를 입력하세요...">
+                    <button @click="fnList">검색</button>
+                </div>
+
+                <div class="top-pro">
+                    <button class="top-pro-btn">🔔</button>
+                    <div>
+                        <span @click="fnmypage()">👶</span>
+                        <span>{{sessionName}}</span>
+                    </div>
+                    <button class="logout" @click="fnLogout">로그아웃</button>
+                </div>
+
+            </div>
+
+            <div class="box banner">
+            <!-- .swiper-container에서 .swiper로 변경 -->
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="../slider/banner1.png"></div>
+                    <div class="swiper-slide"><img src="../slider/banner2.png"></div>
+                    <div class="swiper-slide"><img src="../slider/banner3.png"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+            </div>
+            <div class="box side">
+
+                <div class="side-title">카테고리</div>
+                    <ul class="category-list">
+                        <li><a href="#" @click="fnCategory('')">전체 상품</a></li>
+                        <li v-for="item in categoryList">
+                            <a href="javascript:;" @click="fnCategory(item.CATEGORY)">{{item.CATEGORY}}</a>
+                        </li>
+                    </ul>
+
+                    <div class="side-title">가격대</div>
+                    <ul class="price-list">
+                        <li><label><input type="checkbox"> 1만원 이하</label></li>
+                        <li><label><input type="checkbox"> 1만원 ~ 3만원</label></li>
+                        <li><label><input type="checkbox"> 3만원 ~ 5만원</label></li>
+                        <li><label><input type="checkbox"> 5만원 이상</label></li>
+                    </ul>
+
+                </div>
+            <div class="box content">
+                
+                <div id="product-card" v-for="item in list" @click="fnInfo(item.PRODUCT_ID)">
+                    <img :src="item.IMG_PATH" class="card-img">
+                    <div class="card-info">
+                        <div class="card-txt1">{{item.PRODUCT_NAME}}</div>
+                        <div class="card-txt3">{{item.CATEGORY}}</div>
+                        <div class="card-txt2">{{item.PRICE_WON}}원</div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="box footer"></div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                list : [],
+                categoryList : [],
+                keyword : "",
+                brand : "",
+                category : "",
+                sessionName : ""
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnList : function() {
+                let self = this;
+                $.ajax({
+                    url: "http://192.168.30.57:3009/product/list",
+                    dataType: "json",
+                    type: "GET",
+                    data: {keyword : self.keyword, brand : "", category : self.category},
+                    success: function (data) {
+                        console.log(data);
+                        self.list = data.productList;
+                    }
+                });
+            },
+            fnCategory : function(category){
+                let self = this;
+                self.category = category;
+                self.fnList();
+            },
+            fnCategoryList : function() {
+                let self = this;
+                $.ajax({
+                    url: "http://192.168.30.57:3009/category/list",
+                    dataType: "json",
+                    type: "GET",
+                    data: {},
+                    success: function (data) {
+                        console.log(data);
+                        self.categoryList = data.categoryList; 
+                        // data.categoryList는 콘솔로 받은(서버에서 보내준) 이름으로!!
+                    }
+                });
+            },
+            fnInfo : function(productId){
+                // product-info.html 페이지로 이동 (제품의상세정보)
+                // 어떤 제품을 선택했는지 정보를 담아서 보내야한다
+                // product_id만 보내면 됨!! => db에서 다시 불러옴
+                location.href = "product-info.html?productId=" + productId;
+            },
+            fnInit: function() {
+                const swiper = new Swiper('.swiper', {
+                    loop: true,
+                    autoplay: {
+                        delay: 2500,
+                    },
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+            },
+            fnLogout : function(){
+                if(!confirm("정말떠날?")){
+                    return;
+                }
+                localStorage.clear(localStorage.getItem("sessionName"));
+                location.href = "mypage.html";
+            },
+            fnmypage : function(){
+                
+                location.href = "login.html?sessionName=" + sessionName;
+                
+            }
+
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            let self = this;
+            self.fnList();
+            self.fnCategoryList();
+            self.fnInit();
+            console.log("localName =>", localStorage.getItem("sessionName"));
+            // 로그인한 사용자의 이름을 콘솔창에 출력!
+            if(localStorage.getItem("sessionName") == null){
+                alert("로그인후 이용하셈");
+                location.href = "login.html";
+            }
+            self.sessionName = localStorage.getItem("sessionName");
+        }
+    });
+
+    app.mount('#app');
+</script>

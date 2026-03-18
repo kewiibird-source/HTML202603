@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>소개3</title>
+    <style>
+        body {
+            background: linear-gradient();
+        }
+        #container > div {
+            border: 1px solid black;
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .header {grid-area: header;}
+        .side {grid-area: side;}
+        .content {grid-area: content;}
+        .footer {grid-area: footer;}
+
+        #container {
+            display: grid;
+            gap: 15px;
+            grid-template-columns: 200px 1fr;
+            grid-template-rows: 150px minmax(600px, 1fr) 150px;
+            grid-template-areas: 
+            "header header"
+            "side content"
+            "footer footer";
+        }
+        .box {
+            box-sizing: border-box;
+        }
+
+        
+
+        
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="box header">헤더</div>
+        <div class="box side">사이드</div>
+        <div class="box content">컨텐츠</div>
+        <div class="box footer">푸터</div>
+    </div>
+</body>
+</html>

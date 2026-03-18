@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제품상세페이지</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<style>
+    *{
+        box-sizing: border-box; 
+    }
+    body {
+        background-color: #f0f0f0;
+    }
+    #container {
+        width: 850px;
+        margin: 50px auto;
+        background-color: white;
+        padding: 20px 40px;
+        border-radius: 15px;
+    }
+    h1 {
+        padding-bottom: 20px;
+        border-bottom: 1px solid #c9c9c9;
+    }
+    .product-wrap {
+        display: flex;
+        align-items: flex-start;
+        gap: 30px;
+    }
+    .product-img {
+        flex: 1;
+        width: 400px;
+    }
+    #main-img {
+        height: 400px;
+        width: 100%;
+        object-fit: contain;
+        border: 1px solid #e4e4e4;
+
+    }
+    #sub-img {
+        display: flex;
+        justify-content: center
+    }
+    .small-img {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #e4e4e4;
+        object-fit: contain;
+        cursor: pointer;
+        
+    }
+    #desc {
+        flex: 1;
+        width: 400px;
+    }
+    #desc ul {
+        list-style: none;
+        padding-left: 0;
+        font-weight: 500;
+    }
+    #desc li {
+        font-size: 20px;
+        line-height: 2.3;
+    }
+    #desc button {
+        width: 100%;
+        padding: 12px;
+        background-color: #d6ff8f;
+        color: white;
+        font-weight: bold;
+        border: none;
+        font-size: large;
+        cursor: pointer;
+        border-radius: 10px;
+    }
+    #desc button:hover {
+        background-color: #8a9c6b;
+    }
+    .red-txt {color: red;}
+    .green-txt {color: green;}
+    .bold-txt {font-weight: bold;}
+    .sub-txt{
+        font-size: 15px;
+        margin-top: -15px;
+        color: red;
+    }
+    
+</style>
+<body>
+    <div id="app">
+        <div id="container">
+
+            <h1>{{info.PRODUCT_NAME}}</h1>
+            <div class="product-wrap">
+
+                <div class="product-img">
+                    <img :src="info.IMG_PATH" id="main-img">
+                    <div id="sub-img">
+                        <img :src="info.IMG_PATH" class="small-img">
+                        <img src="../media/m1.png" class="small-img">
+                        <img src="../media/m2.png" class="small-img">
+                    </div>
+                </div>
+
+                <div id="desc">
+                    <ul>
+                        <li>상품명 : {{info.PRODUCT_NAME}}</li>
+                        <li class="red-txt">판매가 : {{info.PRICE_WON}}원</li>
+                        <li>
+                            배송비 : 30,000원
+                            <div class="sub-txt">(10,000,000원 이상 주문시 무료)</div>
+                        </li>
+                        <li>적립금 : {{Math.round(info.PRICE * 0.01)}}원(1%)</li>
+                        <li>모델명 : {{info.MODEL_NAME}}</li>
+                        <li>설명 : {{info.DESCRIPTION}}</li>
+                    </ul>
+                    <BUtton>구매하기</BUtton>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                productId : "",
+                info : {}
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnGetInfo: function () {
+                let self = this;
+                $.ajax({
+                    url: "http://192.168.30.57:3009/product/info",
+                    dataType: "json",
+                    type: "GET",
+                    data: {productId : self.productId},
+                    success: function (data) {
+                        console.log(data);
+                        self.info = data.info;
+                    }
+                });
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            // console.log(window.location.search);
+            const queryParams = new URLSearchParams(window.location.search);
+            this.productId = queryParams.get('productId') || ''; 
+            if(this.productId == ''){
+                alert("해당상품없슴");
+                // window.close(); 창 닫기
+                location.href="main-home-ajax.html";
+            }
+            this.fnGetInfo();
+        }
+    });
+
+    app.mount('#app');
+</script>

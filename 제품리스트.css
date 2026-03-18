@@ -1,0 +1,310 @@
+body {
+  margin: 0;
+  padding: 20px;
+  background-color: #f0f2f5;
+  color: #333;
+}
+
+.box {
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 2px 5px #eee;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
+.side {
+  background-color: white; 
+  color: #333;
+  padding: 30px 20px;
+}
+
+.side-title {
+  font-size: 15px;
+  font-weight: bold;
+  color: black;
+  margin-bottom: 12px;
+  margin-top: 30px;
+}
+
+.side-title:first-child {
+  margin-top: 0; 
+}
+
+/* 카테고리 목록 */
+.category-list {
+  list-style: none; /* 기본 점(bullet) 제거 */
+  padding: 0;
+  margin: 0;
+}
+
+.category-list li {
+  margin-bottom: 5px;
+}
+
+.category-list a {
+  text-decoration: none; 
+  color: #555555;
+  font-size: 16px;
+  font-weight: normal;
+  display: block;
+  padding: 10px 15px;
+  border-radius: 6px;
+}
+
+.category-list a:hover,
+.category-list a.active {
+  background-color: #4ecdc4; 
+  color: white;
+  font-weight: bold;
+}
+
+.filter-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.filter-list li {
+  margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: normal;
+  color: #555;
+}
+
+.filter-list label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.content {
+  background-color: #fafafa;
+  box-shadow: none;
+  padding: 20px;
+}
+
+.footer {
+  background-color: #45b7d1;
+  color: white;
+}
+
+.widget {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px #eee;
+}
+
+.dashboard-container {
+  display: grid;
+  gap: 20px;
+
+  grid-template-columns: 300px 1fr;
+  /* 사이드 공간을 위해 2개로 나눔. 250px과 나머지*/
+  grid-template-rows: 150px minmax(800px, auto) 150px;
+  /* 헤더, 메인, 푸터 3개 영역 */
+
+  grid-template-areas:
+    "header header"
+    "side content"
+    /* 왼쪽은 사이드바, 오른쪽은 콘텐츠 */
+    "footer footer";
+}
+
+.header {grid-area: header;}
+.side {grid-area: side;}
+.content {grid-area: content;}
+.footer {grid-area: footer;}
+
+.content {
+  display: grid;
+  gap: 20px;
+
+  /* 공간이 남으면 알아서 칸을 채우고, 자리가 부족하면 아래로 떨어짐 */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-auto-rows: 250px;
+}
+
+.product-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px #eee;
+  overflow: hidden; 
+  display: flex;
+  flex-direction: column;
+}
+
+/* 상품 이미지 */
+.product-img {
+  width: 100%;
+  height: 150px; 
+  object-fit: contain; 
+  border-bottom: 1px solid #f0f2f5; 
+  margin-top: 10px;
+  border-radius: 50%
+}
+
+.product-info {
+  padding: 15px;
+}
+
+.product-name {
+  font-size: 16px;
+  font-weight: normal; 
+  color: #333;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.product-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff6b6b;
+}
+
+/* 화면 작아졌을 때 */
+@media (max-width: 768px) {
+  .dashboard-container {
+
+    grid-template-columns: 1fr;
+    /* 1열로 세로 배치 */
+    grid-template-rows: 150px 150px 1fr 150px;
+    /* 헤더 사이드 컨텐츠 푸터 순서대로 크기 */
+
+    /* 1줄로 */
+    grid-template-areas:
+      "header"
+      "side"
+      "content"
+      "footer";
+  }
+}
+
+.word {
+  margin-top: 25px;
+}
+
+.header {
+  background-color: #e3ecf2;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.logo-image {
+  height: 120px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 40px;
+  box-shadow: 5px 5px 5px #b0a7a7;
+}
+
+.header-search {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 8px;
+  padding: 5px 5px 5px 15px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-search input {
+  border: none;
+  background: transparent;
+  color: #333;
+  padding: 8px 0;
+  width: 100%;
+  outline: none;
+  font-size: 15px;
+}
+
+.header-search input::placeholder {
+  color: #888;
+}
+
+/* 텍스트 검색 버튼 스타일 */
+.search-btn {
+  background-color: #4A90E2;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.search-btn:hover {
+  background-color: #357ABD;
+}
+
+.header-utils {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.notification-btn {
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.notification-btn .badge {
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  background-color: #4A90E2;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+/* 사용자 프로필 */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.user-profile .avatar {
+  width: 36px;
+  height: 36px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+.user-profile .username {
+  font-size: 15px;
+  color: black;
+}
+
+@media (max-width: 768px) {
+  .header-search {
+    display: none;
+  }
+}

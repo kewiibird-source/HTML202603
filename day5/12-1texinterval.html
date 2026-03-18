@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<style>
+    #txt {
+        border-right: 2px solid #4ecdc4; /* 아까 쓴 민트색 커서 */
+        white-space: nowrap;           /* 줄바꿈 방지 */
+        display: inline-block;
+    }
+</style>
+<body>
+    <div id="app">
+    <h1 id="txt">{{ text }}</h1>
+</div>
+</body>
+</html>
+<script>
+const app = Vue.createApp({
+        data() {
+            return {
+                fullMsg: "안녕하세요. 반갑습니다!", // 원본 문구
+                text: "",                          // 화면에 보여줄 문구
+                index: 0                           // 현재 글자 위치
+            };
+        },
+        methods: {
+            startTyping() {
+                setInterval(() => {
+                    // 현재 index까지의 글자를 잘라서 text에 대입
+                    this.text = this.fullMsg.substring(0, this.index);
+                    this.index++;
+
+                    // 문구 길이를 넘어가면 초기화 (무한 반복)
+                    if (this.index > this.fullMsg.length) {
+                        this.index = 0;
+                        this.text = "";
+                    }
+                }, 300);
+            }
+        },
+        mounted() {
+            // 페이지가 열리자마자 타이핑 시작!
+            this.startTyping();
+        }
+    });
+
+    app.mount('#app');
+</script>
