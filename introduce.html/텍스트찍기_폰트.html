@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>텍스트찍기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Serif+KR:wght@200..900&display=swap" rel="stylesheet">
+    <style>
+        .home-txt {
+            font-family: "Noto Serif KR", serif;
+            font-optical-sizing: auto;
+            font-weight: weight;
+            font-style: normal;
+            border-right: 3px solid #000;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+        }
+        /* 커서 깜빡임 효과를 주면 더 실감나요! */
+        #txt {
+            font-size: 2rem;
+            font-weight: bold;
+            border-right: 3px solid #000; /* 커서 모양 */
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            animation: cursor 0.8s infinite;
+            padding-right: 5px;
+        }
+
+        @keyframes cursor {
+            0%, 100% { border-color: transparent; }
+            50% { border-color: black; }
+        }
+    </style>
+</head>
+<body>
+    <div id="txt" class="home-txt"></div>
+</body>
+</html>
+<script>
+    const content = "안녕하세요. 반갑습니다!";
+    const target = document.querySelector("#txt");
+    let index = 0;
+
+    function typing() {
+        // 1. 먼저 글자를 넣습니다.
+        target.textContent += content[index];
+        index++;
+
+        // 2. 글자를 넣은 직후, 다음 인덱스가 범위를 벗어났는지 확인합니다.
+        if (index >= content.length) {
+            clearInterval(timer); // 타이핑 중지
+
+            // 3. 2초 뒤에 초기화하고 다시 시작 (선택 사항)
+            setTimeout(() => {
+                target.textContent = "";
+                index = 0;
+                timer = setInterval(typing, 200);
+            }, 2000);
+        }
+    }
+
+    // 초기 실행
+    let timer = setInterval(typing, 200);
+</script>

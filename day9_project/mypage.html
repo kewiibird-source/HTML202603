@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+    <style>
+        body {
+            background-color: #eeeeee9f;
+            box-sizing: border-box;
+        }
+        #container {
+            border: 1px solid #eee;
+            margin: 100px auto;
+            width: 450px;
+            height: auto;
+            border-radius: 20px;
+            background-color: white;
+            text-align: center;
+            padding: 30px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        #txtContainer {
+            top: 125px;
+        }
+        h2, p, span {
+            margin: 13px 10px;
+        }
+        p{
+            color: rgb(100, 100, 100);
+            text-align: left;
+            /* font-weight: bold; */
+            font-size: small;
+            margin-bottom: 0px;
+        }
+        h2 {
+            margin-bottom: 3px;
+        }
+        #txt1 {
+            text-align: center;
+            font-weight: normal;
+            font-size: medium;
+            color: #c0c0c0;
+            margin-top: 0px;
+            display: inline-block;
+        }
+        span {
+            color: rgb(204, 204, 204);
+        }
+        #inputbox {
+            padding: 18px;
+            border-radius: 10px;
+            border: 1.8px solid #eee;
+            width: 300px;
+            margin: 10px 15px;
+            font-size: 15px;
+        }
+        #idbox {
+            padding: 18px;
+            border-radius: 10px;
+            border: 1.8px solid #eee;
+            width: 235px;
+            margin: 10px 15px;
+            font-size: 15px;
+        }
+        #join {
+            /* 아이디중복확인 했을때 중복된 아이디일때 */
+            border-radius: 10px;
+            border: 0px solid #fff;
+            background-color: rgb(80, 156, 243);
+            color: white;
+            padding: 15px;
+            width: 340px;
+            margin: 20px 15px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="container">
+            <div>
+                <h2>마이페이지</h2>
+                <p id="txt1">정보수정하셈</p>
+            </div>
+
+            <div id="txtContainer">
+
+                <p>이름</p>
+                    <input  v-model="info.USERNAME" type="text" placeholder="이름입력" id="inputbox">
+                <p>아이디</p>
+                    <input v-model="info.USERID" type="text" disabled id="inputbox">
+                <p>이메일</p>
+                    <input v-model="info.EMAIL" type="text" placeholder="이메일을 입력해주세요." id="inputbox">
+                <p>성별</p>
+                    <label><input type="radio" name="gender" value="M" v-model="info.GENDER">남</label>
+                    <label><input type="radio" name="gender" value="F" v-model="info.GENDER">여</label>
+                <button id="join" @click="fnEdit(info)">수정하기</button>
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                userId : "",
+                info : {}
+
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnGetUser: function () {
+                let self = this;
+                $.ajax({
+                    url: "http://192.168.30.57:3009/user/info",
+                    dataType: "json",
+                    type: "GET",
+                    data: {userId : self.userId},
+                    success: function (data) {
+                        console.log(data);
+                        self.info = data.info;
+                    }
+                });
+            },
+            fnEdit : function(){
+                let self = this;
+                let parm = {
+                    name : self.info.USERNAME,
+                    userId : self.info.USERID,
+                    email : self.info.EMAIL,
+                    gemder : self.info.GENDER
+                }
+                $.ajax({
+                    url: "http://192.168.30.57:3009/user/edit",
+                    dataType: "json",
+                    type: "GET",
+                    data: parm,
+                    success: function (data) {
+                        alert(data.message);
+                        localStorage.setItem("sessionName", self.info.USERNAME);
+                        location.href="main-home-ajax.html";
+                    }
+                });
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+            const queryParams = new URLSearchParams(window.location.search);
+            this.userId = queryParams.get('userId') || ''; 
+            this.fnGetUser();
+        }
+    });
+
+    app.mount('#app');
+</script>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02_Skew</title>
+    <style>
+        body {
+            background-color: #dfd3e0c2;
+        }
+        #container {
+            width: 800px;
+            margin: 100px auto;
+            display: flex;
+            justify-content: center;
+        }
+        .box {
+            width: 150px;
+            height: 150px;
+            background-color: #ff6969;
+            border-radius: 10px;
+            color: crimson;
+            text-align: center;
+            line-height: 150px;
+            margin: 50px;
+
+            transition: transform 1s ease, background-color 1s ease;
+        }
+        .skew1 {
+            /* 축을 기준으로 찌그러짐 , 기울어짐 */
+            transform: skewX(20deg);
+        }
+        .skew2 {
+            transform: skewX(-20deg);
+        }
+        .skew3 {
+            transform: skewY(20deg);
+        }
+        .skew4 {
+            transform: skew(20deg, 20deg);
+        }
+        .skew5 {
+            transform: skew(0deg);
+        }
+        .skew5:hover {
+            transform: skew(20deg);
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="box skew5">Skew</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03_keyframes</title>
+    <style>
+        body {
+            background-color: #86c06b98;
+        }
+        #container {
+            width: 800px;
+            margin: 100px auto;
+            display: flex;
+            justify-content: center;
+        }
+        .box {
+            width: 150px;
+            height: 150px;
+            background-color: #f0e6c6;
+            border-radius: 30px;
+            color: rgb(197, 83, 106);
+            text-align: center;
+            line-height: 150px;
+            margin: 50px;
+        }
+        @keyframes slideIn { 
+            /* 단순한 시작과 끝 */
+            0%{
+                transform: translateX(-100px);
+                /* -100 X축만큼 이동해있다가 */
+                opacity: 0%;
+                /* 불투명도! */
+            }
+            100%{
+                transform: translateX(0px);
+                /* 0 X축으로 이동하며 끝남, 제자리로 */
+                opacity: 100%;
+            }
+        }
+        @keyframes popIn {  
+            0%{
+                transform: scale(0.5); 
+                opacity: 0;
+            }
+            60%{
+                transform: scale(1.2);
+            }
+            100%{
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes pulse {  
+            0%{
+                transform: scale(1); 
+            }
+            50%{
+                transform: scale(1.1);
+                background-color: #ffa8a8;
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
+        @keyframes spin {  
+            0%{
+                transform: translate(100px) rotate(0deg); 
+            }
+            50%{
+                transform: translateY(-100px) rotate(180deg);
+            }
+            70%{
+                transform: translateX(-100px) rotate(360deg);
+            }
+            100%{
+                transform: translateY(100px) rotate(180deg);
+            }
+        }
+        @keyframes spin2 {  
+            0%{
+                transform: translate(0,0); 
+            }
+            25%{
+                transform: translate(100px,0);
+            }
+            50%{
+                transform: translate(100px, 100px);
+            }
+            75%{
+                transform: translate(0px -100px);
+            }
+            100%{
+                transform: translate(-100px 0px);
+            }
+        }
+
+        .animate1 {
+            animation: slideIn 2s ease-out;
+        }
+        .animate2 {
+            animation: popIn 1s ease;
+        }
+        .animate3 {
+            animation: pulse 1.5s linear infinite;
+        }
+        .animate4 {
+            animation: spin 3s ease-in-out infinite;
+        }
+        .animate5 {
+            animation: spin2 5s ease infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="box animate5">keyframes</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06 카드뒤집기</title>
+    <style>
+        body {
+            background-color: #86c06bc2;
+        }
+        #container {
+            width: 800px;
+            margin: 100px auto;
+           
+        }
+        .border-box {
+            width: 150px;
+            height: 210px;
+            border: 2px solid #ccc;
+            perspective: 600px;
+        }
+        .box-parent {
+            width: 100%;
+            height: 100%;
+            background-color: #eee;
+            position: relative;
+            animation: rotateParent 4s linear infinite;
+
+            /* transform-style: flat; 디폴트 평면상태 */
+            transform-style: preserve-3d;
+            
+            background-image: url(poket_back.png);
+            background-size: cover;
+        }
+        .box-child {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background-color: navy;
+            /* transform: translateZ(50px);  */
+            /* 부모박스에 transform-style: preserve-3d를 해야 적용됨 */
+            backface-visibility: hidden;
+            /* 자식박스 뒷면을 안보이게 숨겨주는 기능 */
+            background-image: url(poket2.jpg);
+            background-size: cover;
+        }
+        @keyframes rotateParent {
+            0%{transform: rotateY(0deg);}
+            100%{transform: rotateY(360deg);}
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="border-box">
+            <div class="box-parent">
+                <div class="box-child">child</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

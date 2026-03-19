@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01_Ratate</title>
+    <style>
+        body {
+            background-color: #86c06bc2;
+        }
+        #container {
+            width: 800px;
+            margin: 100px auto;
+            display: flex;
+            justify-content: center;
+        }
+        .box {
+            width: 150px;
+            height: 150px;
+            background-color: #ffffd1;
+            border-radius: 10px;
+            color: crimson;
+            text-align: center;
+            line-height: 150px;
+            margin: 50px;
+            /* 변화가 생길때 자연스럽게 움직이도록 하는 속성 */
+            transition: transform 0.5s ease;
+            /* linear : 디폴트, 처음 - 끝까지 같은 속도 */
+            /* ease : 천천히 -> 빠름 -> 천천히 => ^자연스러움^ */
+            /* ease-in : 천천히 -> 빠르게 */
+            /* ease-out : 점점느리게 */
+            /* ease-in-out : ease랑 비슷, 조금 더 부드러움 */
+
+        }
+        .rotate1 {
+            /* 회전은 중앙을 기준으로! */
+            transform: rotate(45deg);
+        }
+        .rotate2 {
+            transform: rotate(-45deg);
+        }
+        .rotate3 {
+            transform: rotate(0.5turn);
+            /* 180도 회전 */
+        }
+        .rotate4 {
+            transform-origin: top left;
+            /* 회전 기준점을 왼쪽상단으로 한 것 */
+            transform: rotate(45deg);
+        }
+        .rotate5 {
+            transform: rotate(0deg);
+        }
+        .rotate5:hover {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="box rotate4">Rotate4</div>
+        <hr>
+        <div class="box rotate1">Rotate1</div>
+        <hr>
+        <div class="box rotate5">Rotate5</div>
+    </div>
+</body>
+</html>

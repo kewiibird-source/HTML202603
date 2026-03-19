@@ -133,6 +133,10 @@
             font-size: 15px;
         }
 
+        /* banner 영역 */
+        .banner {
+            padding: 0;
+        }
         /* side 영역 */
         .side {
             background-color: ivory;
@@ -242,8 +246,8 @@
                 <div class="top-pro">
                     <button class="top-pro-btn">🔔</button>
                     <div>
-                        <span @click="fnmypage()">👶</span>
-                        <span>{{sessionName}}</span>
+                        <span @click="fnMypage()">👶</span>
+                        <span @click="fnMypage()">{{sessionName}}</span>
                     </div>
                     <button class="logout" @click="fnLogout">로그아웃</button>
                 </div>
@@ -374,11 +378,11 @@
                     return;
                 }
                 localStorage.clear(localStorage.getItem("sessionName"));
-                location.href = "mypage.html";
+                location.href = "login.html";
             },
-            fnmypage : function(){
-                
-                location.href = "login.html?sessionName=" + sessionName;
+            fnMypage : function(){
+                let self = this;
+                location.href = "mypage.html?userId=" + localStorage.getItem("sessionId");
                 
             }
 
@@ -388,9 +392,9 @@
             let self = this;
             self.fnList();
             self.fnCategoryList();
-            self.fnInit();
+            self.fnInit(); // 슬라이드
             console.log("localName =>", localStorage.getItem("sessionName"));
-            // 로그인한 사용자의 이름을 콘솔창에 출력!
+            // 로그인한 사용자의 이름을 콘솔창에 출력! localName => hong
             if(localStorage.getItem("sessionName") == null){
                 alert("로그인후 이용하셈");
                 location.href = "login.html";
