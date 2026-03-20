@@ -19,7 +19,6 @@
             font-optical-sizing: auto;
             font-weight: 500;
             font-style: normal;
-            border-right: 3px solid #000;
         }
         #app {
             display: contents;
@@ -73,6 +72,9 @@
             font-size: 60px;
             padding: 10px;
         }
+        .h-menu1:hover .intro {
+            display: block;
+        }
         
     </style>
 </head>
@@ -80,9 +82,11 @@
     <div id="app">
     <div id="container">
         <div class="header">
-            <div id="h-time"></div>
+            <div>현재시간
+                <div id="h-time"></div>
+            </div>    
             <div id="h-menu">
-                <div>🍑</div>
+                <div class="h-menu1">🍑</div>
                 <div>🍅</div>
                 <div>🍍</div>
                 <div>🍈</div>
