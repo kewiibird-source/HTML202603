@@ -92,14 +92,14 @@
             width: 190px;
             height: 190px;
             border-radius: 50%;
-            background-image: url(../media/m1.png);
+            background-image: url(m1.png);
             background-size: cover;
             top: 35px;
             left: 30px;
             box-shadow: -5px 5px 20px #dedede;
         }
         #img1:hover {
-            background-image: url(../media/m2.png);
+            background-image: url(m2.png);
             background-size: cover;
         }
         .B-list ul, li {
