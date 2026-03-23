@@ -1,0 +1,121 @@
+        body {
+            background: linear-gradient(-225deg, #636fa4, #e8cbc0);
+            display: flex;
+            justify-content: center;
+            /* 외부폰트설정 */
+            font-family: "Noto Serif KR", serif;
+            font-optical-sizing: auto;
+            font-weight: 500;
+            font-style: normal;
+            min-height: 100vh;
+        }
+        #app {
+            display: contents;
+            /* 디자인무시, 박스영역무시! */
+        }
+        /* 컨테이너 영역 나누기 */
+        #container {
+            margin: 30px 30px;
+            width: 90%;
+            min-height: 100vh;
+            border: none;
+            box-sizing: border-box;
+
+            display: grid;
+            /* gap: 10px; */
+            grid-template-rows: 150px minmax(600px,auto);
+            grid-template-areas: 
+            "header"
+            "content";
+        }
+        .header {grid-area: header;}
+        .content {grid-area: content;}
+
+        /* 헤더영역 */
+        .header {
+            /* 배경색, 탑모서리둥글게 */
+            background-color: #ffffff54;
+            border-top-left-radius: 30px;             
+            border-top-right-radius: 30px;
+
+            padding: 20px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #h-menu {
+            display: flex;
+            font-size: 20px;
+            padding: 10px;
+        }
+        #h-menu input {
+            appearance:none; /* 라디오버튼제거 */
+            border: none;
+            width: 10px;
+            margin: 10px;
+        }
+        #h-menu img {
+            width: 60px;
+            margin: 20px;
+        }
+        #h-menu img:hover { transform: scale(1.2); } 
+
+        /* 컨텐츠영역 */
+        .content {
+            /* 배경색, 바텀모서리둥글게 */
+            background-color: #ffffff33; 
+            border-bottom-left-radius: 30px;             
+            border-bottom-right-radius: 30px;
+            
+            padding: 20px;
+            text-align: center;
+            height: auto;
+
+        }
+        #profile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        #profile a {text-decoration: none; color: black; margin: 5px;}
+        #profile a:hover{ transform: scale(1.2); }
+        #profile img {width: 60px;}
+        .gitimg {background-color: white; border-radius: 13px;}
+        
+        .profile-info {
+           text-align: left;
+           margin-left: 30px;
+        }
+        #img1 {
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            background-image: url(../media/m1.png);
+            background-size: cover;
+            top: 35px;
+            left: 30px;
+            box-shadow: -5px 5px 20px #dedede;
+        }
+        #img1:hover {
+            background-image: url(../media/m2.png);
+            background-size: cover;
+        }
+        .B-list ul, li {
+            margin: 10px;
+            list-style-type: decimal-leading-zero;
+            text-align: left;
+        }
+        .h2txt {margin-left: 30px;}
+        #favorite {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-around;
+        }
+        #favorite img {width: 300px;}
+        #favorite img:hover { transform: scale(1.2); }
+        .game img {
+            width: 300px;
+        }

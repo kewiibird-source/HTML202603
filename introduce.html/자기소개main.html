@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Noto+Serif+KR:wght@200..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <link rel="stylesheet" href="자기소개main.css">
+    <div id="app">
+    <div id="container">
+        <div class="header">
+            <div>현재시간
+                <div id="h-time"></div>
+            </div>    
+            <div id="h-menu">
+                <label><input type="radio" name="menu" v-model="kind" value="A"><br>
+                    <img src="../media/KEPCNOID.png" title="홈으로!">
+                </label>
+                <label><input type="radio" name="menu" v-model="kind" value="B"><br>
+                    <img src="../media/KEPCNOID.png" title="자기소개">
+                </label>
+                <label><input type="radio" name="menu" v-model="kind" value="C"><br>
+                    <img src="../media/KEPCNOID.png" title="자기소개">
+                </label>
+    
+            </div>
+            <div>
+                <div>어서옵서예~</div>  
+            </div>
+        </div>
+        <div class="content">
+            <div v-if="kind == 'A'" class="content-A">
+                <div id="profile">
+                    <div id="img1"></div>
+                    <div class="profile-info">
+                        <h2 class="h2txt profile">간단한 프로필 ヾ(•ω•`)o</h2>
+                        <p>나이 : 24살 (03년생)</p>
+                        <p>이름 : 임예림</p>
+                        <p>거주지 : 인천</p>
+                        <p>안녕하세요 짧으면서도 긴 여정을 함께하게 돼서 영광입니다<br>
+                            다들 건강 챙기면서 끝까지 지내보아요<br>
+                            미래의 제 팀원님들~ 곧 다가오는 프로젝트도 잘 해봅시다<br>
+                            아자!!!!!!!!!!!!!!!!~~~<br>
+                            열심히 배워서 취뽀하는 그날까지 힘냅시다!
+                        </p>
+                    </div> 
+                    
+                </div>
+                <div id="profile">
+                    <h2 class="h2txt">SNS ▶</h2>
+                    <a href="https://github.com/kewiibird-source" target="_blank">
+                        <img class="gitimg" src="../media/github-logo.png">
+                    </a>
+                    <a href="https://blog.naver.com/sj_int03" target="_blank">
+                        <img src="../media/블로그.png">
+                    </a>
+                    <a href="https://www.youtube.com/@kkke542" target="_blank">
+                        <img src="../media/유튜브.png">
+                    </a>
+                    <a href="https://www.instagram.com/ngntrtr00/" target="_blank">
+                        <img src="../media/인스타그램.png">
+                    </a>
+                </div>
+                <div id="profile">
+                    
+                        <ul>
+                            <h2 class="h2txt">보유 기술 및 경력</h2>
+                            <li>JAVA로 구구단 짜기</li>
+                            <li>HTML로 자기소개 페이지 만들기</li>
+                            <li>ORACLE로 테이블 조회/삭제/수정하기 </li>
+                            <li>도시락싸기</li>
+                            <li>쉬는시간에 꿀잠자기</li>
+                            <li>거북목에서 일자목으로 진화</li>
+                        </ul>
+                </div>
+                
+            </div>
+            <div v-if="kind == 'B'">
+                <h2 class="h2txt">저는 귀여운걸 좋아한답니다 ... 힐링돼요</h2>
+                <div id="favorite">
+                    <img src="../media/주댕치1.jpg">
+                    <img src="../media/오야지치1.jpg">
+                    <img src="../media/다마고치1.jpg">
+                    <img src="../media/미미치1.jpg">
+                    <img src="../media/주댕치2.jpg">
+                    <img src="../media/주댕치3.jpg">
+                </div>
+            </div>
+            <div v-if="kind == 'C'">
+                <div id="favorite">
+                    <img src="../media/롤1.png">
+                    <img src="../media/피크.png">
+                    <img src="../media/배그1.png">
+                </div>
+                <h2 class="h2txt">게임도 좋아해요!!! 혼자서도 많이 해요</h2>
+                <div id="favorite">
+                    <img src="../media/제주1.jpg">
+                    <img src="../media/버섯1.jpg">
+                    <img src="../media/버섯2.jpg">
+                </div>
+                <h2 class="h2txt">여행도 좋아하는데 여행가서 바베큐하는게 제일 좋아요!!</h2>
+        </div>
+    </div>
+    </div>
+</body>
+</html>
+<script>
+    setInterval(()=>{
+        let datetime = new Date();
+        let obj = document.querySelector("#h-time");
+        let second = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+        let minutes = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+        // let time = datetime.getHours() + ":" + minutes + ":" + second;
+        obj.innerHTML = "" + datetime.getHours() + "시" + minutes + "분" + second + "초" ;
+    }, 1000);
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                // 변수 - (key : value)
+                kind : "A" // 페이지 디폴트 값
+            };
+        },
+        methods: {
+            // 함수(메소드) - (key : function())
+            fnUserList: function () {
+                let self = this;
+                $.ajax({
+                    url: "",
+                    dataType: "json",
+                    type: "GET",
+                    data: {},
+                    success: function (data) {
+
+                    }
+                });
+            }
+        }, // methods
+        mounted() {
+            // 처음 시작할 때 실행되는 부분
+        }
+    });
+
+    app.mount('#app');
+</script>

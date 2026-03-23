@@ -1,0 +1,60 @@
+body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: auto;
+        height: 100vh;
+        background: linear-gradient(-225deg, #636fa4, #e8cbc0);
+        background-size: 200% 200%;
+        animation: bodyGradient 4.5s linear infinite alternate;
+    }
+    @keyframes bodyGradient {
+        0% {
+        background-position: 10% 10%;
+        }
+        100% {
+            background-position: 90% 90%;
+        }
+    }
+    .container {
+        text-align: center;
+        background-color:transparent;
+        border-radius: 50%;
+    }
+    .container div {
+        border: none;
+        padding: 30px;
+        cursor: pointer;
+        /* background-color: white; */
+        font-size: 70px;
+        font-family: "Noto Serif KR", serif;
+        /* font-weight: weight; */
+        /* font-style: normal; */
+        /* text-align: center; */
+    }
+    .container div:hover {
+        animation: spin2 1s ease;
+        /* font-size: x-large; */
+        font-weight: 400;
+    }
+    .container span {
+        font-size: small;
+    }
+    a {
+        text-decoration: none;
+        color: #ffffffbe;
+    }
+    @keyframes spin2 {  
+            0%{
+                transform: rotate(6deg);
+            }
+            35%{
+                transform: rotate(-10deg);
+            }
+            65%{
+                transform: rotate(9deg);
+            }
+            100%{
+                transform: rotate(0deg);
+            }
+        }
