@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>마이페이지</title>
+<style>
+@font-face { font-family:'SeoulHangangCL'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulHangangCL.woff') format('woff'); }
+@font-face { font-family:'SeoulHangangCEB'; src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulHangangCEB.woff') format('woff'); }
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#faf6f0; --bg2:rgba(255,255,255,.55);
+  --footer-bg:#ede8de;
+  --ember-deep:#c94f1e; --ember:#e0621a; --ember-light:#f07d3a;
+  --text-dark:#2e1a0e; --text-mid:#7a5c3e; --text-light:#b09070;
+  --border:rgba(200,165,130,.28);
+  --white:rgba(255,252,248,.92);
+}
+body{ font-family:'SeoulHangangCL','Apple SD Gothic Neo',sans-serif; background:var(--bg); min-height:100vh; display:flex; flex-direction:column; }
+
+/* ── HEADER ── */
+header{ height:56px; background:var(--bg); border-bottom:1px solid var(--border); display:flex; align-items:center; padding:0 40px; flex-shrink:0; position:sticky; top:0; z-index:100; }
+.h-left{ display:flex; align-items:center; gap:8px; font-size:13px; color:var(--text-mid); cursor:pointer; }
+.h-center{ position:absolute; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:8px; cursor:pointer; text-decoration:none; }
+.h-logo{ font-family:'SeoulHangangCEB',sans-serif; font-size:17px; color:var(--text-dark); }
+.h-right{ margin-left:auto; display:flex; align-items:center; gap:14px; }
+.h-icon{ width:30px; height:30px; display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:.65; transition:opacity .2s; }
+.h-icon:hover{ opacity:1; }
+.h-avatar{ width:30px; height:30px; border-radius:50%; background:linear-gradient(135deg,var(--ember-deep),var(--ember-light)); display:flex; align-items:center; justify-content:center; cursor:pointer; font-family:'SeoulHangangCEB',sans-serif; font-size:12px; color:white; }
+
+/* ── LAYOUT ── */
+.page-wrap{ flex:1; max-width:1160px; width:100%; margin:0 auto; padding:36px 32px; display:flex; gap:28px; }
+
+/* ── SIDEBAR ── */
+.sidebar{ width:220px; flex-shrink:0; display:flex; flex-direction:column; gap:14px; }
+
+.profile-card{ background:var(--bg2); border:1px solid var(--border); border-radius:16px; padding:22px 18px; text-align:center; backdrop-filter:blur(8px); }
+.avatar-ring{ width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg,var(--ember-deep),var(--ember-light)); display:flex; align-items:center; justify-content:center; margin:0 auto 12px; font-family:'SeoulHangangCEB',sans-serif; font-size:26px; color:white; }
+.profile-name{ font-family:'SeoulHangangCEB',sans-serif; font-size:15px; color:var(--text-dark); margin-bottom:3px; }
+.profile-nick{ font-size:12px; color:var(--text-light); margin-bottom:10px; }
+.level-badge{ display:inline-flex; align-items:center; gap:5px; padding:4px 12px; border-radius:20px; background:rgba(201,79,30,.1); border:1px solid rgba(201,79,30,.2); font-size:11.5px; color:var(--ember-deep); }
+
+.nav-card{ background:var(--bg2); border:1px solid var(--border); border-radius:14px; overflow:hidden; backdrop-filter:blur(8px); }
+.nav-section-title{ font-size:10.5px; letter-spacing:1.5px; color:var(--text-light); padding:14px 16px 6px; }
+.nav-item{ display:flex; align-items:center; gap:10px; padding:11px 16px; font-size:13px; color:var(--text-mid); cursor:pointer; transition:background .15s, color .15s; border-left:2px solid transparent; }
+.nav-item svg{ opacity:.6; flex-shrink:0; }
+.nav-item:hover{ background:rgba(240,125,58,.06); color:var(--text-dark); }
+.nav-item:hover svg{ opacity:.9; }
+.nav-item.active{ background:rgba(201,79,30,.08); color:var(--ember-deep); border-left-color:var(--ember); font-family:'SeoulHangangCEB',sans-serif; }
+.nav-item.active svg{ opacity:1; }
+.nav-divider{ height:1px; background:var(--border); margin:4px 0; }
+
+/* ── MAIN CONTENT ── */
+.main{ flex:1; min-width:0; display:flex; flex-direction:column; gap:20px; }
+
+/* 탭 패널 */
+.tab-panel{ display:none; flex-direction:column; gap:20px; }
+.tab-panel.active{ display:flex; }
+
+/* 섹션 공통 */
+.section-card{ background:var(--bg2); border:1px solid var(--border); border-radius:16px; overflow:hidden; backdrop-filter:blur(8px); }
+.section-head{ padding:18px 22px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.section-head h3{ font-family:'SeoulHangangCEB',sans-serif; font-size:14.5px; color:var(--text-dark); }
+.section-head a{ font-size:12px; color:var(--text-light); text-decoration:none; transition:color .15s; }
+.section-head a:hover{ color:var(--ember); }
+
+/* 요약 카드 4개 */
+.stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.stat-card{ background:var(--bg2); border:1px solid var(--border); border-radius:14px; padding:18px 16px; text-align:center; cursor:pointer; transition:transform .15s, box-shadow .15s; backdrop-filter:blur(8px); }
+.stat-card:hover{ transform:translateY(-2px); box-shadow:0 6px 18px rgba(180,100,40,.08); }
+.stat-label{ font-size:11.5px; color:var(--text-light); margin-bottom:8px; }
+.stat-value{ font-family:'SeoulHangangCEB',sans-serif; font-size:24px; color:var(--text-dark); line-height:1; }
+.stat-value span{ font-family:'SeoulHangangCL',sans-serif; font-size:12px; color:var(--text-light); margin-left:3px; }
+.stat-card.accent .stat-value{ color:var(--ember-deep); }
+
+/* 주문 현황 플로우 */
+.order-flow{ display:flex; align-items:center; padding:22px 24px; gap:0; }
+.flow-step{ flex:1; display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer; }
+.flow-circle{ width:44px; height:44px; border-radius:50%; border:2px solid var(--border); background:var(--white); display:flex; align-items:center; justify-content:center; transition:all .2s; }
+.flow-step:hover .flow-circle{ border-color:var(--ember-light); background:rgba(240,125,58,.07); }
+.flow-step.has-count .flow-circle{ border-color:var(--ember); background:rgba(201,79,30,.08); }
+.flow-count{ font-family:'SeoulHangangCEB',sans-serif; font-size:17px; color:var(--text-dark); }
+.flow-step.has-count .flow-count{ color:var(--ember-deep); }
+.flow-name{ font-size:11.5px; color:var(--text-light); }
+.flow-arrow{ color:var(--border); font-size:16px; padding:0 4px; margin-top:-16px; flex-shrink:0; }
+
+/* 최근 주문 리스트 */
+.order-list{ padding:0 22px 8px; }
+.order-item{ display:flex; align-items:center; gap:16px; padding:16px 0; border-bottom:1px solid var(--border); }
+.order-item:last-child{ border-bottom:none; }
+.order-thumb{ width:56px; height:56px; border-radius:10px; background:rgba(210,180,150,.18); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:22px; }
+.order-info{ flex:1; min-width:0; }
+.order-name{ font-size:13.5px; color:var(--text-dark); margin-bottom:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.order-meta{ font-size:11.5px; color:var(--text-light); }
+.order-price{ font-family:'SeoulHangangCEB',sans-serif; font-size:14px; color:var(--text-dark); flex-shrink:0; }
+.order-status{ font-size:11.5px; padding:4px 10px; border-radius:20px; flex-shrink:0; }
+.status-배송완료{ background:rgba(90,154,106,.1); color:#3d7a50; }
+.status-배송중{ background:rgba(201,79,30,.1); color:var(--ember-deep); }
+.status-결제완료{ background:rgba(180,140,100,.12); color:var(--text-mid); }
+
+/* 찜한 상품 그리드 */
+.wish-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; padding:18px; }
+.wish-item{ border:1px solid var(--border); border-radius:12px; overflow:hidden; cursor:pointer; transition:transform .15s, box-shadow .15s; background:var(--white); }
+.wish-item:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(180,100,40,.08); }
+.wish-thumb{ height:110px; display:flex; align-items:center; justify-content:center; font-size:36px; background:rgba(210,180,150,.1); }
+.wish-body{ padding:10px 12px; }
+.wish-name{ font-size:12.5px; color:var(--text-dark); margin-bottom:4px; }
+.wish-price{ font-family:'SeoulHangangCEB',sans-serif; font-size:14px; color:var(--ember-deep); }
+
+/* 포인트/쿠폰 */
+.benefit-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; padding:18px; }
+.benefit-card{ border:1px solid var(--border); border-radius:14px; padding:18px; background:var(--white); }
+.benefit-title{ font-size:12px; color:var(--text-light); margin-bottom:8px; }
+.benefit-amount{ font-family:'SeoulHangangCEB',sans-serif; font-size:28px; color:var(--text-dark); }
+.benefit-amount span{ font-size:13px; font-family:'SeoulHangangCL',sans-serif; color:var(--text-light); margin-left:3px; }
+.benefit-sub{ font-size:11.5px; color:var(--text-light); margin-top:6px; }
+.point-history{ padding:0 22px 8px; }
+.ph-item{ display:flex; align-items:center; justify-content:space-between; padding:13px 0; border-bottom:1px solid var(--border); }
+.ph-item:last-child{ border-bottom:none; }
+.ph-desc{ font-size:13px; color:var(--text-dark); margin-bottom:2px; }
+.ph-date{ font-size:11.5px; color:var(--text-light); }
+.ph-point{ font-family:'SeoulHangangCEB',sans-serif; font-size:14px; }
+.ph-point.plus{ color:var(--ember-deep); }
+.ph-point.minus{ color:var(--text-mid); }
+
+/* 계정설정 */
+.settings-form{ padding:20px 22px; display:flex; flex-direction:column; gap:20px; }
+.setting-row{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.setting-field label{ display:block; font-size:11.5px; color:var(--text-mid); margin-bottom:6px; letter-spacing:.3px; }
+.setting-field input{ width:100%; padding:11px 14px; border:1.5px solid var(--border); border-radius:10px; background:var(--white); font-family:'SeoulHangangCL',sans-serif; font-size:14px; color:var(--text-dark); outline:none; transition:border-color .2s; }
+.setting-field input:focus{ border-color:var(--ember-light); box-shadow:0 0 0 3px rgba(240,125,58,.1); }
+.setting-field input:read-only{ background:rgba(210,185,160,.1); color:var(--text-light); }
+.settings-actions{ display:flex; gap:10px; }
+.btn-save{ padding:11px 24px; background:var(--ember); border:none; border-radius:10px; color:white; font-family:'SeoulHangangCEB',sans-serif; font-size:14px; cursor:pointer; transition:background .18s, transform .13s; box-shadow:0 3px 12px rgba(201,79,30,.22); }
+.btn-save:hover{ background:var(--ember-deep); transform:translateY(-1px); }
+.btn-outline{ padding:11px 24px; background:transparent; border:1.5px solid var(--border); border-radius:10px; color:var(--text-mid); font-family:'SeoulHangangCL',sans-serif; font-size:14px; cursor:pointer; transition:all .18s; }
+.btn-outline:hover{ background:rgba(255,248,240,.9); border-color:rgba(180,140,100,.4); color:var(--text-dark); }
+.settings-divider{ height:1px; background:var(--border); }
+.danger-zone{ padding:18px 22px; }
+.danger-title{ font-family:'SeoulHangangCEB',sans-serif; font-size:13px; color:var(--text-mid); margin-bottom:12px; }
+.btn-danger{ padding:9px 18px; background:transparent; border:1.5px solid rgba(201,79,30,.3); border-radius:9px; color:var(--ember-deep); font-family:'SeoulHangangCL',sans-serif; font-size:13px; cursor:pointer; transition:all .18s; }
+.btn-danger:hover{ background:rgba(201,79,30,.07); }
+
+/* 리뷰 */
+.review-list{ padding:4px 22px 8px; }
+.review-item{ padding:16px 0; border-bottom:1px solid var(--border); }
+.review-item:last-child{ border-bottom:none; }
+.review-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.review-product{ font-size:13px; color:var(--text-mid); }
+.review-stars{ display:flex; gap:2px; }
+.star{ width:13px; height:13px; }
+.review-body{ font-size:13.5px; color:var(--text-dark); line-height:1.65; }
+.review-date{ font-size:11.5px; color:var(--text-light); margin-top:6px; }
+.empty-state{ padding:52px 20px; text-align:center; }
+.empty-state p{ font-size:13.5px; color:var(--text-light); line-height:1.7; }
+
+/* ── FOOTER ── */
+footer{ background:var(--footer-bg); padding:38px 64px 26px; flex-shrink:0; margin-top:auto; }
+.footer-inner{ max-width:1160px; margin:0 auto; display:grid; grid-template-columns:1.4fr 1fr 1fr 1.2fr; gap:40px; padding-bottom:28px; border-bottom:1px solid rgba(140,110,80,.18); }
+.footer-brand-icon{ display:flex; align-items:center; gap:8px; margin-bottom:10px; }
+.footer-brand-icon span{ font-family:'SeoulHangangCEB',sans-serif; font-size:15px; color:var(--text-dark); }
+.footer-brand-desc{ font-size:12px; color:var(--text-light); line-height:1.75; }
+.footer-col h4{ font-family:'SeoulHangangCEB',sans-serif; font-size:13px; color:var(--text-dark); margin-bottom:12px; padding-bottom:9px; border-bottom:1.5px solid rgba(160,120,80,.25); }
+.footer-col ul{ list-style:none; }
+.footer-col ul li{ margin-bottom:8px; }
+.footer-col ul li a{ font-size:12.5px; color:var(--text-light); text-decoration:none; transition:color .15s; }
+.footer-col ul li a:hover{ color:var(--ember); }
+.footer-contact-num{ font-family:'SeoulHangangCEB',sans-serif; font-size:19px; color:var(--text-dark); margin:4px 0 8px; }
+.footer-contact-info{ font-size:12px; color:var(--text-light); line-height:1.8; }
+.footer-bottom{ max-width:1160px; margin:20px auto 0; display:flex; justify-content:space-between; align-items:center; }
+.footer-copyright{ font-size:11.5px; color:var(--text-light); }
+.footer-links{ display:flex; gap:18px; }
+.footer-links a{ font-size:11.5px; color:var(--text-light); text-decoration:none; transition:color .15s; }
+.footer-links a:hover{ color:var(--ember); }
+
+@keyframes fadeUp{ from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+@keyframes flicker1{ 0%,100%{transform:scaleY(1) scaleX(1)} 25%{transform:scaleY(1.07) scaleX(.95)} 50%{transform:scaleY(.97) scaleX(1.04)} }
+@keyframes glow-pulse{ 0%,100%{opacity:.2} 50%{opacity:.35} }
+.fl-main{ animation:flicker1 1.9s ease-in-out infinite; transform-origin:bottom center; }
+.glow-el{ animation:glow-pulse 2.3s ease-in-out infinite; }
+.page-wrap{ animation:fadeUp .6s ease both; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="h-left">
+    <svg width="18" height="14" viewBox="0 0 18 14" fill="none"><rect y="0" width="18" height="2" rx="1" fill="#6b4226"/><rect y="6" width="18" height="2" rx="1" fill="#6b4226"/><rect y="12" width="18" height="2" rx="1" fill="#6b4226"/></svg>
+    카테고리
+  </div>
+  <a class="h-center" href="#">
+    <svg width="20" height="26" viewBox="0 0 20 26" fill="none"><ellipse cx="10" cy="20" rx="8" ry="4" fill="#7a4820"/><ellipse cx="10" cy="20" rx="5" ry="2.5" fill="#5a3210"/><g class="fl-main"><path d="M10 20C7 15.5 6 12 8 9 9 7 7.5 5 9 3 9.8 1.5 10 1 10 1S10.2 1.5 11 3C12.5 5 11 7 12 9 14 12 13 15.5 10 20Z" fill="url(#hf1)"/><path d="M10 20C8.5 17 8.5 14 9.5 11.5 10 10 9 8.5 10 7 11 8.5 10 10 10.5 11.5 11.5 14 11.5 17 10 20Z" fill="url(#hf2)"/></g><defs><linearGradient id="hf1" x1="10" y1="20" x2="10" y2="1" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#c94f1e"/><stop offset="55%" stop-color="#f07d3a"/><stop offset="100%" stop-color="#fdd080" stop-opacity=".5"/></linearGradient><linearGradient id="hf2" x1="10" y1="20" x2="10" y2="7" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#fff0b0"/><stop offset="100%" stop-color="#f4a050" stop-opacity=".4"/></linearGradient></defs></svg>
+    <span class="h-logo">모닥모닥</span>
+  </a>
+  <div class="h-right">
+    <div class="h-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 16.5S2.5 11.5 2.5 6.5A4 4 0 0 1 10 5a4 4 0 0 1 7.5 1.5C17.5 11.5 10 16.5 10 16.5Z" stroke="#6b4226" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+    <div class="h-icon"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 3h2l2.5 10h9L17.5 7H5.5" stroke="#6b4226" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8.5" cy="16.5" r="1.2" fill="#6b4226"/><circle cx="14.5" cy="16.5" r="1.2" fill="#6b4226"/></svg></div>
+    <div class="h-avatar">김</div>
+  </div>
+</header>
+
+<!-- PAGE -->
+<div class="page-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="profile-card">
+      <div class="avatar-ring">김</div>
+      <div class="profile-name">김모닥</div>
+      <div class="profile-nick">@불꽃이</div>
+      <div class="level-badge">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1L7.5 4.5H11L8.5 7L9.5 10.5L6 8.5L2.5 10.5L3.5 7L1 4.5H4.5Z" fill="#c94f1e"/></svg>
+        불씨 레벨 3
+      </div>
+    </div>
+
+    <div class="nav-card">
+      <div class="nav-section-title">쇼핑</div>
+      <div class="nav-item active" onclick="switchTab('orders', this)">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><rect x="2" y="4" width="11" height="9" rx="2" stroke="#c94f1e" stroke-width="1.3"/><path d="M5 4V3a2.5 2.5 0 0 1 5 0v1" stroke="#c94f1e" stroke-width="1.3" stroke-linecap="round"/></svg>
+        주문내역
+      </div>
+      <div class="nav-item" onclick="switchTab('wishlist', this)">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M7.5 12.5S1.5 8.5 1.5 5A3 3 0 0 1 7.5 4 3 3 0 0 1 13.5 5c0 3.5-6 7.5-6 7.5Z" stroke="#7a5c3e" stroke-width="1.3"/></svg>
+        찜한 상품
+      </div>
+      <div class="nav-item" onclick="switchTab('recent', this)">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="5.5" stroke="#7a5c3e" stroke-width="1.3"/><path d="M7.5 4.5V7.5l2 2" stroke="#7a5c3e" stroke-width="1.3" stroke-linecap="round"/></svg>
+        최근 본 상품
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-section-title">혜택</div>
+      <div class="nav-item" onclick="switchTab('benefits', this)">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="5.5" stroke="#7a5c3e" stroke-width="1.3"/><path d="M5.5 8.5A2.5 2.5 0 0 0 10 7.5M10 6.5A2.5 2.5 0 0 0 5.5 7.5" stroke="#7a5c3e" stroke-width="1.2" stroke-linecap="round"/></svg>
+        포인트 · 쿠폰
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-section-title">활동</div>
+      <div class="nav-item" onclick="switchTab('reviews', this)">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><path d="M2 2.5h11v7.5H8.5L6 12.5V10H2Z" stroke="#7a5c3e" stroke-width="1.3" stroke-linejoin="round"/></svg>
+        내 리뷰
+      </div>
+      <div class="nav-divider"></div>
+      <div class="nav-section-title">계정</div>
+      <div class="nav-item" onclick="switchTab('settings', this)">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="2" stroke="#7a5c3e" stroke-width="1.3"/><path d="M7.5 1v1.5M7.5 12.5V14M14 7.5h-1.5M2.5 7.5H1M12 3L11 4M4 11L3 12M12 12l-1-1M4 4L3 3" stroke="#7a5c3e" stroke-width="1.3" stroke-linecap="round"/></svg>
+        계정 설정
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- 요약 카드 (항상 표시) -->
+    <div class="stats-grid">
+      <div class="stat-card" onclick="switchTab('orders', document.querySelector('.nav-item'))">
+        <div class="stat-label">총 주문</div>
+        <div class="stat-value">12<span>건</span></div>
+      </div>
+      <div class="stat-card accent" onclick="switchTab('benefits', null)">
+        <div class="stat-label">보유 포인트</div>
+        <div class="stat-value">4,200<span>P</span></div>
+      </div>
+      <div class="stat-card" onclick="switchTab('benefits', null)">
+        <div class="stat-label">사용 가능 쿠폰</div>
+        <div class="stat-value">3<span>장</span></div>
+      </div>
+      <div class="stat-card" onclick="switchTab('wishlist', null)">
+        <div class="stat-label">찜한 상품</div>
+        <div class="stat-value">8<span>개</span></div>
+      </div>
+    </div>
+
+    <!-- ── 주문내역 탭 ── -->
+    <div class="tab-panel active" id="tab-orders">
+      <div class="section-card">
+        <div class="section-head">
+          <h3>주문 현황</h3>
+        </div>
+        <div class="order-flow">
+          <div class="flow-step has-count">
+            <div class="flow-circle"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="4" y="3" width="12" height="14" rx="2" stroke="#c94f1e" stroke-width="1.5"/><path d="M7 7h6M7 10h4" stroke="#c94f1e" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+            <div class="flow-count">2</div>
+            <div class="flow-name">결제완료</div>
+          </div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-step">
+            <div class="flow-circle"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="10" rx="2" stroke="#b09070" stroke-width="1.4"/><path d="M3 9h14" stroke="#b09070" stroke-width="1.3"/></svg></div>
+            <div class="flow-count">0</div>
+            <div class="flow-name">배송준비</div>
+          </div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-step has-count">
+            <div class="flow-circle"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 11l4-6h8l4 4v4H2v-2Z" stroke="#c94f1e" stroke-width="1.4" stroke-linejoin="round"/><circle cx="6" cy="15" r="1.5" stroke="#c94f1e" stroke-width="1.3"/><circle cx="14" cy="15" r="1.5" stroke="#c94f1e" stroke-width="1.3"/></svg></div>
+            <div class="flow-count">1</div>
+            <div class="flow-name">배송중</div>
+          </div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-step">
+            <div class="flow-circle"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 7" stroke="#b09070" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div class="flow-count">9</div>
+            <div class="flow-name">배송완료</div>
+          </div>
+          <div class="flow-arrow">›</div>
+          <div class="flow-step">
+            <div class="flow-circle"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M7 7l6 6M13 7l-6 6" stroke="#b09070" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+            <div class="flow-count">0</div>
+            <div class="flow-name">취소/반품</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <div class="section-head">
+          <h3>최근 주문내역</h3>
+          <a href="#">전체보기 →</a>
+        </div>
+        <div class="order-list">
+          <div class="order-item">
+            <div class="order-thumb">🏕️</div>
+            <div class="order-info">
+              <div class="order-name">감성 캠핑 테이블 / 원목 접이식</div>
+              <div class="order-meta">2026.04.10 · 주문번호 20260410-001</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+              <div class="order-status status-배송중">배송중</div>
+              <div class="order-price">89,000원</div>
+            </div>
+          </div>
+          <div class="order-item">
+            <div class="order-thumb">🪵</div>
+            <div class="order-info">
+              <div class="order-name">참나무 장작 10kg + 불쏘시개 세트</div>
+              <div class="order-meta">2026.04.06 · 주문번호 20260406-002</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+              <div class="order-status status-배송완료">배송완료</div>
+              <div class="order-price">32,000원</div>
+            </div>
+          </div>
+          <div class="order-item">
+            <div class="order-thumb">🔥</div>
+            <div class="order-info">
+              <div class="order-name">모닥모닥 화로대 미니 스탠드형</div>
+              <div class="order-meta">2026.03.28 · 주문번호 20260328-001</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+              <div class="order-status status-배송완료">배송완료</div>
+              <div class="order-price">145,000원</div>
+            </div>
+          </div>
+          <div class="order-item">
+            <div class="order-thumb">⛺</div>
+            <div class="order-info">
+              <div class="order-name">4인용 경량 텐트 + 그라운드시트</div>
+              <div class="order-meta">2026.03.15 · 주문번호 20260315-003</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px;">
+              <div class="order-status status-결제완료">결제완료</div>
+              <div class="order-price">218,000원</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 찜한 상품 탭 ── -->
+    <div class="tab-panel" id="tab-wishlist">
+      <div class="section-card">
+        <div class="section-head"><h3>찜한 상품</h3><a href="#">전체보기 →</a></div>
+        <div class="wish-grid">
+          <div class="wish-item"><div class="wish-thumb">🔥</div><div class="wish-body"><div class="wish-name">모닥모닥 화로대 미니</div><div class="wish-price">145,000원</div></div></div>
+          <div class="wish-item"><div class="wish-thumb">🏕️</div><div class="wish-body"><div class="wish-name">감성 원목 캠핑 테이블</div><div class="wish-price">89,000원</div></div></div>
+          <div class="wish-item"><div class="wish-thumb">🌙</div><div class="wish-body"><div class="wish-name">별빛 랜턴 LED 캠핑용</div><div class="wish-price">54,000원</div></div></div>
+          <div class="wish-item"><div class="wish-thumb">☕</div><div class="wish-body"><div class="wish-name">캠핑 드립 커피 세트</div><div class="wish-price">38,000원</div></div></div>
+          <div class="wish-item"><div class="wish-thumb">🪑</div><div class="wish-body"><div class="wish-name">경량 접이식 캠핑 체어</div><div class="wish-price">62,000원</div></div></div>
+          <div class="wish-item"><div class="wish-thumb">🪵</div><div class="wish-body"><div class="wish-name">참나무 장작 프리미엄</div><div class="wish-price">28,000원</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 최근 본 상품 탭 ── -->
+    <div class="tab-panel" id="tab-recent">
+      <div class="section-card">
+        <div class="section-head"><h3>최근 본 상품</h3></div>
+        <div class="wish-grid">
+          <div class="wish-item"><div class="wish-thumb">⛺</div><div class="wish-body"><div class="wish-name">4인용 경량 텐트</div><div class="wish-price">218,000원</div></div></div>
+          <div class="wish-item"><div class="wish-thumb">🔦</div><div class="wish-body"><div class="wish-name">다기능 캠핑 헤드랜턴</div><div class="wish-price">32,000원</div></div></div>
+          <div class="wish-item"><div class="wish-thumb">🍳</div><div class="wish-body"><div class="wish-name">캠핑 코펠 4종 세트</div><div class="wish-price">76,000원</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 포인트·쿠폰 탭 ── -->
+    <div class="tab-panel" id="tab-benefits">
+      <div class="section-card">
+        <div class="section-head"><h3>포인트 · 쿠폰</h3></div>
+        <div class="benefit-grid">
+          <div class="benefit-card">
+            <div class="benefit-title">보유 포인트</div>
+            <div class="benefit-amount">4,200<span>P</span></div>
+            <div class="benefit-sub">1,000P 이상 사용 가능</div>
+          </div>
+          <div class="benefit-card">
+            <div class="benefit-title">사용 가능 쿠폰</div>
+            <div class="benefit-amount">3<span>장</span></div>
+            <div class="benefit-sub">만료 임박 쿠폰 1장</div>
+          </div>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="section-head"><h3>포인트 내역</h3></div>
+        <div class="point-history">
+          <div class="ph-item"><div><div class="ph-desc">화로대 미니 구매 적립</div><div class="ph-date">2026.03.28</div></div><div class="ph-point plus">+1,450P</div></div>
+          <div class="ph-item"><div><div class="ph-desc">장작 세트 구매 적립</div><div class="ph-date">2026.04.06</div></div><div class="ph-point plus">+320P</div></div>
+          <div class="ph-item"><div><div class="ph-desc">회원가입 웰컴 포인트</div><div class="ph-date">2026.01.15</div></div><div class="ph-point plus">+2,000P</div></div>
+          <div class="ph-item"><div><div class="ph-desc">텐트 구매 사용</div><div class="ph-date">2026.03.15</div></div><div class="ph-point minus">-1,000P</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 내 리뷰 탭 ── -->
+    <div class="tab-panel" id="tab-reviews">
+      <div class="section-card">
+        <div class="section-head"><h3>내가 쓴 리뷰</h3></div>
+        <div class="review-list">
+          <div class="review-item">
+            <div class="review-head">
+              <span class="review-product">모닥모닥 화로대 미니 스탠드형</span>
+              <div class="review-stars">
+                <svg class="star" viewBox="0 0 13 13" fill="#e0621a"><path d="M6.5 1l1.5 3.5H12L9 7l1 3.5-3.5-2-3.5 2L4 7 1 4.5h4Z"/></svg>
+                <svg class="star" viewBox="0 0 13 13" fill="#e0621a"><path d="M6.5 1l1.5 3.5H12L9 7l1 3.5-3.5-2-3.5 2L4 7 1 4.5h4Z"/></svg>
+                <svg class="star" viewBox="0 0 13 13" fill="#e0621a"><path d="M6.5 1l1.5 3.5H12L9 7l1 3.5-3.5-2-3.5 2L4 7 1 4.5h4Z"/></svg>
+                <svg class="star" viewBox="0 0 13 13" fill="#e0621a"><path d="M6.5 1l1.5 3.5H12L9 7l1 3.5-3.5-2-3.5 2L4 7 1 4.5h4Z"/></svg>
+                <svg class="star" viewBox="0 0 13 13" fill="#e0621a"><path d="M6.5 1l1.5 3.5H12L9 7l1 3.5-3.5-2-3.5 2L4 7 1 4.5h4Z"/></svg>
+              </div>
+            </div>
+            <div class="review-body">정말 예뻐요! 사이즈도 딱 적당하고 조립도 쉬웠어요. 혼자 캠핑할 때 이 화로대 하나면 충분할 것 같아요. 다음엔 대형도 구매해보려고요.</div>
+            <div class="review-date">2026.04.02</div>
+          </div>
+          <div class="review-item">
+            <div class="review-head">
+              <span class="review-product">참나무 장작 10kg + 불쏘시개 세트</span>
+              <div class="review-stars">
+                <svg class="star" viewBox="0 0 13 13" fill="#e0621a"><path d="M6.5 1l1.5 3.5H12L9 7l1 3.5-3.5-2-3.5 2L4 7 1 4.5h4Z"/></svg>
+                <svg class="star" viewBox="0 0 13 13" fill="#e0621a"><path d="M6.5 1l1.5 3.5H12L9 7l1 3.5-3.5-2-3.5 2L4 7 1 4.5h4Z"/></svg>
+                <svg class="star" viewBox="0 0 13 13" fill="#e0621a"><path d="M6.5 1l1.5 3.5H12L9 7l1 3.5-3.5-2-3.5 2L4 7 1 4.5h4Z"/></svg>
+                <svg class="star" viewBox="0 0 13 13" fill="#e0621a"><path d="M6.5 1l1.5 3.5H12L9 7l1 3.5-3.5-2-3.5 2L4 7 1 4.5h4Z"/></svg>
+                <svg class="star" viewBox="0 0 13 13" fill="#ccc"><path d="M6.5 1l1.5 3.5H12L9 7l1 3.5-3.5-2-3.5 2L4 7 1 4.5h4Z"/></svg>
+              </div>
+            </div>
+            <div class="review-body">장작 품질은 좋은데 불쏘시개가 생각보다 적게 들어있어요. 불 잘 붙고 오래 타는 건 만족스럽습니다.</div>
+            <div class="review-date">2026.04.09</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 계정설정 탭 ── -->
+    <div class="tab-panel" id="tab-settings">
+      <div class="section-card">
+        <div class="section-head"><h3>기본 정보</h3></div>
+        <div class="settings-form">
+          <div class="setting-row">
+            <div class="setting-field"><label>이름</label><input type="text" value="김모닥"></div>
+            <div class="setting-field"><label>닉네임</label><input type="text" value="불꽃이"></div>
+          </div>
+          <div class="setting-row">
+            <div class="setting-field"><label>이메일</label><input type="text" value="modak@modakmodak.kr" readonly></div>
+            <div class="setting-field"><label>연락처</label><input type="text" value="010-1234-5678"></div>
+          </div>
+          <div class="settings-actions">
+            <button class="btn-save">저장하기</button>
+            <button class="btn-outline">취소</button>
+          </div>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="section-head"><h3>비밀번호 변경</h3></div>
+        <div class="settings-form">
+          <div class="setting-row">
+            <div class="setting-field"><label>현재 비밀번호</label><input type="password" placeholder="현재 비밀번호"></div>
+            <div style="display:flex;gap:14px;">
+              <div class="setting-field" style="flex:1"><label>새 비밀번호</label><input type="password" placeholder="새 비밀번호"></div>
+              <div class="setting-field" style="flex:1"><label>확인</label><input type="password" placeholder="비밀번호 확인"></div>
+            </div>
+          </div>
+          <div class="settings-actions"><button class="btn-save">변경하기</button></div>
+        </div>
+        <div class="settings-divider"></div>
+        <div class="danger-zone">
+          <div class="danger-title">계정 관리</div>
+          <button class="btn-danger">회원탈퇴</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand-icon">
+        <svg width="18" height="22" viewBox="0 0 18 22" fill="none"><ellipse cx="9" cy="17.5" rx="7" ry="3.5" fill="#7a4820"/><ellipse cx="9" cy="17.5" rx="4.5" ry="2.2" fill="#5a3210"/><path d="M9 17.5C6.5 13 5.5 9.5 7.5 6.5 8.5 5 7.5 3.5 8.5 2 9.2 1 9 .5 9 .5S8.8 1 9.5 2C10.5 3.5 9.5 5 10.5 6.5 12.5 9.5 11.5 13 9 17.5Z" fill="url(#fbf2)"/><defs><linearGradient id="fbf2" x1="9" y1="17.5" x2="9" y2=".5" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#c94f1e"/><stop offset="60%" stop-color="#f07d3a"/><stop offset="100%" stop-color="#fdd080" stop-opacity=".5"/></linearGradient></defs></svg>
+        <span>모닥모닥</span>
+      </div>
+      <p class="footer-brand-desc">자연과 함께하는 특별한 순간을<br>모닥모닥이 함께합니다</p>
+    </div>
+    <div class="footer-col"><h4>서비스</h4><ul><li><a href="#">대여하기</a></li><li><a href="#">구매하기</a></li><li><a href="#">캠핑장 찾기</a></li><li><a href="#">신상품</a></li><li><a href="#">베스트</a></li></ul></div>
+    <div class="footer-col"><h4>고객지원</h4><ul><li><a href="#">공지사항</a></li><li><a href="#">자주 묻는 질문</a></li><li><a href="#">1:1 문의</a></li><li><a href="#">배송 조회</a></li><li><a href="#">반품/교환</a></li></ul></div>
+    <div class="footer-col"><h4>문의</h4><p style="font-size:11.5px;color:var(--text-light);margin-bottom:3px;">고객센터</p><p class="footer-contact-num">1588-0000</p><p class="footer-contact-info">평일 09:00 – 18:00<br><br><a href="#" style="color:var(--ember);">hello@modakmodak.kr</a></p></div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copyright">© 2026 MODAK MODAK. All rights reserved.</span>
+    <div class="footer-links"><a href="#">이용약관</a><a href="#">개인정보처리방침</a><a href="#">환불정책</a></div>
+  </div>
+</footer>
+
+<script>
+function switchTab(tabId, clickedEl) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (clickedEl) clickedEl.classList.add('active');
+  else {
+    const map = {orders:0,wishlist:1,recent:2,benefits:3,reviews:4,settings:5};
+    const items = document.querySelectorAll('.nav-item');
+    if (items[map[tabId]]) items[map[tabId]].classList.add('active');
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>모닥모닥 로그인</title>
+<style>
+@font-face {
+  font-family: 'SeoulHangangCL';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulHangangCL.woff') format('woff');
+}
+@font-face {
+  font-family: 'SeoulHangangCEB';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulHangangCEB.woff') format('woff');
+  font-weight: bold;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg:          #faf6f0;
+  --ember-deep:  #c94f1e;
+  --ember:       #e0621a;
+  --ember-light: #f07d3a;
+  --text-dark:   #2e1a0e;
+  --text-mid:    #7a5c3e;
+  --text-light:  #b09070;
+  --border:      rgba(200,165,130,0.3);
+}
+
+body {
+  font-family: 'SeoulHangangCL', 'Apple SD Gothic Neo', sans-serif;
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ─────────── 왼쪽 ─────────── */
+.left-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 52px 64px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.left-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 65% 80%, rgba(240,125,58,.14) 0%, transparent 58%),
+    radial-gradient(ellipse at 15% 25%, rgba(244,164,96,.07) 0%, transparent 45%);
+  pointer-events: none;
+}
+
+/* 브랜드 */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  animation: fadeUp .7s ease both;
+}
+.brand-name {
+  font-family: 'SeoulHangangCEB', sans-serif;
+  font-size: 21px;
+  color: var(--ember-deep);
+}
+
+/* 헤로 */
+.hero {
+  margin-top: 52px;
+  animation: fadeUp .7s .1s ease both;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 3.5px;
+  color: var(--ember-light);
+  margin-bottom: 18px;
+}
+.hero-title {
+  font-family: 'SeoulHangangCEB', sans-serif;
+  font-size: 44px;
+  line-height: 1.22;
+  color: var(--text-dark);
+  letter-spacing: -1px;
+  margin-bottom: 18px;
+}
+.hero-title em { font-style: normal; color: var(--ember-deep); }
+.hero-desc {
+  font-size: 14.5px;
+  color: var(--text-mid);
+  line-height: 1.78;
+}
+
+/* ── 피처 카드 3개 ── */
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 40px;
+  animation: fadeUp .7s .2s ease both;
+}
+.feat-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px 18px;
+  background: rgba(255,255,255,.52);
+  border: 1px solid rgba(210,180,150,.28);
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+  transition: transform .18s, box-shadow .18s;
+}
+.feat-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(180,100,40,.09);
+}
+.feat-icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(240,125,58,.15), rgba(244,164,96,.1));
+  border: 1px solid rgba(240,125,58,.2);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.feat-text h4 {
+  font-family: 'SeoulHangangCEB', sans-serif;
+  font-size: 13.5px;
+  color: var(--text-dark);
+  margin-bottom: 3px;
+}
+.feat-text p {
+  font-size: 12px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* 모닥불 */
+.fire-wrap {
+  position: absolute;
+  bottom: 0;
+  right: 48px;
+  width: 220px;
+  pointer-events: none;
+}
+
+/* ─────────── 오른쪽 ─────────── */
+.right-panel {
+  width: 468px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 52px;
+  background: rgba(255,255,255,.52);
+  backdrop-filter: blur(14px);
+  border-left: 1px solid var(--border);
+}
+
+.login-box {
+  width: 100%;
+  animation: fadeUp .7s .25s ease both;
+}
+
+.login-heading {
+  margin-bottom: 34px;
+}
+.login-heading h2 {
+  font-family: 'SeoulHangangCEB', sans-serif;
+  font-size: 27px;
+  color: var(--text-dark);
+  letter-spacing: -.5px;
+  margin-bottom: 8px;
+}
+.login-heading p {
+  font-size: 13.5px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* 필드 */
+.field { margin-bottom: 16px; }
+.field label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: .4px;
+  color: var(--text-mid);
+  margin-bottom: 7px;
+}
+.input-wrap { position: relative; }
+.input-wrap input {
+  width: 100%;
+  padding: 13px 42px 13px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: rgba(255,252,248,.92);
+  font-family: 'SeoulHangangCL', sans-serif;
+  font-size: 14.5px;
+  color: var(--text-dark);
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.input-wrap input::placeholder { color: #cbbba5; font-size: 13.5px; }
+.input-wrap input:focus {
+  border-color: var(--ember-light);
+  box-shadow: 0 0 0 4px rgba(240,125,58,.1);
+}
+.input-icon {
+  position: absolute;
+  right: 14px; top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+/* 옵션 줄 */
+.row-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px 0 24px;
+}
+.remember { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.remember input[type="checkbox"] {
+  appearance: none;
+  width: 16px; height: 16px;
+  border: 1.5px solid rgba(180,140,100,.4);
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  position: relative;
+  transition: all .2s;
+  flex-shrink: 0;
+}
+.remember input[type="checkbox"]:checked { background: var(--ember); border-color: var(--ember); }
+.remember input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 3.5px; top: 1px;
+  width: 5px; height: 9px;
+  border: 2px solid white;
+  border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+.remember span { font-size: 12.5px; color: var(--text-mid); }
+.forgot { font-size: 12.5px; color: var(--text-light); text-decoration: none; transition: color .2s; }
+.forgot:hover { color: var(--ember); }
+
+/* 로그인 버튼 */
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--ember-deep), var(--ember-light));
+  border: none;
+  border-radius: 13px;
+  color: white;
+  font-family: 'SeoulHangangCEB', sans-serif;
+  font-size: 15.5px;
+  cursor: pointer;
+  letter-spacing: .2px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .15s, box-shadow .2s;
+  box-shadow: 0 6px 20px rgba(201,79,30,.3);
+}
+.btn-login::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.18) 0%, transparent 55%);
+  pointer-events: none;
+}
+.btn-login:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(201,79,30,.38); }
+.btn-login:active { transform: translateY(0); }
+
+/* 비회원 버튼 */
+.btn-guest {
+  width: 100%;
+  margin-top: 10px;
+  padding: 13px;
+  background: transparent;
+  border: 1.5px solid var(--border);
+  border-radius: 13px;
+  color: var(--text-mid);
+  font-family: 'SeoulHangangCL', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s, transform .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.btn-guest:hover {
+  background: rgba(255,248,240,.9);
+  border-color: rgba(200,150,100,.4);
+  color: var(--text-dark);
+  transform: translateY(-1px);
+}
+
+/* 구분선 */
+.divider { display: flex; align-items: center; gap: 13px; margin: 22px 0; }
+.divider-line { flex: 1; height: 1px; background: var(--border); }
+.divider span { font-size: 11.5px; color: var(--text-light); letter-spacing: .4px; white-space: nowrap; }
+
+/* 소셜 */
+.social-row { display: flex; gap: 9px; }
+.btn-social {
+  flex: 1;
+  padding: 11px 6px;
+  border: 1.5px solid var(--border);
+  border-radius: 11px;
+  background: rgba(255,252,248,.8);
+  cursor: pointer;
+  font-family: 'SeoulHangangCL', sans-serif;
+  font-size: 12.5px;
+  color: var(--text-mid);
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: background .2s, border-color .2s, transform .15s;
+}
+.btn-social:hover {
+  background: rgba(255,248,240,1);
+  border-color: rgba(180,140,100,.4);
+  transform: translateY(-1px);
+}
+
+/* 회원가입 */
+.signup-row {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--text-light);
+}
+.signup-row a {
+  color: var(--ember);
+  text-decoration: none;
+  margin-left: 4px;
+  transition: color .2s;
+}
+.signup-row a:hover { color: var(--ember-deep); }
+
+/* 애니메이션 */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes flicker1 {
+  0%,100% { transform: scaleY(1) scaleX(1) translateX(0); }
+  25%  { transform: scaleY(1.07) scaleX(.95) translateX(-1px); }
+  50%  { transform: scaleY(.97) scaleX(1.04) translateX(1px); }
+  75%  { transform: scaleY(1.04) scaleX(.97); }
+}
+@keyframes flicker2 {
+  0%,100% { transform: scaleY(1) scaleX(1); opacity: .92; }
+  30%  { transform: scaleY(1.1) scaleX(.93) translateX(1px); opacity: .86; }
+  65%  { transform: scaleY(.95) scaleX(1.05) translateX(-1px); opacity: .94; }
+}
+@keyframes glow-pulse {
+  0%,100% { opacity: .2; } 50% { opacity: .35; }
+}
+@keyframes ef1 { 0% { transform:translateY(0) translateX(0); opacity:.85; } 100% { transform:translateY(-70px) translateX(9px); opacity:0; } }
+@keyframes ef2 { 0% { transform:translateY(0) translateX(0); opacity:.7; } 100% { transform:translateY(-55px) translateX(-11px); opacity:0; } }
+@keyframes ef3 { 0% { transform:translateY(0) translateX(0); opacity:.75; } 100% { transform:translateY(-62px) translateX(6px); opacity:0; } }
+
+.fl-main  { animation: flicker1 1.9s ease-in-out infinite; transform-origin: bottom center; }
+.fl-inner { animation: flicker2 1.5s ease-in-out infinite; transform-origin: bottom center; }
+.glow-el  { animation: glow-pulse 2.3s ease-in-out infinite; }
+.e1 { animation: ef1 2.8s ease-out infinite; }
+.e2 { animation: ef2 3.2s ease-out .9s infinite; }
+.e3 { animation: ef3 2.4s ease-out 1.5s infinite; }
+</style>
+</head>
+<body>
+
+<!-- ── 왼쪽 패널 ── -->
+<div class="left-panel">
+
+  <div class="brand">
+  <svg width="28" height="28" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="13" cy="26" rx="9" ry="3.2" fill="#7a4020" transform="rotate(-12 13 26)"/>
+    <ellipse cx="23" cy="26" rx="9" ry="3.2" fill="#5a2e10" transform="rotate(12 23 26)"/>
+    <ellipse cx="18" cy="25" rx="6" ry="2" fill="#e86010" opacity="0.55"/>
+    <path d="M18 24 C12 20 11 13 18 8 C25 13 24 20 18 24Z" fill="#e85000" opacity="0.85"/>
+    <path d="M18 23 C13.5 19.5 13 14 18 10 C23 14 22.5 19.5 18 23Z" fill="#ff8000"/>
+    <path d="M18 22 C15 19 15 15 18 12 C21 15 21 19 18 22Z" fill="#ffb800"/>
+    <path d="M18 20 C16.5 18 16.5 16 18 14 C19.5 16 19.5 18 18 20Z" fill="#fff5b0"/>
+    <ellipse cx="11" cy="28.5" rx="3.5" ry="1.6" fill="#3a2010"/>
+    <ellipse cx="18" cy="29.5" rx="3" ry="1.5" fill="#2c1808"/>
+    <ellipse cx="25" cy="28.5" rx="3.5" ry="1.6" fill="#3a2010"/>
+  </svg>
+
+  <span class="brand-name">모닥모닥</span>
+</div>
+
+  <div class="hero">
+    <p class="hero-eyebrow">MODAKMODAK</p>
+    <h1 class="hero-title">함께 모여<br><em>불을 피우다</em></h1>
+    <p class="hero-desc">오늘도 따뜻한 이야기를 나눠보세요.<br>모닥모닥에서 아늑한 공간이 기다려요.</p>
+  </div>
+
+  <!-- 피처 카드 -->
+  <div class="features">
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 2C5 2 2 5 2 9c0 1.5.4 2.9 1.2 4L2 16l3.2-1.1A6.9 6.9 0 0 0 9 16c4 0 7-3 7-7s-3-7-7-7Z" stroke="#e0621a" stroke-width="1.4" stroke-linejoin="round"/>
+          <circle cx="6" cy="9" r="1" fill="#e0621a"/>
+          <circle cx="9" cy="9" r="1" fill="#e0621a"/>
+          <circle cx="12" cy="9" r="1" fill="#e0621a"/>
+        </svg>
+      </div>
+      <div class="feat-text">
+        <h4>따뜻한 이야기 공간</h4>
+        <p>일상의 작은 이야기부터 깊은 고민까지 편하게 나눠요.</p>
+      </div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <circle cx="9" cy="7" r="3.5" stroke="#e0621a" stroke-width="1.4"/>
+          <path d="M2 16c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#e0621a" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="feat-text">
+        <h4>나만의 모닥불 커뮤니티</h4>
+        <p>비슷한 관심사를 가진 사람들과 모닥불 주위에 모여요.</p>
+      </div>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+          <path d="M9 2.5L11 7h4.5L12 10l1.5 4.5L9 12l-4.5 2.5L6 10 2.5 7H7Z" stroke="#e0621a" stroke-width="1.4" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="feat-text">
+        <h4>오늘의 불씨 Pick</h4>
+        <p>매일 새로운 주제로 이야기에 불을 지펴보세요.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 모닥불 오른쪽 하단 -->
+  <svg class="fire-wrap" viewBox="0 0 220 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse class="glow-el" cx="110" cy="136" rx="72" ry="16" fill="#f07d3a" opacity=".18"/>
+    <ellipse cx="110" cy="140" rx="48" ry="9" fill="#3d1a07" opacity=".4"/>
+    <!-- logs -->
+    <rect x="58" y="126" width="72" height="14" rx="7" fill="#4e2810" transform="rotate(-17 74 133)"/>
+    <rect x="90" y="126" width="72" height="14" rx="7" fill="#5a3012" transform="rotate(17 126 133)"/>
+    <!-- coals -->
+    <ellipse cx="104" cy="137" rx="7" ry="3" fill="#c94f1e" opacity=".5"/>
+    <ellipse cx="117" cy="138" rx="5.5" ry="2.5" fill="#e0621a" opacity=".42"/>
+    <!-- main flame -->
+    <g class="fl-main">
+      <path d="M110 140 C98 122 92 106 100 88 C104 77 98 66 103 55 C106 46 110 38 110 38 C110 38 114 46 117 55 C122 66 116 77 120 88 C128 106 122 122 110 140Z" fill="url(#ffg1)" opacity=".93"/>
+    </g>
+    <g class="fl-inner">
+      <path d="M110 140 C102 128 100 116 105 104 C108 95 104 87 107 77 C109 69 110 63 110 63 C110 63 111 69 113 77 C116 87 112 95 115 104 C120 116 118 128 110 140Z" fill="url(#ffg2)" opacity=".96"/>
+    </g>
+    <path d="M110 140 C107 131 106 122 108.5 114 C109.5 109 108 104 110 100 C112 104 110.5 109 111.5 114 C114 122 113 131 110 140Z" fill="url(#ffg3)" opacity=".88"/>
+    <!-- embers -->
+    <circle class="e1" cx="98" cy="88" r="1.8" fill="#f4a460"/>
+    <circle class="e2" cx="122" cy="94" r="1.5" fill="#e0621a"/>
+    <circle class="e3" cx="104" cy="78" r="1.3" fill="#fbbf7a"/>
+    <defs>
+      <linearGradient id="ffg1" x1="110" y1="140" x2="110" y2="38" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#e0621a"/>
+        <stop offset="42%" stop-color="#f07d3a"/>
+        <stop offset="78%" stop-color="#f4a460"/>
+        <stop offset="100%" stop-color="#fde8a0" stop-opacity=".22"/>
+      </linearGradient>
+      <linearGradient id="ffg2" x1="110" y1="140" x2="110" y2="63" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#c94f1e"/>
+        <stop offset="52%" stop-color="#f07d3a"/>
+        <stop offset="100%" stop-color="#fde090" stop-opacity=".32"/>
+      </linearGradient>
+      <linearGradient id="ffg3" x1="110" y1="140" x2="110" y2="100" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#fff8e0"/>
+        <stop offset="60%" stop-color="#fbbf7a"/>
+        <stop offset="100%" stop-color="#f07d3a" stop-opacity=".38"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+</div>
+
+<!-- ── 오른쪽 패널 ── -->
+<div class="right-panel">
+  <div class="login-box">
+
+    <div class="login-heading">
+      <h2>다시 불을 피워볼까요</h2>
+      <p>계정에 로그인하고 따뜻한 공간으로 돌아오세요.</p>
+    </div>
+
+    <div class="field">
+      <label>이메일</label>
+      <div class="input-wrap">
+        <input type="email" placeholder="이메일 주소를 입력하세요">
+        <span class="input-icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect x="1" y="3" width="14" height="10" rx="2" stroke="#b09070" stroke-width="1.4"/>
+            <path d="M1.5 4L8 9.5L14.5 4" stroke="#b09070" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>비밀번호</label>
+      <div class="input-wrap">
+        <input type="password" placeholder="비밀번호를 입력하세요" id="pwInput">
+        <span class="input-icon" onclick="togglePw()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <ellipse cx="8" cy="8" rx="6" ry="4" stroke="#b09070" stroke-width="1.4"/>
+            <circle cx="8" cy="8" r="1.8" fill="#b09070"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+
+    <div class="row-options">
+      <label class="remember">
+        <input type="checkbox">
+        <span>로그인 상태 유지</span>
+      </label>
+      <a href="#" class="forgot">비밀번호 찾기</a>
+    </div>
+
+    <button class="btn-login">로그인</button>
+
+    <button class="btn-guest" onclick="alert('메인 페이지로 이동합니다')">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+        <circle cx="7.5" cy="7.5" r="6" stroke="#9a7a5a" stroke-width="1.3"/>
+        <path d="M5 7.5C5 6 5.5 4.5 7.5 3.5" stroke="#9a7a5a" stroke-width="1.3" stroke-linecap="round"/>
+        <ellipse cx="7.5" cy="7.5" rx="2.5" ry="4" stroke="#9a7a5a" stroke-width="1.3"/>
+        <path d="M1.5 7.5h12" stroke="#9a7a5a" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      비회원으로 둘러보기
+    </button>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <span>소셜 계정으로 로그인</span>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="social-row">
+      <button class="btn-social">
+        <svg width="15" height="15" viewBox="0 0 15 15"><text x="7.5" y="11" text-anchor="middle" font-size="10" font-weight="700" fill="#FFBC00" font-family="sans-serif">K</text></svg>
+        카카오
+      </button>
+      <button class="btn-social">
+        <svg width="15" height="15" viewBox="0 0 15 15"><text x="7.5" y="11" text-anchor="middle" font-size="11" font-weight="700" fill="#03C75A" font-family="sans-serif">N</text></svg>
+        네이버
+      </button>
+      <button class="btn-social">
+        <svg width="15" height="15" viewBox="0 0 15 15"><text x="7.5" y="11" text-anchor="middle" font-size="10" font-weight="700" fill="#EA4335" font-family="sans-serif">G</text></svg>
+        구글
+      </button>
+    </div>
+
+    <p class="signup-row">
+      아직 모닥이 없으신가요?
+      <a href="#">회원가입하기 →</a>
+    </p>
+
+  </div>
+</div>
+
+<script>
+function togglePw() {
+  const inp = document.getElementById('pwInput');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+}
+</script>
+</body>
+</html>

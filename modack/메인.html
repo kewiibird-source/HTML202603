@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>모닥모닥 메인</title>
+<link rel="stylesheet" href="메인.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#" class="brand">
+        <span class="brand-badge"></span>
+        <span>모닥모닥</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#">대여</a>
+        <a href="#">구매</a>
+        <a href="#">안전수칙</a>
+        <a href="#">이벤트</a>
+        <a href="#">고객센터</a>
+      </nav>
+
+      <div class="header-actions">
+        <div class="search">🔍 원하는 캠핑용품을 찾아보세요</div>
+        <button class="icon-btn" aria-label="찜">♡</button>
+        <button class="icon-btn" aria-label="장바구니">🛒</button>
+        <button class="cta-btn">로그인</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-wrap">
+        <div class="hero-main">
+          <div class="eyebrow">🔥 감성 캠핑을 더 쉽고 따뜻하게</div>
+          <h1>필요한 장비는 가볍게 빌리고,<br>마음에 들면 그대로 구매하세요.</h1>
+          <p>
+            모닥모닥은 캠핑용품 대여와 구매를 한 번에 경험할 수 있는 서비스입니다.
+            초보 캠퍼도 부담 없이 시작할 수 있도록 인기 장비, 추천 세트, 시즌별 기획전을 깔끔하게 보여줍니다.
+          </p>
+          <div class="hero-buttons">
+            <button class="cta-btn">베스트 상품 보기</button>
+            <button class="secondary-btn">첫 캠핑 추천 세트</button>
+          </div>
+
+          <div class="hero-camp">
+            <div class="camp-fire" aria-hidden="true">
+              <div class="glow"></div>
+              <div class="flame-outer"></div>
+              <div class="flame-inner"></div>
+              <div class="log log1"></div>
+              <div class="log log2"></div>
+              <div class="stone"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-side">
+          <div class="side-card">
+            <h3>오늘의 모닥 추천</h3>
+            <p>캠핑 초보부터 차박 입문까지 많이 찾는 장비만 모아 보여드려요.</p>
+            <div class="stats">
+              <div class="stat">
+                <strong>1일</strong>
+                <span>간편 대여 가능</span>
+              </div>
+              <div class="stat">
+                <strong>4.9</strong>
+                <span>인기 리뷰 평점</span>
+              </div>
+              <div class="stat">
+                <strong>무료</strong>
+                <span>일부 지역 배송</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="side-card">
+            <h3>왜 모닥모닥일까요?</h3>
+            <div class="feature-list">
+              <div class="feature-item">
+                <div class="feature-icon">⛺</div>
+                <div>
+                  <strong>카테고리별 빠른 탐색</strong>
+                  <p>텐트, 테이블, 조명, 취사도구를 박스형 카테고리로 바로 볼 수 있어요.</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">🚚</div>
+                <div>
+                  <strong>대여와 구매를 한 화면에서</strong>
+                  <p>상품 성격에 따라 대여 가격과 구매 가격을 직관적으로 비교할 수 있어요.</p>
+                </div>
+              </div>
+              <div class="feature-item">
+                <div class="feature-icon">✨</div>
+                <div>
+                  <strong>따뜻한 브랜드 무드</strong>
+                  <p>에러 페이지와 연결되는 모닥불 감성의 색감으로 사이트 전체 톤을 맞췄어요.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>카테고리</h2>
+            <p>박스를 클릭하면 아래에 해당 카테고리 상품이 바로 보여요.</p>
+          </div>
+        </div>
+
+        <div class="category-wrap" id="categoryWrap"></div>
+
+        <div class="products-panel">
+          <div class="products-header">
+            <div>
+              <h2 id="productTitle">텐트</h2>
+              <p id="productSubtitle">가볍게 시작할 수 있는 인기 텐트 상품입니다.</p>
+            </div>
+            <div class="chip-row">
+              <button class="chip-btn">인기순</button>
+              <button class="chip-btn">낮은 가격순</button>
+              <button class="chip-btn">대여 가능</button>
+            </div>
+          </div>
+          <div class="product-grid" id="productGrid"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <div>
+            <h2>모닥 이야기</h2>
+            <p>메인 페이지 하단에 넣기 좋은 브랜드 소개 영역입니다.</p>
+          </div>
+        </div>
+        <div class="story-grid">
+          <article class="story-card">
+            <h3>처음 캠핑 가는 사람도 쉽게</h3>
+            <p>복잡한 장비 이름보다 사용 목적 중심으로 탐색할 수 있게 구성했습니다. 혼자 캠핑, 커플 캠핑, 가족 캠핑 추천도 연결할 수 있어요.</p>
+          </article>
+          <article class="story-card">
+            <h3>대여 후 구매 전환 유도</h3>
+            <p>빌려서 써보고 마음에 들면 구매할 수 있게 연결하면 전환율을 높이기 좋습니다. 대여 할인 쿠폰도 함께 배치 가능합니다.</p>
+          </article>
+          <article class="story-card">
+            <h3>캠핑장 지도 기능과 확장 가능</h3>
+            <p>추후 지도 API를 연동해 주변 캠핑장, 편의시설, 추천 장비 세트를 함께 보여주는 구조로 확장하기 좋습니다.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <div class="brand" style="font-size:24px; margin-bottom:14px;">
+          <span class="brand-badge"></span>
+          <span>모닥모닥</span>
+        </div>
+        <p>캠핑용품 대여와 구매를 더 따뜻하고 간편하게 연결하는 서비스.</p>
+        <div class="copyright">© 2026 MODAKMODAK. All rights reserved.</div>
+      </div>
+
+      <div>
+        <h4>서비스</h4>
+        <div class="footer-links">
+          <a href="#">대여하기</a>
+          <a href="#">구매하기</a>
+          <a href="#">캠핑장 찾기</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>고객지원</h4>
+        <div class="footer-links">
+          <a href="#">공지사항</a>
+          <a href="#">자주 묻는 질문</a>
+          <a href="#">1:1 문의</a>
+        </div>
+      </div>
+
+      <div>
+        <h4>정책</h4>
+        <div class="footer-links">
+          <a href="#">이용약관</a>
+          <a href="#">개인정보처리방침</a>
+          <a href="#">환불정책</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const categoryData = {
+      tent: {
+        title: "텐트",
+        subtitle: "가볍게 시작할 수 있는 인기 텐트 상품입니다.",
+        items: [
+          { emoji: "⛺", tag: "대여 인기", name: "모닥 에어 텐트", desc: "설치가 쉬운 4인용 에어 텐트로 초보 캠퍼에게 적합해요.", price: "18,000원", meta: "1일 대여 기준" },
+          { emoji: "🏕️", tag: "가족 추천", name: "패밀리 돔 텐트", desc: "넓은 전실과 생활 공간으로 가족 캠핑에 잘 어울립니다.", price: "26,000원", meta: "1일 대여 기준" },
+          { emoji: "🌄", tag: "차박 감성", name: "차박 쉘터 텐트", desc: "차량과 연결해 쓰기 좋은 감성 쉘터형 텐트예요.", price: "21,000원", meta: "1일 대여 기준" },
+          { emoji: "🎒", tag: "경량형", name: "백패킹 라이트 텐트", desc: "부피와 무게를 줄인 2인용 텐트로 휴대성이 좋아요.", price: "14,000원", meta: "1일 대여 기준" }
+        ]
+      },
+      furniture: {
+        title: "테이블 · 체어",
+        subtitle: "편하게 쉬고 먹을 수 있는 필수 가구 상품입니다.",
+        items: [
+          { emoji: "🪑", tag: "베스트", name: "우드 감성 체어", desc: "등받이 각도가 편안해 장시간 앉아 있어도 부담이 적어요.", price: "8,000원", meta: "1일 대여 기준" },
+          { emoji: "🪵", tag: "감성 세트", name: "롤 테이블 세트", desc: "접이식이라 이동이 쉽고 2~4인 캠핑에 잘 맞아요.", price: "12,000원", meta: "1일 대여 기준" },
+          { emoji: "🍽️", tag: "다용도", name: "캠핑 키친 테이블", desc: "버너와 조리도구를 올리기 좋은 실용적인 구조예요.", price: "15,000원", meta: "1일 대여 기준" },
+          { emoji: "🧺", tag: "피크닉", name: "미니 폴딩 테이블", desc: "차박이나 피크닉에서 가볍게 쓰기 좋은 작은 사이즈입니다.", price: "6,000원", meta: "1일 대여 기준" }
+        ]
+      },
+      lighting: {
+        title: "랜턴 · 조명",
+        subtitle: "밤의 분위기를 살려주는 감성 조명 상품입니다.",
+        items: [
+          { emoji: "🏮", tag: "감성 조명", name: "빈티지 LED 랜턴", desc: "은은한 색감으로 테이블 위 무드를 살려주는 조명입니다.", price: "5,000원", meta: "1일 대여 기준" },
+          { emoji: "💡", tag: "실용형", name: "고광량 충전 랜턴", desc: "야간 설치나 이동에 적합한 밝은 랜턴이에요.", price: "7,000원", meta: "1일 대여 기준" },
+          { emoji: "✨", tag: "연출용", name: "스트링 라이트", desc: "텐트 입구와 타프 라인에 걸어 감성 연출이 가능합니다.", price: "4,000원", meta: "1일 대여 기준" },
+          { emoji: "🔋", tag: "캠핑 필수", name: "보조배터리 랜턴", desc: "비상 조명과 충전 기능을 함께 제공하는 실용 상품이에요.", price: "9,000원", meta: "1일 대여 기준" }
+        ]
+      },
+      cooking: {
+        title: "취사 · 버너",
+        subtitle: "맛있는 캠핑 식사를 위한 조리 장비입니다.",
+        items: [
+          { emoji: "🍳", tag: "인기 조리", name: "2구 가스 버너", desc: "간단한 식사부터 국물 요리까지 안정적으로 조리할 수 있어요.", price: "11,000원", meta: "1일 대여 기준" },
+          { emoji: "🔥", tag: "감성 불멍", name: "미니 화로대", desc: "불멍과 간단한 직화 요리를 함께 즐길 수 있습니다.", price: "13,000원", meta: "1일 대여 기준" },
+          { emoji: "🥘", tag: "세트 구성", name: "코펠 풀세트", desc: "냄비, 팬, 식기류까지 한 번에 필요한 구성입니다.", price: "10,000원", meta: "1일 대여 기준" },
+          { emoji: "☕", tag: "브런치", name: "캠핑 케틀 세트", desc: "아침 커피와 티타임을 위한 감성 주전자 세트예요.", price: "6,000원", meta: "1일 대여 기준" }
+        ]
+      },
+      sleeping: {
+        title: "침낭 · 매트",
+        subtitle: "숙면을 도와주는 침구 카테고리입니다.",
+        items: [
+          { emoji: "🛏️", tag: "숙면 추천", name: "자가 팽창 매트", desc: "바닥 냉기와 울퉁불퉁함을 줄여주는 필수 매트입니다.", price: "9,000원", meta: "1일 대여 기준" },
+          { emoji: "🧸", tag: "포근함", name: "사계절 침낭", desc: "간절기와 초겨울까지 두루 쓰기 좋은 침낭이에요.", price: "12,000원", meta: "1일 대여 기준" },
+          { emoji: "🌙", tag: "차박 추천", name: "차박 전용 에어매트", desc: "차량 구조에 맞춰 편안한 수면 공간을 만들어줍니다.", price: "16,000원", meta: "1일 대여 기준" },
+          { emoji: "☁️", tag: "추가 옵션", name: "캠핑 담요 세트", desc: "저녁 시간 체온 유지와 감성 연출에 모두 잘 어울려요.", price: "5,000원", meta: "1일 대여 기준" }
+        ]
+      }
+    };
+
+    const categories = [
+      { key: "tent", title: "텐트", desc: "설치 쉬운 인기 텐트" },
+      { key: "furniture", title: "테이블 · 체어", desc: "감성 가구 모음" },
+      { key: "lighting", title: "랜턴 · 조명", desc: "밤을 밝혀주는 조명" },
+      { key: "cooking", title: "취사 · 버너", desc: "맛있는 캠핑 식사" },
+      { key: "sleeping", title: "침낭 · 매트", desc: "편안한 숙면 준비" }
+    ];
+
+    const categoryWrap = document.getElementById("categoryWrap");
+    const productGrid = document.getElementById("productGrid");
+    const productTitle = document.getElementById("productTitle");
+    const productSubtitle = document.getElementById("productSubtitle");
+
+    function renderCategories(activeKey) {
+      categoryWrap.innerHTML = categories.map(category => `
+        <button class="category-box ${category.key === activeKey ? 'active' : ''}" data-key="${category.key}">
+          <strong>${category.title}</strong>
+          <span>${category.desc}</span>
+        </button>
+      `).join('');
+
+      categoryWrap.querySelectorAll('.category-box').forEach(button => {
+        button.addEventListener('click', () => renderProducts(button.dataset.key));
+      });
+    }
+
+    function renderProducts(key) {
+      const data = categoryData[key];
+      productTitle.textContent = data.title;
+      productSubtitle.textContent = data.subtitle;
+      productGrid.innerHTML = data.items.map(item => `
+        <article class="product-card">
+          <div class="product-thumb">${item.emoji}</div>
+          <div class="product-body">
+            <div class="badge">${item.tag}</div>
+            <h3 class="product-title">${item.name}</h3>
+            <p class="product-desc">${item.desc}</p>
+            <div class="price-row">
+              <div class="price">
+                <strong>${item.price}</strong>
+                <span>${item.meta}</span>
+              </div>
+              <button class="card-btn">상품 보기</button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+      renderCategories(key);
+    }
+
+    renderProducts('tent');
+  </script>
+</body>
+</html>
