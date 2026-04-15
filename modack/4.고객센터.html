@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>고객센터 — 토재재사</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;500&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FAF8F4;
+    --sand: #E8E0D0;
+    --clay: #C4A882;
+    --dark-clay: #8B6E52;
+    --earth: #6B5140;
+    --text-primary: #3A2F26;
+    --text-secondary: #7A6A5A;
+    --text-muted: #A89880;
+    --border: #DDD5C4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--warm-white);
+    color: var(--text-primary);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 56px;
+    border-bottom: 1px solid var(--border);
+    background: var(--warm-white);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-primary);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+  .nav-center {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--text-primary);
+  }
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .nav-icon {
+    width: 18px; height: 18px;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .nav-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.4; }
+  .nav-btn {
+    font-size: 11px;
+    padding: 5px 14px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+  }
+  .nav-btn:hover { background: var(--sand); }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--clay);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .hero-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+  }
+  .hero-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  /* SEARCH */
+  .search-wrap {
+    max-width: 480px;
+    margin: 32px auto 0;
+    position: relative;
+  }
+  .search-input {
+    width: 100%;
+    padding: 13px 48px 13px 18px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    background: var(--cream);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-primary);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input::placeholder { color: var(--text-muted); }
+  .search-input:focus { border-color: var(--clay); }
+  .search-btn {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; cursor: pointer; color: var(--text-muted);
+  }
+  .search-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+  /* MAIN LAYOUT */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+  /* CATEGORIES */
+  .categories {
+    padding: 60px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--clay);
+    text-transform: uppercase;
+    margin-bottom: 28px;
+    text-align: center;
+  }
+  .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .cat-item {
+    background: var(--warm-white);
+    padding: 32px 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .cat-item:hover { background: var(--cream); }
+  .cat-icon {
+    width: 36px; height: 36px;
+    margin: 0 auto 14px;
+    color: var(--dark-clay);
+  }
+  .cat-icon svg { width: 36px; height: 36px; stroke: currentColor; fill: none; stroke-width: 1.2; }
+  .cat-name {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .cat-desc { font-size: 11px; color: var(--text-muted); line-height: 1.6; }
+
+  /* FAQ */
+  .faq-section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+  .faq-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .faq-tab {
+    font-size: 12px;
+    font-weight: 400;
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+  }
+  .faq-tab.active { color: var(--text-primary); border-bottom-color: var(--dark-clay); }
+  .faq-tab:hover { color: var(--text-secondary); }
+
+  .faq-list { display: flex; flex-direction: column; gap: 0; }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .faq-q {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 4px;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+    transition: color 0.2s;
+  }
+  .faq-q:hover { color: var(--dark-clay); }
+  .faq-q.open { color: var(--dark-clay); }
+  .faq-arrow {
+    width: 14px; height: 14px;
+    stroke: currentColor; fill: none; stroke-width: 1.5;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+  .faq-q.open .faq-arrow { transform: rotate(180deg); }
+  .faq-a {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.85;
+    padding: 0 4px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.3s;
+  }
+  .faq-a.open { max-height: 300px; padding-bottom: 18px; }
+
+  /* CONTACT SECTION */
+  .contact-section {
+    padding: 60px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .contact-left {}
+  .contact-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    letter-spacing: 0.04em;
+  }
+  .contact-sub { font-size: 13px; color: var(--text-muted); line-height: 1.8; margin-bottom: 28px; }
+  .contact-info { display: flex; flex-direction: column; gap: 14px; }
+  .info-row { display: flex; gap: 12px; align-items: flex-start; }
+  .info-icon { width: 16px; height: 16px; stroke: var(--clay); fill: none; stroke-width: 1.5; flex-shrink: 0; margin-top: 2px; }
+  .info-label { font-size: 11px; color: var(--clay); letter-spacing: 0.08em; margin-bottom: 3px; }
+  .info-val { font-size: 13px; color: var(--text-primary); }
+  .info-val a { color: var(--dark-clay); text-decoration: none; }
+  .hours-tag {
+    display: inline-block;
+    font-size: 10px;
+    padding: 2px 8px;
+    background: var(--sand);
+    color: var(--text-secondary);
+    border-radius: 2px;
+    letter-spacing: 0.06em;
+    margin-top: 4px;
+  }
+
+  /* INQUIRY FORM */
+  .form-wrap {
+    background: var(--cream);
+    padding: 32px 28px;
+    border: 1px solid var(--border);
+  }
+  .form-title { font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 20px; letter-spacing: 0.06em; }
+  .form-group { margin-bottom: 14px; }
+  .form-label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.08em; display: block; margin-bottom: 6px; }
+  .form-input, .form-select, .form-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    background: var(--warm-white);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-primary);
+    outline: none;
+    border-radius: 0;
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--clay); }
+  .form-textarea { resize: vertical; min-height: 90px; line-height: 1.7; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--earth);
+    color: #FAF8F4;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    border: none;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: background 0.2s;
+  }
+  .submit-btn:hover { background: var(--dark-clay); }
+
+  /* NOTICE */
+  .notice-section { padding: 48px 0 60px; border-top: 1px solid var(--border); }
+  .notice-list { display: flex; flex-direction: column; gap: 0; }
+  .notice-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .notice-item:first-child { border-top: 1px solid var(--border); }
+  .notice-item:hover .notice-title { color: var(--dark-clay); }
+  .notice-left { display: flex; align-items: center; gap: 14px; }
+  .notice-badge {
+    font-size: 10px;
+    padding: 2px 8px;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+  }
+  .badge-new { background: var(--dark-clay); color: var(--warm-white); }
+  .badge-normal { background: var(--sand); color: var(--text-secondary); }
+  .notice-title { font-size: 13px; color: var(--text-primary); }
+  .notice-date { font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 40px 48px;
+    background: var(--cream);
+  }
+  .footer-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+  }
+  .footer-brand {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 13px;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+  }
+  .footer-copy { font-size: 11px; color: var(--text-muted); line-height: 1.8; }
+  .footer-col-title { font-size: 11px; letter-spacing: 0.12em; color: var(--text-secondary); font-weight: 400; margin-bottom: 14px; text-transform: uppercase; }
+  .footer-links { display: flex; flex-direction: column; gap: 8px; }
+  .footer-links a { font-size: 12px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--dark-clay); }
+  .footer-bottom {
+    max-width: 960px;
+    margin: 24px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-bottom span { font-size: 11px; color: var(--text-muted); }
+  .footer-policies { display: flex; gap: 16px; }
+  .footer-policies a { font-size: 11px; color: var(--text-muted); text-decoration: none; }
+  .footer-policies a:hover { color: var(--text-secondary); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.6s ease both; }
+  .fade-up-1 { animation-delay: 0.1s; }
+  .fade-up-2 { animation-delay: 0.2s; }
+  .fade-up-3 { animation-delay: 0.3s; }
+  .fade-up-4 { animation-delay: 0.4s; }
+
+  @media (max-width: 700px) {
+    nav { padding: 0 20px; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .contact-section { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">기기재사</a>
+  <span class="nav-center">고객센터</span>
+  <div class="nav-right">
+    <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+    <span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
+    <button class="nav-btn">로그인</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero fade-up">
+  <div class="hero-label">Customer Service</div>
+  <h1 class="hero-title">무엇을 도와드릴까요</h1>
+  <p class="hero-sub">궁금하신 점이나 불편하신 사항을 언제든지 문의해 주세요<br>성심껏 답변 드리겠습니다</p>
+  <div class="search-wrap fade-up fade-up-1">
+    <input class="search-input" type="text" placeholder="궁금하신 내용을 검색해 보세요">
+    <button class="search-btn">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories fade-up fade-up-2">
+  <div class="container">
+    <div class="section-label">도움말 카테고리</div>
+    <div class="cat-grid">
+      <div class="cat-item">
+        <div class="cat-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="cat-name">배송 안내</div>
+        <div class="cat-desc">배송 조회, 기간, 방법</div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-icon"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div class="cat-name">주문 / 결제</div>
+        <div class="cat-desc">주문 확인, 변경, 결제</div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-icon"><svg viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-5"/></svg></div>
+        <div class="cat-name">교환 / 반품</div>
+        <div class="cat-desc">교환·반품 신청 및 절차</div>
+      </div>
+      <div class="cat-item">
+        <div class="cat-icon"><svg viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></div>
+        <div class="cat-name">제품 문의</div>
+        <div class="cat-desc">제품 정보, 사용법, 관리</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section fade-up fade-up-3">
+  <div class="container">
+    <div class="section-label">자주 묻는 질문</div>
+    <div class="faq-tabs">
+      <button class="faq-tab active" data-tab="all">전체</button>
+      <button class="faq-tab" data-tab="delivery">배송</button>
+      <button class="faq-tab" data-tab="order">주문/결제</button>
+      <button class="faq-tab" data-tab="return">교환/반품</button>
+      <button class="faq-tab" data-tab="product">제품</button>
+    </div>
+    <div class="faq-list" id="faq-list">
+      <!-- populated by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT + FORM -->
+<section class="fade-up fade-up-4" style="border-top: 1px solid var(--border);">
+  <div class="container">
+    <div class="contact-section">
+      <div class="contact-left">
+        <div class="contact-title">직접 문의하기</div>
+        <p class="contact-sub">빠르고 친절하게 답변 드리겠습니다.<br>문의 내용에 따라 1~3 영업일 내 답변이 제공됩니다.</p>
+        <div class="contact-info">
+          <div class="info-row">
+            <svg class="info-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div>
+              <div class="info-label">고객 전화 상담</div>
+              <div class="info-val" style="font-size:18px; letter-spacing:0.04em;">1588 - 0000</div>
+              <span class="hours-tag">평일 10:00 – 17:00 · 주말/공휴일 휴무</span>
+            </div>
+          </div>
+          <div class="info-row">
+            <svg class="info-icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <div>
+              <div class="info-label">이메일 문의</div>
+              <div class="info-val"><a href="mailto:hello@tojaejae.com">hello@tojaejae.com</a></div>
+            </div>
+          </div>
+          <div class="info-row">
+            <svg class="info-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <div>
+              <div class="info-label">카카오 채널</div>
+              <div class="info-val">@토재재사</div>
+              <span class="hours-tag">평일 10:00 – 18:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-wrap">
+        <div class="form-title">온라인 문의</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">이름</label>
+            <input class="form-input" type="text" placeholder="홍길동">
+          </div>
+          <div class="form-group">
+            <label class="form-label">연락처</label>
+            <input class="form-input" type="tel" placeholder="010-0000-0000">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">이메일</label>
+          <input class="form-input" type="email" placeholder="example@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label">문의 유형</label>
+          <select class="form-select">
+            <option value="">선택해주세요</option>
+            <option>배송 문의</option>
+            <option>주문 / 결제</option>
+            <option>교환 / 반품</option>
+            <option>제품 문의</option>
+            <option>기타</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">주문번호 (선택)</label>
+          <input class="form-input" type="text" placeholder="주문번호를 입력해 주세요">
+        </div>
+        <div class="form-group">
+          <label class="form-label">문의 내용</label>
+          <textarea class="form-textarea" placeholder="문의하실 내용을 자세히 적어주세요"></textarea>
+        </div>
+        <button class="submit-btn" onclick="submitForm(this)">문의 접수하기</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTICE -->
+<section class="notice-section">
+  <div class="container">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+      <div class="section-label" style="margin:0;">공지사항</div>
+      <a href="#" style="font-size:11px;color:var(--text-muted);text-decoration:none;letter-spacing:0.06em;">전체보기 →</a>
+    </div>
+    <div class="notice-list">
+      <div class="notice-item">
+        <div class="notice-left">
+          <span class="notice-badge badge-new">NEW</span>
+          <span class="notice-title">2025년 추석 연휴 배송 및 고객센터 운영 안내</span>
+        </div>
+        <span class="notice-date">2025.09.01</span>
+      </div>
+      <div class="notice-item">
+        <div class="notice-left">
+          <span class="notice-badge badge-new">NEW</span>
+          <span class="notice-title">개인정보 처리방침 개정 안내</span>
+        </div>
+        <span class="notice-date">2025.08.15</span>
+      </div>
+      <div class="notice-item">
+        <div class="notice-left">
+          <span class="notice-badge badge-normal">공지</span>
+          <span class="notice-title">포인트 제도 개편 및 등급 혜택 변경 안내</span>
+        </div>
+        <span class="notice-date">2025.07.20</span>
+      </div>
+      <div class="notice-item">
+        <div class="notice-left">
+          <span class="notice-badge badge-normal">공지</span>
+          <span class="notice-title">일부 제품 리뉴얼 출시 안내</span>
+        </div>
+        <span class="notice-date">2025.07.01</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">토재재사</div>
+      <div class="footer-copy">서울특별시 성동구 성수동 000-000<br>사업자등록번호: 000-00-00000<br>대표: 홍길동 | 통신판매업신고: 제2024-서울성동-0000호</div>
+    </div>
+    <div>
+      <div class="footer-col-title">서비스</div>
+      <div class="footer-links">
+        <a href="#">회사소개</a>
+        <a href="#">스토어 안내</a>
+        <a href="#">제품 카탈로그</a>
+        <a href="#">브랜드 스토리</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">고객지원</div>
+      <div class="footer-links">
+        <a href="#">공지사항</a>
+        <a href="#">자주묻는질문</a>
+        <a href="#">배송 조회</a>
+        <a href="#">교환·반품</a>
+        <a href="#">온라인 문의</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">연락처</div>
+      <div class="footer-links">
+        <a href="tel:15880000">1588 - 0000</a>
+        <a href="mailto:hello@tojaejae.com">hello@tojaejae.com</a>
+        <a href="#">인스타그램</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 토재재사 All rights reserved.</span>
+    <div class="footer-policies">
+      <a href="#">이용약관</a>
+      <a href="#">개인정보처리방침</a>
+      <a href="#">이메일무단수집거부</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const faqs = [
+  { tab: 'delivery', q: '주문 후 배송까지 얼마나 걸리나요?', a: '주문 확인 후 영업일 기준 1~3일 이내 출고되며, 출고 후 1~2일 내 수령 가능합니다. 제주 및 도서산간 지역은 추가 1~2일이 소요될 수 있습니다.' },
+  { tab: 'delivery', q: '배송 조회는 어떻게 하나요?', a: '주문 완료 후 발송 처리가 되면 SMS와 이메일로 운송장 번호가 안내됩니다. 해당 번호로 택배사 홈페이지에서 실시간 조회 가능합니다.' },
+  { tab: 'order', q: '주문을 취소하고 싶어요.', a: '결제 완료 후 출고 전까지 마이페이지에서 직접 취소 가능합니다. 출고 이후에는 취소가 불가하며 반품 절차를 통해 처리해 주세요.' },
+  { tab: 'order', q: '적립금은 어떻게 사용하나요?', a: '마이페이지에서 적립금 잔액을 확인하실 수 있으며, 결제 시 1,000원 이상 보유 시 사용 가능합니다. 최소 사용 금액은 1,000원입니다.' },
+  { tab: 'return', q: '교환·반품 신청은 어떻게 하나요?', a: '수령일로부터 7일 이내에 마이페이지 > 주문내역에서 교환·반품 신청이 가능합니다. 고객 변심의 경우 왕복 배송비가 발생합니다.' },
+  { tab: 'return', q: '상품 불량이 있을 경우 어떻게 하나요?', a: '수령하신 상품에 불량이 있는 경우 고객센터로 사진과 함께 연락해 주시면 교환 또는 환불 처리해 드립니다. 배송비는 당사에서 부담합니다.' },
+  { tab: 'product', q: '제품 성분이 궁금합니다.', a: '각 제품 상세 페이지 하단에 전성분 정보가 표기되어 있습니다. 특정 성분에 대한 문의는 고객센터 이메일로 연락 주시면 상세히 안내드립니다.' },
+  { tab: 'product', q: '피부 타입에 따른 제품 추천을 받고 싶어요.', a: '홈페이지 내 스킨 타입 테스트를 통해 맞춤 제품을 추천받으실 수 있습니다. 전문 상담이 필요하신 경우 카카오 채널로 문의해 주세요.' },
+];
+
+let activeTab = 'all';
+
+function renderFaq() {
+  const list = document.getElementById('faq-list');
+  const filtered = activeTab === 'all' ? faqs : faqs.filter(f => f.tab === activeTab);
+  list.innerHTML = filtered.map((f, i) => `
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        ${f.q}
+        <svg class="faq-arrow" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="faq-a">${f.a}</div>
+    </div>
+  `).join('');
+}
+
+function toggleFaq(btn) {
+  const ans = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  document.querySelectorAll('.faq-q.open').forEach(b => {
+    b.classList.remove('open');
+    b.nextElementSibling.classList.remove('open');
+  });
+  if (!isOpen) { btn.classList.add('open'); ans.classList.add('open'); }
+}
+
+document.querySelectorAll('.faq-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.faq-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    activeTab = tab.dataset.tab;
+    renderFaq();
+  });
+});
+
+function submitForm(btn) {
+  btn.textContent = '접수 완료 ✓';
+  btn.style.background = 'var(--dark-clay)';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = '문의 접수하기';
+    btn.style.background = '';
+    btn.disabled = false;
+  }, 3000);
+}
+
+renderFaq();
+</script>
+</body>
+</html>

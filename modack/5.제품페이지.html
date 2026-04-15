@@ -1,0 +1,720 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제품리스트 수정전</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest:    #2C3E2D;
+  --pine:      #3D5A40;
+  --moss:      #5A7A4E;
+  --sage:      #8FAF7E;
+  --mist:      #C8D8B8;
+  --smoke:     #EDF2E6;
+  --ember:     #C8602A;
+  --flame:     #E8884A;
+  --ash:       #F5EFE4;
+  --bark:      #7A5C3E;
+  --stone:     #A09080;
+  --parchment: #FBF7F0;
+  --ink:       #1E2A1F;
+  --border:    rgba(90,122,78,0.15);
+  --card-bg:   #FDF9F3;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--parchment);
+  color:var(--ink);
+  font-family:'Noto Sans KR',sans-serif;
+  font-weight:300;
+  line-height:1.7;
+  min-height:100vh;
+}
+
+/* ── NAV ── */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:var(--forest);
+  position:sticky;top:0;z-index:200;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-text{font-family:'Noto Serif KR',serif;font-size:16px;font-weight:600;color:#FBF7F0;letter-spacing:.06em;}
+.nav-links{display:flex;gap:28px;}
+.nav-links a{font-size:12px;color:var(--mist);text-decoration:none;letter-spacing:.08em;transition:color .2s;}
+.nav-links a:hover{color:#fff;}
+.nav-links a.active{color:var(--flame);}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-icon{color:var(--mist);cursor:pointer;}
+.nav-icon svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.4;}
+.nav-cta{font-size:11px;padding:6px 16px;border:1px solid var(--sage);border-radius:2px;color:var(--mist);background:transparent;cursor:pointer;letter-spacing:.08em;transition:all .2s;}
+.nav-cta:hover{background:var(--sage);color:var(--forest);}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+  background:var(--parchment);
+}
+.breadcrumb-inner{
+  max-width:1200px;margin:0 auto;padding:0 32px;
+  display:flex;align-items:center;gap:6px;
+}
+.bc{font-size:12px;color:var(--stone);text-decoration:none;transition:color .2s;}
+.bc:hover{color:var(--ember);}
+.bc-sep{font-size:11px;color:var(--mist);}
+.bc-current{font-size:12px;color:var(--ink);}
+
+/* ── CATEGORY FILTER BAR ── */
+.cat-bar{
+  background:var(--parchment);
+  border-bottom:1px solid var(--border);
+  padding:16px 0;
+  position:sticky;top:60px;z-index:100;
+}
+.cat-bar-inner{
+  max-width:1200px;margin:0 auto;padding:0 32px;
+  display:flex;align-items:center;gap:10px;overflow-x:auto;
+  scrollbar-width:none;
+}
+.cat-bar-inner::-webkit-scrollbar{display:none;}
+.cat-pill{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 16px;border-radius:40px;
+  border:1px solid var(--border);
+  background:var(--card-bg);
+  font-size:12px;font-weight:300;color:var(--stone);
+  cursor:pointer;transition:all .2s;white-space:nowrap;
+  font-family:'Noto Sans KR',sans-serif;
+}
+.cat-pill .pill-emoji{font-size:14px;line-height:1;}
+.cat-pill:hover{border-color:var(--ember);color:var(--ember);}
+.cat-pill.active{background:var(--ember);border-color:var(--ember);color:#fff;font-weight:400;}
+.cat-pill.active .pill-emoji{filter:brightness(10);}
+
+/* ── LAYOUT ── */
+.page-wrap{max-width:1200px;margin:0 auto;padding:32px 32px 80px;}
+
+.top-row{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  margin-bottom:24px;flex-wrap:wrap;gap:14px;
+}
+.result-info{}
+.result-label{font-size:12px;color:var(--stone);margin-bottom:4px;letter-spacing:.04em;}
+.result-title{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:400;color:var(--forest);}
+.result-count{font-size:13px;color:var(--stone);margin-left:8px;}
+
+.controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+
+/* sort */
+.sort-select{
+  padding:8px 14px;border:1px solid var(--border);border-radius:3px;
+  background:var(--card-bg);font-family:'Noto Sans KR',sans-serif;
+  font-size:12px;color:var(--ink);cursor:pointer;outline:none;
+  -webkit-appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23A09080' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;
+  padding-right:28px;
+}
+.sort-select:focus{border-color:var(--ember);}
+
+/* view toggle */
+.view-toggle{display:flex;border:1px solid var(--border);border-radius:3px;overflow:hidden;}
+.vbtn{
+  padding:7px 11px;background:var(--card-bg);border:none;cursor:pointer;
+  color:var(--stone);transition:all .2s;
+}
+.vbtn:hover{background:var(--smoke);}
+.vbtn.active{background:var(--ember);color:#fff;}
+.vbtn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5;display:block;}
+
+/* filter toggle */
+.filter-toggle{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 14px;border:1px solid var(--border);border-radius:3px;
+  background:var(--card-bg);font-size:12px;color:var(--stone);cursor:pointer;
+  font-family:'Noto Sans KR',sans-serif;transition:all .2s;
+}
+.filter-toggle:hover{border-color:var(--ember);color:var(--ember);}
+.filter-toggle svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.5;}
+.filter-badge{
+  background:var(--ember);color:#fff;font-size:10px;
+  width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-weight:500;
+}
+
+/* ── SIDEBAR + GRID ── */
+.content-wrap{display:flex;gap:28px;align-items:flex-start;}
+
+/* SIDEBAR */
+.sidebar{
+  width:220px;flex-shrink:0;
+  background:var(--card-bg);border:1px solid var(--border);
+  border-radius:6px;padding:0;overflow:hidden;
+  transition:all .3s;
+}
+.sidebar.hidden{display:none;}
+.filter-section{border-bottom:1px solid var(--border);padding:18px 20px;}
+.filter-section:last-child{border-bottom:none;}
+.fs-header{
+  display:flex;align-items:center;justify-content:space-between;
+  cursor:pointer;margin-bottom:14px;
+}
+.fs-title{font-size:12px;font-weight:500;color:var(--forest);letter-spacing:.06em;}
+.fs-arrow{width:12px;height:12px;stroke:var(--stone);fill:none;stroke-width:2;transition:transform .2s;}
+.fs-arrow.open{transform:rotate(180deg);}
+.filter-opts{display:flex;flex-direction:column;gap:8px;}
+.fopt{
+  display:flex;align-items:center;gap:8px;cursor:pointer;
+  font-size:12px;color:var(--stone);transition:color .15s;
+}
+.fopt:hover{color:var(--ember);}
+.fopt input{accent-color:var(--ember);cursor:pointer;}
+.fopt-count{margin-left:auto;font-size:11px;color:var(--mist);}
+
+/* range slider */
+.range-wrap{padding-top:4px;}
+.range-row{display:flex;justify-content:space-between;margin-bottom:8px;}
+.range-val{font-size:11px;color:var(--stone);}
+input[type=range]{
+  -webkit-appearance:none;width:100%;height:3px;
+  background:linear-gradient(to right,var(--ember) 0%,var(--ember) 50%,var(--border) 50%,var(--border) 100%);
+  border-radius:3px;outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:14px;height:14px;border-radius:50%;
+  background:var(--ember);border:2px solid #fff;
+  box-shadow:0 1px 4px rgba(200,96,42,.3);
+}
+.filter-reset{
+  width:100%;margin-top:14px;padding:9px;
+  border:1px solid var(--border);border-radius:3px;
+  background:transparent;font-family:'Noto Sans KR',sans-serif;
+  font-size:12px;color:var(--stone);cursor:pointer;transition:all .2s;
+}
+.filter-reset:hover{border-color:var(--ember);color:var(--ember);}
+
+/* ── PRODUCT GRID ── */
+.grid-wrap{flex:1;min-width:0;}
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.product-grid.view-list{
+  grid-template-columns:1fr;
+  gap:12px;
+}
+
+/* CARD */
+.pcard{
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:10px;overflow:hidden;
+  transition:transform .25s, box-shadow .25s;
+  cursor:pointer;position:relative;
+}
+.pcard:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(44,62,45,.1);}
+
+.pcard-img{
+  position:relative;
+  background:var(--ash);
+  aspect-ratio:1/0.85;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.pcard-emoji{font-size:56px;line-height:1;user-select:none;}
+.pcard-wish{
+  position:absolute;top:12px;right:12px;
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,.85);
+  display:flex;align-items:center;justify-content:center;
+  border:none;cursor:pointer;transition:all .2s;
+}
+.pcard-wish svg{width:15px;height:15px;stroke:#A09080;fill:none;stroke-width:1.6;transition:all .2s;}
+.pcard-wish:hover svg{stroke:var(--ember);}
+.pcard-wish.wished svg{stroke:var(--ember);fill:var(--ember);}
+
+.badge-row{
+  position:absolute;top:12px;left:12px;
+  display:flex;gap:5px;
+}
+.pbadge{
+  font-size:10px;padding:3px 8px;border-radius:3px;
+  font-weight:500;letter-spacing:.04em;
+}
+.pbadge-hot{background:#E8453C;color:#fff;}
+.pbadge-sale{background:var(--ember);color:#fff;}
+.pbadge-new{background:var(--forest);color:var(--mist);}
+.pbadge-best{background:var(--bark);color:#FAF0E0;}
+
+.pcard-body{padding:14px 16px 16px;}
+.pcard-cat{font-size:10px;color:var(--stone);letter-spacing:.06em;margin-bottom:4px;}
+.pcard-name{
+  font-size:13px;font-weight:400;color:var(--ink);
+  margin-bottom:7px;line-height:1.4;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.stars{display:flex;align-items:center;gap:4px;margin-bottom:8px;}
+.star{font-size:10px;color:var(--flame);}
+.star-count{font-size:11px;color:var(--stone);}
+.price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:12px;}
+.price-main{font-size:16px;font-weight:500;color:var(--ink);}
+.price-unit{font-size:11px;color:var(--stone);}
+.price-orig{font-size:11px;color:var(--mist);text-decoration:line-through;}
+.btn-row{display:flex;gap:7px;}
+.btn-rent{
+  flex:1;padding:9px 0;
+  background:var(--ember);color:#fff;
+  border:none;border-radius:4px;font-family:'Noto Sans KR',sans-serif;
+  font-size:12px;font-weight:400;letter-spacing:.04em;cursor:pointer;transition:background .2s;
+}
+.btn-rent:hover{background:var(--flame);}
+.btn-buy{
+  flex:1;padding:9px 0;
+  background:transparent;color:var(--forest);
+  border:1px solid var(--border);border-radius:4px;
+  font-family:'Noto Sans KR',sans-serif;
+  font-size:12px;font-weight:400;letter-spacing:.04em;cursor:pointer;transition:all .2s;
+}
+.btn-buy:hover{border-color:var(--forest);background:var(--smoke);}
+
+/* LIST VIEW CARD */
+.pcard.list-card{
+  display:flex;flex-direction:row;border-radius:8px;
+}
+.pcard.list-card .pcard-img{
+  width:160px;flex-shrink:0;aspect-ratio:auto;height:auto;min-height:130px;
+  border-radius:0;
+}
+.pcard.list-card .pcard-emoji{font-size:44px;}
+.pcard.list-card .pcard-body{
+  flex:1;display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+  padding:16px 20px;
+}
+.pcard.list-card .pcard-main{flex:1;min-width:180px;}
+.pcard.list-card .pcard-price-wrap{text-align:right;min-width:100px;}
+.pcard.list-card .pcard-price-wrap .price-main{font-size:18px;}
+.pcard.list-card .btn-row{flex-direction:column;min-width:110px;gap:6px;}
+.pcard.list-card .btn-rent,.pcard.list-card .btn-buy{padding:8px 16px;}
+
+/* ── PAGINATION ── */
+.pagination{
+  display:flex;align-items:center;justify-content:center;
+  gap:4px;margin-top:48px;
+}
+.ppage{
+  width:34px;height:34px;border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;color:var(--stone);
+  border:1px solid transparent;cursor:pointer;transition:all .2s;
+  background:none;font-family:'Noto Sans KR',sans-serif;
+}
+.ppage:hover{border-color:var(--border);color:var(--ink);}
+.ppage.active{background:var(--ember);color:#fff;border-color:var(--ember);}
+.ppage.arrow{border:1px solid var(--border);background:var(--card-bg);}
+.ppage.arrow svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:80px 20px;display:none;}
+.empty-emoji{font-size:48px;margin-bottom:16px;}
+.empty-msg{font-size:14px;color:var(--stone);}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.pcard{animation:fadeUp .45s ease both;}
+
+@media(max-width:900px){
+  .sidebar{display:none;}
+  .product-grid{grid-template-columns:repeat(3,1fr);}
+}
+@media(max-width:640px){
+  nav{padding:0 16px;}
+  .nav-links{display:none;}
+  .page-wrap{padding:20px 16px 60px;}
+  .cat-bar-inner{padding:0 16px;}
+  .product-grid{grid-template-columns:repeat(2,1fr);}
+  .breadcrumb-inner{padding:0 16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+      <path d="M16 3C16 3 10 10 10 16a6 6 0 0 0 12 0c0-6-6-13-6-13z" fill="#E8884A" opacity=".9"/>
+      <path d="M16 10C16 10 12 15 12 18a4 4 0 0 0 8 0c0-3-4-8-4-8z" fill="#FAC878"/>
+      <ellipse cx="16" cy="26" rx="7" ry="2.5" fill="#5A7A4E" opacity=".6"/>
+    </svg>
+    <span class="logo-text">모닥모닥</span>
+  </a>
+  <div class="nav-links">
+    <a href="#">홈</a>
+    <a href="#" class="active">대여</a>
+    <a href="#">구매</a>
+    <a href="#">커뮤니티</a>
+    <a href="#">고객센터</a>
+  </div>
+  <div class="nav-right">
+    <span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+    <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
+    <span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></span>
+    <button class="nav-cta">로그인</button>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a class="bc" href="#">홈</a>
+    <span class="bc-sep">›</span>
+    <a class="bc" href="#">장비</a>
+    <span class="bc-sep">›</span>
+    <span class="bc-current">전체 장비</span>
+  </div>
+</div>
+
+<!-- CATEGORY PILL BAR -->
+<div class="cat-bar">
+  <div class="cat-bar-inner" id="cat-bar">
+    <button class="cat-pill active" data-cat="전체"><span class="pill-emoji">🏕️</span> 전체</button>
+    <button class="cat-pill" data-cat="텐트"><span class="pill-emoji">⛺</span> 텐트</button>
+    <button class="cat-pill" data-cat="침낭·매트"><span class="pill-emoji">🛏️</span> 침낭·매트</button>
+    <button class="cat-pill" data-cat="취사도구"><span class="pill-emoji">🔥</span> 취사도구</button>
+    <button class="cat-pill" data-cat="조명"><span class="pill-emoji">💡</span> 조명</button>
+    <button class="cat-pill" data-cat="테이블·의자"><span class="pill-emoji">🪑</span> 테이블·의자</button>
+    <button class="cat-pill" data-cat="안전용품"><span class="pill-emoji">🔒</span> 안전용품</button>
+    <button class="cat-pill" data-cat="기타 용품"><span class="pill-emoji">🎒</span> 기타 용품</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="page-wrap">
+  <div class="top-row">
+    <div class="result-info">
+      <div class="result-label">인기 장비</div>
+      <div>
+        <span class="result-title" id="result-title">전체 장비</span>
+        <span class="result-count" id="result-count">총 48개</span>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="filter-toggle" id="filter-toggle" onclick="toggleSidebar()">
+        <svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+        필터
+        <span class="filter-badge" id="filter-badge" style="display:none">2</span>
+      </button>
+      <select class="sort-select" id="sort-select" onchange="sortProducts()">
+        <option value="popular">인기순</option>
+        <option value="newest">최신순</option>
+        <option value="price-low">가격 낮은순</option>
+        <option value="price-high">가격 높은순</option>
+        <option value="rating">평점순</option>
+      </select>
+      <div class="view-toggle">
+        <button class="vbtn active" id="vbtn-grid" onclick="setView('grid')">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </button>
+        <button class="vbtn" id="vbtn-list" onclick="setView('list')">
+          <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <!-- SIDEBAR -->
+    <div class="sidebar" id="sidebar">
+      <!-- 유형 -->
+      <div class="filter-section">
+        <div class="fs-header" onclick="toggleSection(this)">
+          <span class="fs-title">대여 / 구매</span>
+          <svg class="fs-arrow open" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="filter-opts">
+          <label class="fopt"><input type="checkbox" checked> 대여 가능 <span class="fopt-count">38</span></label>
+          <label class="fopt"><input type="checkbox" checked> 구매 가능 <span class="fopt-count">42</span></label>
+        </div>
+      </div>
+      <!-- 브랜드 -->
+      <div class="filter-section">
+        <div class="fs-header" onclick="toggleSection(this)">
+          <span class="fs-title">브랜드</span>
+          <svg class="fs-arrow open" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="filter-opts">
+          <label class="fopt"><input type="checkbox"> 스노우피크 <span class="fopt-count">12</span></label>
+          <label class="fopt"><input type="checkbox"> 코베아 <span class="fopt-count">9</span></label>
+          <label class="fopt"><input type="checkbox"> 힐레베르그 <span class="fopt-count">6</span></label>
+          <label class="fopt"><input type="checkbox"> 나낙 <span class="fopt-count">7</span></label>
+          <label class="fopt"><input type="checkbox"> 이너스페이스 <span class="fopt-count">5</span></label>
+          <label class="fopt"><input type="checkbox"> 기타 <span class="fopt-count">9</span></label>
+        </div>
+      </div>
+      <!-- 대여 기간 -->
+      <div class="filter-section">
+        <div class="fs-header" onclick="toggleSection(this)">
+          <span class="fs-title">대여 기간</span>
+          <svg class="fs-arrow open" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="filter-opts">
+          <label class="fopt"><input type="checkbox"> 1박 2일</label>
+          <label class="fopt"><input type="checkbox"> 2박 3일</label>
+          <label class="fopt"><input type="checkbox"> 3박 이상</label>
+        </div>
+      </div>
+      <!-- 가격대 -->
+      <div class="filter-section">
+        <div class="fs-header" onclick="toggleSection(this)">
+          <span class="fs-title">1박 가격</span>
+          <svg class="fs-arrow open" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="range-wrap">
+          <div class="range-row">
+            <span class="range-val">0원</span>
+            <span class="range-val" id="range-max-val">50,000원+</span>
+          </div>
+          <input type="range" min="0" max="100" value="50" id="price-range" oninput="updateRange(this)">
+        </div>
+      </div>
+      <!-- 평점 -->
+      <div class="filter-section">
+        <div class="fs-header" onclick="toggleSection(this)">
+          <span class="fs-title">평점</span>
+          <svg class="fs-arrow open" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="filter-opts">
+          <label class="fopt"><input type="radio" name="rating"> ★★★★★ 5.0</label>
+          <label class="fopt"><input type="radio" name="rating"> ★★★★☆ 4.0 이상</label>
+          <label class="fopt"><input type="radio" name="rating"> ★★★☆☆ 3.0 이상</label>
+        </div>
+      </div>
+      <div style="padding:14px 20px;">
+        <button class="filter-reset">필터 초기화</button>
+      </div>
+    </div>
+
+    <!-- PRODUCT GRID -->
+    <div class="grid-wrap">
+      <div class="product-grid" id="product-grid"></div>
+      <div class="empty" id="empty">
+        <div class="empty-emoji">🏕️</div>
+        <div class="empty-msg">해당 조건의 장비가 없습니다</div>
+      </div>
+      <!-- PAGINATION -->
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const products = [
+  {id:1, cat:'텐트',     badge:'hot',  name:'스노우피크 랜드록 2024', brand:'스노우피크', emoji:'⛺', rating:4.8, rCount:128, rentPrice:35000, buyPrice:450000, origRent:45000, type:'both'},
+  {id:2, cat:'취사도구', badge:'sale', name:'일선화판소 겸보기 장작 버너 세트', brand:'일선', emoji:'🔥', rating:4.6, rCount:256, rentPrice:3000, buyPrice:28000, type:'both'},
+  {id:3, cat:'침낭·매트',badge:null,   name:'나낙 레인저 -15°C 구스다운 침낭', brand:'나낙', emoji:'🛏️', rating:4.5, rCount:76, rentPrice:12000, buyPrice:180000, type:'both'},
+  {id:4, cat:'취사도구', badge:'new',  name:'코베아 캠핑 쿡웨어 5종 세트', brand:'코베아', emoji:'🍳', rating:4.4, rCount:41, rentPrice:18000, buyPrice:95000, type:'both'},
+  {id:5, cat:'텐트',     badge:'best', name:'힐레베르그 쿠루 GT 1인 텐트', brand:'힐레베르그', emoji:'🏕️', rating:4.9, rCount:88, rentPrice:42000, buyPrice:620000, origRent:52000, type:'both'},
+  {id:6, cat:'조명',     badge:null,   name:'골제로 라이트하우스 마이크로 II', brand:'골제로', emoji:'💡', rating:4.7, rCount:194, rentPrice:5000, buyPrice:35000, type:'both'},
+  {id:7, cat:'테이블·의자', badge:'sale', name:'헬리녹스 체어 원 하드 맥스', brand:'헬리녹스', emoji:'🪑', rating:4.8, rCount:312, rentPrice:8000, buyPrice:120000, origRent:10000, type:'both'},
+  {id:8, cat:'침낭·매트', badge:null,  name:'써머레스트 Z라이트 폼 매트', brand:'써머레스트', emoji:'🛌', rating:4.3, rCount:55, rentPrice:4000, buyPrice:48000, type:'both'},
+  {id:9, cat:'취사도구', badge:'hot',  name:'MSR 드래곤플라이 멀티연료 버너', brand:'MSR', emoji:'🔥', rating:4.9, rCount:67, rentPrice:9000, buyPrice:75000, type:'both'},
+  {id:10, cat:'텐트',    badge:null,   name:'블랙다이아몬드 하이라인 텐트 3인용', brand:'블랙다이아몬드', emoji:'⛺', rating:4.6, rCount:43, rentPrice:28000, buyPrice:380000, type:'both'},
+  {id:11, cat:'조명',    badge:'new',  name:'페츨 나오 리액티브 헤드랜턴', brand:'페츨', emoji:'🔦', rating:4.7, rCount:98, rentPrice:3500, buyPrice:42000, type:'both'},
+  {id:12, cat:'안전용품',badge:null,   name:'그레고리 발토로 75L 배낭', brand:'그레고리', emoji:'🎒', rating:4.5, rCount:71, rentPrice:15000, buyPrice:250000, type:'rent'},
+  {id:13, cat:'테이블·의자',badge:'best',name:'스노우피크 이지업 헥사 타프', brand:'스노우피크', emoji:'🏕️', rating:4.8, rCount:156, rentPrice:20000, buyPrice:280000, type:'both'},
+  {id:14, cat:'기타 용품',badge:null,  name:'이너스페이스 아웃도어 더블 해먹', brand:'이너스페이스', emoji:'🌿', rating:4.4, rCount:38, rentPrice:6000, buyPrice:32000, type:'both'},
+  {id:15, cat:'침낭·매트',badge:'sale',name:'에어래스트 울트라라이트 에어 매트', brand:'에어래스트', emoji:'🛏️', rating:4.6, rCount:82, rentPrice:7000, buyPrice:55000, origRent:9000, type:'both'},
+  {id:16, cat:'취사도구',badge:null,   name:'스탠리 어드벤처 쿡 세트 1.1L', brand:'스탠리', emoji:'🥘', rating:4.5, rCount:210, rentPrice:4000, buyPrice:38000, type:'buy'},
+];
+
+let currentCat = '전체';
+let currentView = 'grid';
+let currentPage = 1;
+const PER_PAGE = 12;
+const wishedIds = new Set();
+
+function starsHTML(rating) {
+  const full = Math.floor(rating);
+  const half = rating % 1 >= 0.5;
+  let s = '';
+  for(let i=0;i<full;i++) s += '<span class="star">★</span>';
+  if(half) s += '<span class="star" style="opacity:.5">★</span>';
+  return s;
+}
+
+function badgeHTML(badge) {
+  if(!badge) return '';
+  const map = {hot:'🔥 인기', sale:'할인', new:'NEW', best:'베스트'};
+  const cls = {hot:'pbadge-hot', sale:'pbadge-sale', new:'pbadge-new', best:'pbadge-best'};
+  return `<div class="badge-row"><span class="pbadge ${cls[badge]}">${map[badge]}</span></div>`;
+}
+
+function renderCard(p, delay) {
+  const wished = wishedIds.has(p.id);
+  const isListView = currentView === 'list';
+  const listClass = isListView ? ' list-card' : '';
+  const animDelay = `animation-delay:${delay*0.05}s`;
+
+  if (isListView) {
+    return `
+    <div class="pcard${listClass}" style="${animDelay}" onclick="void(0)">
+      <div class="pcard-img">
+        ${badgeHTML(p.badge)}
+        <span class="pcard-emoji">${p.emoji}</span>
+        <button class="pcard-wish${wished?' wished':''}" onclick="toggleWish(event,${p.id})">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+      <div class="pcard-body">
+        <div class="pcard-main">
+          <div class="pcard-cat">${p.brand} · ${p.cat}</div>
+          <div class="pcard-name">${p.name}</div>
+          <div class="stars">${starsHTML(p.rating)}<span class="star-count">${p.rating} (${p.rCount})</span></div>
+        </div>
+        <div class="pcard-price-wrap">
+          <div class="price-row" style="justify-content:flex-end">
+            ${p.origRent ? `<span class="price-orig">${p.origRent.toLocaleString()}원</span>` : ''}
+            <span class="price-main">${p.rentPrice.toLocaleString()}원</span>
+            <span class="price-unit">/ 1박</span>
+          </div>
+          ${p.buyPrice ? `<div style="font-size:11px;color:var(--stone);text-align:right;margin-bottom:10px">구매 ${p.buyPrice.toLocaleString()}원</div>` : ''}
+        </div>
+        <div class="btn-row">
+          ${p.type!=='buy' ? `<button class="btn-rent" onclick="event.stopPropagation()">대여하기</button>` : ''}
+          ${p.type!=='rent' ? `<button class="btn-buy" onclick="event.stopPropagation()">구매하기</button>` : ''}
+        </div>
+      </div>
+    </div>`;
+  }
+
+  return `
+  <div class="pcard" style="${animDelay}">
+    <div class="pcard-img">
+      ${badgeHTML(p.badge)}
+      <span class="pcard-emoji">${p.emoji}</span>
+      <button class="pcard-wish${wished?' wished':''}" onclick="toggleWish(event,${p.id})">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </button>
+    </div>
+    <div class="pcard-body">
+      <div class="pcard-cat">${p.brand} · ${p.cat}</div>
+      <div class="pcard-name">${p.name}</div>
+      <div class="stars">${starsHTML(p.rating)}<span class="star-count">${p.rating} (${p.rCount})</span></div>
+      <div class="price-row">
+        ${p.origRent ? `<span class="price-orig">${p.origRent.toLocaleString()}원</span>` : ''}
+        <span class="price-main">${p.rentPrice.toLocaleString()}원</span>
+        <span class="price-unit">/ 1박</span>
+      </div>
+      <div class="btn-row">
+        ${p.type!=='buy' ? `<button class="btn-rent">대여하기</button>` : ''}
+        ${p.type!=='rent' ? `<button class="btn-buy">구매하기</button>` : ''}
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderPagination(total, perPage, page) {
+  const totalPages = Math.ceil(total / perPage);
+  if(totalPages <= 1) { document.getElementById('pagination').innerHTML=''; return; }
+  let html = `<button class="ppage arrow" onclick="goPage(${Math.max(1,page-1)})"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>`;
+  for(let i=1;i<=totalPages;i++){
+    html += `<button class="ppage${i===page?' active':''}" onclick="goPage(${i})">${i}</button>`;
+  }
+  html += `<button class="ppage arrow" onclick="goPage(${Math.min(totalPages,page+1)})"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>`;
+  document.getElementById('pagination').innerHTML = html;
+}
+
+function renderProducts() {
+  const filtered = currentCat === '전체' ? products : products.filter(p => p.cat === currentCat);
+  const sort = document.getElementById('sort-select').value;
+  const sorted = [...filtered].sort((a,b) => {
+    if(sort==='price-low') return a.rentPrice - b.rentPrice;
+    if(sort==='price-high') return b.rentPrice - a.rentPrice;
+    if(sort==='rating') return b.rating - a.rating;
+    if(sort==='newest') return b.id - a.id;
+    return b.rCount - a.rCount;
+  });
+
+  document.getElementById('result-title').textContent = currentCat === '전체' ? '전체 장비' : currentCat;
+  document.getElementById('result-count').textContent = `총 ${sorted.length}개`;
+
+  const start = (currentPage - 1) * PER_PAGE;
+  const paginated = sorted.slice(start, start + PER_PAGE);
+  const grid = document.getElementById('product-grid');
+  const empty = document.getElementById('empty');
+
+  if(paginated.length === 0) {
+    grid.innerHTML = '';
+    empty.style.display = 'block';
+  } else {
+    empty.style.display = 'none';
+    grid.innerHTML = paginated.map((p, i) => renderCard(p, i)).join('');
+  }
+
+  const listClass = currentView === 'list' ? ' view-list' : '';
+  grid.className = 'product-grid' + listClass;
+  renderPagination(sorted.length, PER_PAGE, currentPage);
+}
+
+function goPage(n) {
+  currentPage = n;
+  renderProducts();
+  window.scrollTo({top: 0, behavior:'smooth'});
+}
+
+function toggleWish(e, id) {
+  e.stopPropagation();
+  if(wishedIds.has(id)) wishedIds.delete(id); else wishedIds.add(id);
+  renderProducts();
+}
+
+function setView(v) {
+  currentView = v;
+  document.getElementById('vbtn-grid').classList.toggle('active', v==='grid');
+  document.getElementById('vbtn-list').classList.toggle('active', v==='list');
+  renderProducts();
+}
+
+function sortProducts() { currentPage = 1; renderProducts(); }
+
+function toggleSidebar() {
+  const sb = document.getElementById('sidebar');
+  sb.classList.toggle('hidden');
+}
+
+function toggleSection(header) {
+  const opts = header.nextElementSibling;
+  const arrow = header.querySelector('.fs-arrow');
+  const isOpen = arrow.classList.contains('open');
+  opts.style.display = isOpen ? 'none' : 'flex';
+  arrow.classList.toggle('open', !isOpen);
+}
+
+function updateRange(el) {
+  const v = Math.round(el.value * 500);
+  document.getElementById('range-max-val').textContent = v >= 50000 ? '50,000원+' : v.toLocaleString() + '원';
+  const pct = el.value + '%';
+  el.style.background = `linear-gradient(to right, var(--ember) 0%, var(--ember) ${pct}, var(--border) ${pct}, var(--border) 100%)`;
+}
+
+// Category pill clicks
+document.getElementById('cat-bar').addEventListener('click', e => {
+  const pill = e.target.closest('.cat-pill');
+  if(!pill) return;
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+  pill.classList.add('active');
+  currentCat = pill.dataset.cat;
+  currentPage = 1;
+  renderProducts();
+});
+
+renderProducts();
+</script>
+</body>
+</html>

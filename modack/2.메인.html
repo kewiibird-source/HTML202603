@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>모닥모닥 메인</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --cream:#F6F0E6;
+  --cream2:#EDE5D4;
+  --cream3:#E2D8C3;
+  --orange:#E8732A;
+  --orange2:#C4621E;
+  --amber:#D4932A;
+  --brown:#2C1E0F;
+  --brown2:#5C4230;
+  --brown3:#8B6B4A;
+  --brown4:#B89A7A;
+  --white:#FFFDF8;
+  --card:#FFFFFF;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--cream);color:var(--brown);overflow-x:hidden}
+
+/* ─── NAV ─── */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(246,240,230,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--cream2);height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 48px}
+.nav-left{display:flex;align-items:center;gap:32px}
+.nav-ham{display:flex;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-ham span{width:22px;height:1.5px;background:var(--brown2);display:block;transition:all 0.3s}
+.nav-logo{font-family:'Nanum Myeongjo',serif;font-size:20px;font-weight:800;color:var(--brown);letter-spacing:-0.5px;display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-flame{width:22px;height:22px}
+.nav-menu{display:flex;gap:28px;list-style:none}
+.nav-menu a{font-size:13px;color:var(--brown2);text-decoration:none;letter-spacing:0.3px;transition:color 0.2s;font-weight:400}
+.nav-menu a:hover{color:var(--orange)}
+.nav-right{display:flex;align-items:center;gap:20px}
+.nav-icon{width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%;transition:background 0.2s;position:relative}
+.nav-icon:hover{background:var(--cream2)}
+.nav-icon svg{width:20px;height:20px;stroke:var(--brown2);fill:none;stroke-width:1.5}
+.nav-badge{position:absolute;top:4px;right:4px;width:16px;height:16px;background:var(--orange);border-radius:50%;font-size:10px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600}
+.btn-login{background:var(--brown);color:var(--cream);font-size:13px;padding:8px 22px;border-radius:24px;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:0.3px;transition:background 0.2s;font-weight:400}
+.btn-login:hover{background:var(--orange)}
+
+/* ─── HERO ─── */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding-top:64px;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 60%, #EDE0C4 0%, var(--cream) 70%);z-index:0}
+.hero-content{position:relative;z-index:1}
+.fire-wrap{width:160px;height:160px;margin:0 auto 32px;position:relative}
+.fire-base{width:70px;height:22px;background:#8B5E3C;border-radius:50%;margin:0 auto;position:relative;bottom:0}
+.fire-log1{position:absolute;bottom:0;left:50%;transform:translateX(-50%) rotate(-20deg);width:80px;height:12px;background:#6B4226;border-radius:8px}
+.fire-log2{position:absolute;bottom:0;left:50%;transform:translateX(-50%) rotate(20deg);width:80px;height:12px;background:#7A5030;border-radius:8px}
+@keyframes flicker1{0%,100%{transform:scaleX(1) scaleY(1) translateY(0)}33%{transform:scaleX(0.85) scaleY(1.06) translateY(-4px)}66%{transform:scaleX(1.1) scaleY(0.95) translateY(-2px)}}
+@keyframes flicker2{0%,100%{transform:scaleX(1) scaleY(1) translateY(0)}25%{transform:scaleX(1.12) scaleY(1.08) translateY(-6px)}75%{transform:scaleX(0.9) scaleY(0.98) translateY(-3px)}}
+@keyframes flicker3{0%,100%{transform:scaleX(1) scaleY(1) translateY(0)}50%{transform:scaleX(0.88) scaleY(1.1) translateY(-8px)}}
+@keyframes glow{0%,100%{opacity:0.35;transform:scale(1)}50%{opacity:0.55;transform:scale(1.06)}}
+.fire-glow{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:100px;height:80px;background:radial-gradient(ellipse at 50% 80%,#E8732A55 0%,transparent 70%);animation:glow 2s ease-in-out infinite}
+.flame{position:absolute;bottom:20px;left:50%;transform-origin:bottom center}
+.flame-outer{width:60px;height:110px;background:linear-gradient(to top,#E8732A,#F5A623,#FDED8A00);border-radius:50% 50% 30% 30% / 60% 60% 40% 40%;transform:translateX(-50%);animation:flicker2 2.2s ease-in-out infinite}
+.flame-mid{width:40px;height:80px;background:linear-gradient(to top,#F5A623,#FDED8A,#FFFFFF00);border-radius:50% 50% 30% 30% / 60% 60% 40% 40%;transform:translateX(-50%);animation:flicker1 1.8s ease-in-out infinite;bottom:16px}
+.flame-inner{width:22px;height:50px;background:linear-gradient(to top,#FFE14D,#FFFDE7,#FFFFFF00);border-radius:50% 50% 30% 30% / 60% 60% 40% 40%;transform:translateX(-50%);animation:flicker3 1.5s ease-in-out infinite;bottom:22px}
+.hero-badge{display:inline-block;background:var(--cream2);color:var(--orange2);font-size:11px;letter-spacing:1.5px;padding:6px 16px;border-radius:20px;margin-bottom:20px;font-weight:500;border:1px solid var(--cream3)}
+.hero-title{font-family:'Nanum Myeongjo',serif;font-size:52px;font-weight:800;line-height:1.2;color:var(--brown);margin-bottom:20px;letter-spacing:-1px}
+.hero-title span{color:var(--orange)}
+.hero-sub{font-size:15px;color:var(--brown3);line-height:1.8;margin-bottom:40px;font-weight:300}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--orange);color:#fff;font-size:14px;padding:14px 36px;border-radius:32px;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:0.3px;transition:all 0.25s;font-weight:500;text-decoration:none;display:inline-block}
+.btn-primary:hover{background:var(--orange2);transform:translateY(-2px)}
+.btn-secondary{background:transparent;color:var(--brown2);font-size:14px;padding:13px 34px;border-radius:32px;border:1.5px solid var(--brown4);cursor:pointer;font-family:'Noto Sans KR',sans-serif;letter-spacing:0.3px;transition:all 0.25s;font-weight:400;text-decoration:none;display:inline-block}
+.btn-secondary:hover{border-color:var(--brown2);background:var(--cream2)}
+.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--brown4);font-size:11px;letter-spacing:1px}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,var(--brown4),transparent);animation:bounce 1.8s ease-in-out infinite}
+
+/* ─── NOTICE STRIP ─── */
+.strip{background:var(--brown);color:var(--cream);padding:12px 0;overflow:hidden;white-space:nowrap}
+.strip-inner{display:inline-flex;gap:80px;animation:marquee 30s linear infinite;font-size:12px;letter-spacing:1px;font-weight:300;opacity:0.85}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.strip-dot{color:var(--orange);font-size:14px}
+
+/* ─── CATEGORIES ─── */
+.section{padding:80px 48px}
+.section-label{font-size:11px;color:var(--brown4);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-family:'Nanum Myeongjo',serif;font-size:30px;font-weight:700;color:var(--brown);margin-bottom:8px;letter-spacing:-0.5px}
+.section-sub{font-size:14px;color:var(--brown3);font-weight:300;margin-bottom:40px;line-height:1.7}
+.cat-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:16px;max-width:900px;margin:0 auto}
+.cat-item{display:flex;flex-direction:column;align-items:center;gap:10px;cursor:pointer;padding:20px 12px;border-radius:16px;transition:all 0.25s;border:1px solid transparent}
+.cat-item:hover{background:var(--cream2);border-color:var(--cream3);transform:translateY(-4px)}
+.cat-icon{width:56px;height:56px;background:var(--cream2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;transition:background 0.25s}
+.cat-item:hover .cat-icon{background:var(--orange);font-size:28px}
+.cat-name{font-size:12px;color:var(--brown2);font-weight:400;text-align:center}
+
+/* ─── PRODUCTS ─── */
+.section-alt{background:var(--white);padding:80px 48px}
+.section-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;max-width:1200px;margin-left:auto;margin-right:auto}
+.view-all{font-size:13px;color:var(--brown3);text-decoration:none;border-bottom:1px solid var(--brown4);padding-bottom:2px;transition:color 0.2s}
+.view-all:hover{color:var(--orange)}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1200px;margin:0 auto}
+.product-card{border-radius:16px;overflow:hidden;background:var(--cream);cursor:pointer;transition:all 0.3s;border:1px solid var(--cream2);position:relative}
+.product-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(44,30,15,0.12)}
+.product-img{width:100%;aspect-ratio:1;background:var(--cream2);display:flex;align-items:center;justify-content:center;font-size:56px;position:relative;overflow:hidden}
+.product-img::after{content:'';position:absolute;inset:0;background:rgba(44,30,15,0);transition:background 0.3s}
+.product-card:hover .product-img::after{background:rgba(44,30,15,0.04)}
+.product-badge{position:absolute;top:12px;left:12px;background:var(--orange);color:#fff;font-size:10px;padding:4px 10px;border-radius:12px;font-weight:500;letter-spacing:0.5px}
+.product-wish{position:absolute;top:12px;right:12px;width:32px;height:32px;background:rgba(255,253,248,0.9);border-radius:50%;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;transition:all 0.2s}
+.product-wish:hover{background:#fff;transform:scale(1.1)}
+.product-wish svg{width:16px;height:16px;stroke:var(--brown3);fill:none;stroke-width:1.5}
+.product-info{padding:16px}
+.product-tag{font-size:10px;color:var(--orange);letter-spacing:1px;font-weight:500;margin-bottom:6px}
+.product-name{font-size:14px;font-weight:500;color:var(--brown);margin-bottom:8px;line-height:1.4}
+.product-stars{display:flex;align-items:center;gap:4px;margin-bottom:8px}
+.star{font-size:11px;color:var(--amber)}
+.product-reviews{font-size:11px;color:var(--brown4)}
+.product-price{display:flex;align-items:baseline;gap:6px}
+.price-main{font-size:16px;font-weight:600;color:var(--brown)}
+.price-unit{font-size:11px;color:var(--brown4)}
+.price-sale{font-size:12px;color:var(--brown4);text-decoration:line-through}
+.product-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.btn-rent{background:var(--orange);color:#fff;font-size:12px;padding:8px;border-radius:10px;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:background 0.2s;font-weight:400}
+.btn-rent:hover{background:var(--orange2)}
+.btn-buy{background:var(--cream2);color:var(--brown2);font-size:12px;padding:8px;border-radius:10px;border:none;cursor:pointer;font-family:'Noto Sans KR',sans-serif;transition:background 0.2s;font-weight:400}
+.btn-buy:hover{background:var(--cream3)}
+
+/* ─── CAMPING MAP BANNER ─── */
+.map-banner{background:var(--brown);padding:80px 48px;display:flex;align-items:center;gap:64px;overflow:hidden;position:relative}
+.map-banner::before{content:'';position:absolute;right:-80px;top:-80px;width:500px;height:500px;background:radial-gradient(circle,rgba(232,115,42,0.15) 0%,transparent 70%)}
+.map-text{flex:1;position:relative;z-index:1}
+.map-text .section-label{color:var(--orange);opacity:0.8}
+.map-text .section-title{color:var(--cream);margin-bottom:16px}
+.map-text .section-sub{color:var(--brown4);margin-bottom:32px}
+.map-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:36px}
+.map-features li{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--cream2);font-weight:300}
+.map-features li::before{content:'';width:6px;height:6px;background:var(--orange);border-radius:50%;flex-shrink:0}
+.map-visual{flex:1;background:rgba(255,253,248,0.06);border-radius:20px;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,253,248,0.1);position:relative;overflow:hidden}
+.map-dots{position:absolute;inset:0;padding:24px}
+.map-pin{position:absolute;display:flex;flex-direction:column;align-items:center;cursor:pointer}
+@keyframes ping{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.4);opacity:0.6}}
+.pin-dot{width:12px;height:12px;background:var(--orange);border-radius:50%;border:2px solid rgba(255,253,248,0.5);animation:ping 2s ease-in-out infinite}
+.pin-label{font-size:10px;color:var(--cream2);margin-top:3px;white-space:nowrap;background:rgba(44,30,15,0.5);padding:2px 6px;border-radius:6px}
+.map-placeholder-text{font-size:13px;color:rgba(255,253,248,0.3);text-align:center}
+
+/* ─── WEATHER & SAFETY ─── */
+.ws-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;max-width:1200px;margin:0 auto}
+.ws-card{background:var(--cream2);border-radius:20px;padding:36px;border:1px solid var(--cream3)}
+.ws-icon{font-size:40px;margin-bottom:16px}
+.ws-card-title{font-family:'Nanum Myeongjo',serif;font-size:22px;font-weight:700;color:var(--brown);margin-bottom:10px}
+.ws-card-text{font-size:13px;color:var(--brown3);line-height:1.8;margin-bottom:24px;font-weight:300}
+.weather-tags{display:flex;gap:8px;flex-wrap:wrap}
+.weather-tag{background:var(--cream);border:1px solid var(--cream3);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--brown2);cursor:pointer;transition:all 0.2s}
+.weather-tag:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+.safety-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.safety-list li{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--brown2);font-weight:400}
+.safety-num{width:26px;height:26px;background:var(--orange);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.co-banner{background:linear-gradient(135deg,var(--orange),var(--amber));border-radius:16px;padding:20px 24px;display:flex;align-items:center;gap:16px;margin-top:20px;cursor:pointer;transition:transform 0.2s}
+.co-banner:hover{transform:scale(1.01)}
+.co-icon{font-size:28px}
+.co-text{flex:1}
+.co-title{font-size:14px;font-weight:600;color:#fff;margin-bottom:4px}
+.co-sub{font-size:12px;color:rgba(255,255,255,0.8);font-weight:300}
+.co-arrow{font-size:20px;color:rgba(255,255,255,0.8)}
+
+/* ─── GUIDE SECTION ─── */
+.guide-section{background:var(--cream2);padding:80px 48px}
+.guide-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1200px;margin:40px auto 0}
+.guide-card{background:var(--white);border-radius:16px;padding:28px;border:1px solid var(--cream3);cursor:pointer;transition:all 0.25s;display:flex;flex-direction:column;gap:14px}
+.guide-card:hover{transform:translateY(-4px);border-color:var(--orange)}
+.guide-num{font-family:'Nanum Myeongjo',serif;font-size:42px;font-weight:800;color:var(--cream3);line-height:1}
+.guide-icon-row{display:flex;align-items:center;gap:12px}
+.guide-emoji{font-size:28px}
+.guide-card-title{font-size:15px;font-weight:500;color:var(--brown)}
+.guide-card-text{font-size:13px;color:var(--brown3);line-height:1.7;font-weight:300;flex:1}
+.guide-link{font-size:12px;color:var(--orange);font-weight:500;display:flex;align-items:center;gap:4px}
+.guide-link::after{content:'→';transition:transform 0.2s}
+.guide-card:hover .guide-link::after{transform:translateX(4px)}
+
+/* ─── MEMBERSHIP BANNER ─── */
+.member-banner{padding:80px 48px;background:var(--white)}
+.member-inner{max-width:900px;margin:0 auto;background:var(--brown);border-radius:24px;padding:56px;display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;position:relative;overflow:hidden}
+.member-inner::before{content:'';position:absolute;right:-40px;bottom:-60px;width:280px;height:280px;border-radius:50%;border:60px solid rgba(232,115,42,0.12)}
+.member-title{font-family:'Nanum Myeongjo',serif;font-size:28px;font-weight:800;color:var(--cream);margin-bottom:12px;line-height:1.3}
+.member-sub{font-size:14px;color:var(--brown4);line-height:1.8;font-weight:300;margin-bottom:24px}
+.grade-list{display:flex;gap:24px}
+.grade-item{display:flex;flex-direction:column;gap:4px}
+.grade-badge{display:inline-block;font-size:11px;padding:4px 12px;border-radius:12px;font-weight:500}
+.grade-bronze{background:rgba(196,130,80,0.2);color:#C48250}
+.grade-silver{background:rgba(180,180,180,0.2);color:#A0A0A0}
+.grade-gold{background:rgba(212,147,42,0.2);color:#D4932A}
+.grade-name{font-size:12px;color:var(--brown4);font-weight:300}
+.member-actions{display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+
+/* ─── CHATBOT FAB ─── */
+.chatbot-fab{position:fixed;bottom:32px;right:32px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.fab-btn{width:56px;height:56px;background:var(--orange);border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(232,115,42,0.4);transition:all 0.25s;font-size:22px}
+.fab-btn:hover{transform:scale(1.08);box-shadow:0 12px 32px rgba(232,115,42,0.5)}
+.fab-label{background:var(--brown);color:var(--cream);font-size:12px;padding:6px 14px;border-radius:20px;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;font-weight:400}
+@keyframes fab-pulse{0%,100%{box-shadow:0 8px 24px rgba(232,115,42,0.4)}50%{box-shadow:0 8px 32px rgba(232,115,42,0.65)}}
+.fab-btn{animation:fab-pulse 2.5s ease-in-out infinite}
+
+/* ─── FOOTER ─── */
+footer{background:var(--brown);padding:60px 48px 32px;color:var(--cream)}
+.footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,253,248,0.1)}
+.footer-brand .nav-logo{color:var(--cream);margin-bottom:12px;display:inline-flex}
+.footer-brand p{font-size:12px;color:var(--brown4);line-height:1.9;font-weight:300;max-width:220px}
+.footer-col h5{font-size:12px;color:var(--cream);letter-spacing:1px;margin-bottom:16px;font-weight:500}
+.footer-col a,.footer-col span{display:block;font-size:12px;color:var(--brown4);text-decoration:none;margin-bottom:8px;transition:color 0.2s;font-weight:300;cursor:pointer}
+.footer-col a:hover,.footer-col span:hover{color:var(--orange)}
+.footer-contact .phone{font-family:'Nanum Myeongjo',serif;font-size:20px;font-weight:700;color:var(--cream);margin-bottom:4px}
+.footer-contact .hours{font-size:11px;color:var(--brown4);margin-bottom:12px;font-weight:300}
+.footer-contact a{font-size:12px;color:var(--orange)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:28px;flex-wrap:gap}
+.footer-copy{font-size:11px;color:var(--brown4);font-weight:300}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:11px;color:var(--brown4);text-decoration:none;font-weight:300;transition:color 0.2s}
+.footer-links a:hover{color:var(--cream)}
+
+/* ─── RECENT VIEWED ─── */
+.recent-bar{position:fixed;bottom:0;left:0;right:0;z-index:90;background:var(--white);border-top:1px solid var(--cream2);padding:12px 48px;display:flex;align-items:center;gap:16px;transform:translateY(100%);transition:transform 0.3s}
+.recent-bar.visible{transform:translateY(0)}
+.recent-label{font-size:11px;color:var(--brown4);letter-spacing:1px;white-space:nowrap;font-weight:400}
+.recent-items{display:flex;gap:12px;overflow-x:auto;scrollbar-width:none}
+.recent-item{display:flex;align-items:center;gap:8px;background:var(--cream);border:1px solid var(--cream2);border-radius:10px;padding:6px 12px;cursor:pointer;transition:all 0.2s;white-space:nowrap;flex-shrink:0}
+.recent-item:hover{border-color:var(--orange)}
+.recent-item-img{font-size:18px}
+.recent-item-name{font-size:12px;color:var(--brown2)}
+.recent-close{margin-left:auto;font-size:18px;color:var(--brown4);cursor:pointer;background:none;border:none;flex-shrink:0}
+
+/* ─── SEARCH MODAL ─── */
+.search-overlay{position:fixed;inset:0;z-index:300;background:rgba(44,30,15,0.6);display:none;align-items:flex-start;justify-content:center;padding-top:120px}
+.search-overlay.open{display:flex}
+.search-box{background:var(--white);border-radius:20px;padding:24px;width:100%;max-width:600px;box-shadow:0 24px 64px rgba(44,30,15,0.2)}
+.search-input-row{display:flex;align-items:center;gap:12px;border-bottom:1.5px solid var(--cream3);padding-bottom:16px;margin-bottom:20px}
+.search-input{border:none;outline:none;font-size:18px;flex:1;font-family:'Noto Sans KR',sans-serif;color:var(--brown);background:transparent;font-weight:300}
+.search-input::placeholder{color:var(--brown4)}
+.search-input-row svg{width:22px;height:22px;stroke:var(--brown3);fill:none;stroke-width:1.5;flex-shrink:0}
+.search-tags-title{font-size:11px;color:var(--brown4);letter-spacing:1px;margin-bottom:10px;font-weight:400}
+.search-tags{display:flex;flex-wrap:wrap;gap:8px}
+.search-tag{background:var(--cream);border:1px solid var(--cream3);border-radius:20px;padding:6px 14px;font-size:12px;color:var(--brown2);cursor:pointer;transition:all 0.2s}
+.search-tag:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{opacity:0;animation:fadeUp 0.7s ease forwards}
+.fade-up:nth-child(1){animation-delay:0.1s}
+.fade-up:nth-child(2){animation-delay:0.2s}
+.fade-up:nth-child(3){animation-delay:0.3s}
+.fade-up:nth-child(4){animation-delay:0.4s}
+.fade-up:nth-child(5){animation-delay:0.5s}
+.fade-up:nth-child(6){animation-delay:0.6s}
+.fade-up:nth-child(7){animation-delay:0.7s}
+
+/* text center util */
+.text-center{text-align:center}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-ham" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+    <a href="#" class="nav-logo">
+      <svg class="logo-flame" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2C10 6 6 8 8 13C9 16 11 17 12 22C13 17 15 16 16 13C18 8 14 6 12 2Z" fill="#E8732A"/>
+        <path d="M12 8C11 10 9 11 10 14C10.5 16 11.5 17 12 20C12.5 17 13.5 16 14 14C15 11 13 10 12 8Z" fill="#F5C842"/>
+      </svg>
+      모닥모닥
+    </a>
+    <ul class="nav-menu">
+      <li><a href="#">캠핑 용품</a></li>
+      <li><a href="#">대여</a></li>
+      <li><a href="#">구매</a></li>
+      <li><a href="#">캠핑장</a></li>
+      <li><a href="#">안전 정보</a></li>
+      <li><a href="#">고객센터</a></li>
+    </ul>
+  </div>
+  <div class="nav-right">
+    <div class="nav-icon" onclick="openSearch()">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>
+    </div>
+    <div class="nav-icon">
+      <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    </div>
+    <div class="nav-icon" style="position:relative">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6" stroke-linecap="round"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="nav-badge">2</span>
+    </div>
+    <button class="btn-login" onclick="openLogin()">로그인</button>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="fire-wrap">
+      <div class="fire-glow"></div>
+      <div class="flame" style="position:absolute;bottom:24px;left:50%">
+        <div class="flame-outer" style="position:absolute"></div>
+        <div class="flame-mid" style="position:absolute"></div>
+        <div class="flame-inner" style="position:absolute"></div>
+      </div>
+      <div class="fire-log1"></div>
+      <div class="fire-log2"></div>
+    </div>
+    <div class="hero-badge">캠핑의 모든 것, 한 곳에서</div>
+    <h1 class="hero-title">불꽃처럼 빛나는<br><span>캠핑 라이프</span>를</h1>
+    <p class="hero-sub">고품질 캠핑 장비를 합리적으로 대여하고 구매하세요.<br>전국 캠핑장 예약부터 날씨 정보, 안전 가이드까지.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary">장비 대여하기</a>
+      <a href="#" class="btn-secondary">캠핑장 찾기</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    SCROLL
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── MARQUEE STRIP ── -->
+<div class="strip">
+  <div class="strip-inner">
+    <span>🔥 일산화탄소 경보기 대여 가능</span>
+    <span class="strip-dot">✦</span>
+    <span>텐트·침낭·취사도구 전 품목 당일 배송</span>
+    <span class="strip-dot">✦</span>
+    <span>신규 회원 첫 대여 15% 할인 쿠폰 제공</span>
+    <span class="strip-dot">✦</span>
+    <span>캠핑장 500곳+ 실시간 예약 가능</span>
+    <span class="strip-dot">✦</span>
+    <span>파손 보험 가입으로 걱정 없는 캠핑</span>
+    <span class="strip-dot">✦</span>
+    <span>🔥 일산화탄소 경보기 대여 가능</span>
+    <span class="strip-dot">✦</span>
+    <span>텐트·침낭·취사도구 전 품목 당일 배송</span>
+    <span class="strip-dot">✦</span>
+    <span>신규 회원 첫 대여 15% 할인 쿠폰 제공</span>
+    <span class="strip-dot">✦</span>
+    <span>캠핑장 500곳+ 실시간 예약 가능</span>
+    <span class="strip-dot">✦</span>
+    <span>파손 보험 가입으로 걱정 없는 캠핑</span>
+    <span class="strip-dot">✦</span>
+  </div>
+</div>
+
+<!-- ── CATEGORIES ── -->
+<section class="section text-center">
+  <p class="section-label">카테고리</p>
+  <h2 class="section-title">필요한 모든 장비</h2>
+  <p class="section-sub">대여 또는 구매로 당신의 캠핑을 완성하세요</p>
+  <div class="cat-grid">
+    <div class="cat-item fade-up"><div class="cat-icon">⛺</div><span class="cat-name">텐트</span></div>
+    <div class="cat-item fade-up"><div class="cat-icon">🛏️</div><span class="cat-name">침낭·매트</span></div>
+    <div class="cat-item fade-up"><div class="cat-icon">🍳</div><span class="cat-name">취사도구</span></div>
+    <div class="cat-item fade-up"><div class="cat-icon">💡</div><span class="cat-name">조명</span></div>
+    <div class="cat-item fade-up"><div class="cat-icon">🪑</div><span class="cat-name">테이블·의자</span></div>
+    <div class="cat-item fade-up"><div class="cat-icon">🔒</div><span class="cat-name">안전용품</span></div>
+    <div class="cat-item fade-up"><div class="cat-icon">🎒</div><span class="cat-name">기타 용품</span></div>
+  </div>
+</section>
+
+<!-- ── FEATURED PRODUCTS ── -->
+<section class="section-alt">
+  <div class="section-header">
+    <div>
+      <p class="section-label">인기 장비</p>
+      <h2 class="section-title">지금 많이 찾는 장비</h2>
+    </div>
+    <a href="#" class="view-all">전체보기</a>
+  </div>
+  <div class="product-grid">
+    <div class="product-card">
+      <div class="product-img">⛺<span class="product-badge">인기</span><button class="product-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+      <div class="product-info">
+        <p class="product-tag">텐트 · 4인용</p>
+        <p class="product-name">스노우피크 랜드록 2024</p>
+        <div class="product-stars"><span class="star">★★★★★</span><span class="product-reviews">(128)</span></div>
+        <div class="product-price"><span class="price-main">35,000</span><span class="price-unit">원/1박</span><span class="price-sale">45,000원</span></div>
+        <div class="product-btns">
+          <button class="btn-rent">대여하기</button>
+          <button class="btn-buy">구매하기</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🔥<span class="product-badge">⚠ 안전</span><button class="product-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+      <div class="product-info">
+        <p class="product-tag">안전용품 · 필수</p>
+        <p class="product-name">일산화탄소 경보기</p>
+        <div class="product-stars"><span class="star">★★★★★</span><span class="product-reviews">(256)</span></div>
+        <div class="product-price"><span class="price-main">3,000</span><span class="price-unit">원/1박</span></div>
+        <div class="product-btns">
+          <button class="btn-rent">대여하기</button>
+          <button class="btn-buy">구매하기</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🛏️<button class="product-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+      <div class="product-info">
+        <p class="product-tag">침낭 · 동계용</p>
+        <p class="product-name">나낙 레인저 -15℃ 구스다운</p>
+        <div class="product-stars"><span class="star">★★★★☆</span><span class="product-reviews">(74)</span></div>
+        <div class="product-price"><span class="price-main">12,000</span><span class="price-unit">원/1박</span></div>
+        <div class="product-btns">
+          <button class="btn-rent">대여하기</button>
+          <button class="btn-buy">구매하기</button>
+        </div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img">🍳<span class="product-badge">NEW</span><button class="product-wish"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button></div>
+      <div class="product-info">
+        <p class="product-tag">취사도구 · 세트</p>
+        <p class="product-name">코베아 캠핑 쿡웨어 5종 세트</p>
+        <div class="product-stars"><span class="star">★★★★★</span><span class="product-reviews">(41)</span></div>
+        <div class="product-price"><span class="price-main">18,000</span><span class="price-unit">원/1박</span></div>
+        <div class="product-btns">
+          <button class="btn-rent">대여하기</button>
+          <button class="btn-buy">구매하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CAMPING MAP ── -->
+<section class="map-banner">
+  <div class="map-text">
+    <p class="section-label">캠핑장 지도</p>
+    <h2 class="section-title" style="color:var(--cream)">내 주변 캠핑장을<br>지금 찾아보세요</h2>
+    <p class="section-sub">현재 위치 기반으로 가까운 캠핑장과 주변 편의시설, 병원, 동물병원 위치를 한눈에 확인하세요.</p>
+    <ul class="map-features">
+      <li>실시간 캠핑장 예약 · 500곳 이상</li>
+      <li>주변 편의점, 병원, 동물병원 거리 표시</li>
+      <li>현재 위치 기반 길찾기 연동</li>
+      <li>계절별 캠핑장 추천</li>
+    </ul>
+    <a href="#" class="btn-primary">지도로 찾기</a>
+  </div>
+  <div class="map-visual">
+    <div style="position:relative;width:100%;height:100%;min-height:240px">
+      <!-- decorative map pins -->
+      <div class="map-pin" style="top:25%;left:40%"><div class="pin-dot"></div><span class="pin-label">가평 캠핑장</span></div>
+      <div class="map-pin" style="top:50%;left:60%"><div class="pin-dot" style="animation-delay:0.5s"></div><span class="pin-label">양평 캠핑장</span></div>
+      <div class="map-pin" style="top:70%;left:30%"><div class="pin-dot" style="animation-delay:1s"></div><span class="pin-label">남양주 캠핑장</span></div>
+      <div class="map-pin" style="top:35%;left:70%"><div class="pin-dot" style="animation-delay:1.5s;background:#D4932A"></div><span class="pin-label">춘천 캠핑장</span></div>
+      <p class="map-placeholder-text" style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%)">지도 API 연동 시 실제 지도 표시</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── WEATHER & SAFETY ── -->
+<section class="section">
+  <p class="section-label">날씨 · 안전</p>
+  <h2 class="section-title" style="margin-bottom:40px">안전하고 즐거운 캠핑을 위해</h2>
+  <div class="ws-grid">
+    <div class="ws-card">
+      <div class="ws-icon">🌤️</div>
+      <p class="ws-card-title">캠핑장 날씨 정보</p>
+      <p class="ws-card-text">출발 전 목적지 날씨를 미리 확인하세요. 기온, 강수 확률, 풍속을 실시간으로 제공합니다.</p>
+      <div class="weather-tags">
+        <span class="weather-tag">오늘 날씨</span>
+        <span class="weather-tag">내일 날씨</span>
+        <span class="weather-tag">주간 예보</span>
+        <span class="weather-tag">지역 검색</span>
+      </div>
+    </div>
+    <div class="ws-card">
+      <div class="ws-icon">🛡️</div>
+      <p class="ws-card-title">캠핑 안전 수칙</p>
+      <ul class="safety-list">
+        <li><span class="safety-num">1</span>텐트 내 가스·화기 절대 사용 금지</li>
+        <li><span class="safety-num">2</span>일산화탄소 경보기 반드시 설치</li>
+        <li><span class="safety-num">3</span>취침 전 화롯대 완전 소화 확인</li>
+        <li><span class="safety-num">4</span>쓰레기 분리수거 및 흔적 남기지 않기</li>
+      </ul>
+      <div class="co-banner" onclick="alert('일산화탄소 경보기 대여 페이지로 이동합니다')">
+        <span class="co-icon">🚨</span>
+        <div class="co-text">
+          <p class="co-title">일산화탄소 경보기 대여</p>
+          <p class="co-sub">하루 3,000원 · 필수 안전 장비</p>
+        </div>
+        <span class="co-arrow">→</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GUIDE SECTION ── -->
+<section class="guide-section">
+  <div style="max-width:1200px;margin:0 auto">
+    <p class="section-label">이용 가이드</p>
+    <h2 class="section-title">캠핑이 처음이신가요?</h2>
+    <div class="guide-grid">
+      <div class="guide-card">
+        <div class="guide-num">01</div>
+        <div class="guide-icon-row"><span class="guide-emoji">📹</span><p class="guide-card-title">설치 가이드 영상</p></div>
+        <p class="guide-card-text">텐트, 타프, 취사도구 등 장비별 상세 설치 영상을 제공합니다. 초보 캠퍼도 쉽게 따라할 수 있어요.</p>
+        <span class="guide-link">영상 보러가기</span>
+      </div>
+      <div class="guide-card">
+        <div class="guide-num">02</div>
+        <div class="guide-icon-row"><span class="guide-emoji">📱</span><p class="guide-card-title">QR 코드 매뉴얼</p></div>
+        <p class="guide-card-text">장비 수령 시 QR코드를 스캔하면 해당 제품의 상세 매뉴얼을 즉시 확인할 수 있습니다.</p>
+        <span class="guide-link">QR 사용법 보기</span>
+      </div>
+      <div class="guide-card">
+        <div class="guide-num">03</div>
+        <div class="guide-icon-row"><span class="guide-emoji">♻️</span><p class="guide-card-title">분리수거 가이드</p></div>
+        <p class="guide-card-text">자연을 지키는 올바른 캠핑 문화. 캠핑장별 쓰레기 분리수거 규정과 방법을 안내해드립니다.</p>
+        <span class="guide-link">가이드 확인하기</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MEMBERSHIP BANNER ── -->
+<section class="member-banner">
+  <div class="member-inner">
+    <div>
+      <h2 class="member-title">더 많이 이용할수록<br>더 큰 혜택을</h2>
+      <p class="member-sub">이용 횟수와 금액에 따라 등급이 올라가며<br>할인 쿠폰, 전용 상품, 우선 예약 혜택을 드립니다.</p>
+      <div class="grade-list">
+        <div class="grade-item"><span class="grade-badge grade-bronze">BRONZE</span><span class="grade-name">일반 회원</span></div>
+        <div class="grade-item"><span class="grade-badge grade-silver">SILVER</span><span class="grade-name">5회 이상</span></div>
+        <div class="grade-item"><span class="grade-badge grade-gold">GOLD</span><span class="grade-name">15회 이상</span></div>
+      </div>
+    </div>
+    <div class="member-actions">
+      <button class="btn-primary" onclick="openSignup()">회원가입 하기</button>
+      <a href="#" class="btn-secondary" style="text-align:center">멤버십 혜택 보기</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo" style="margin-bottom:14px;display:inline-flex">
+        <svg class="logo-flame" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2C10 6 6 8 8 13C9 16 11 17 12 22C13 17 15 16 16 13C18 8 14 6 12 2Z" fill="#E8732A"/>
+          <path d="M12 8C11 10 9 11 10 14C10.5 16 11.5 17 12 20C12.5 17 13.5 16 14 14C15 11 13 10 12 8Z" fill="#F5C842"/>
+        </svg>
+        모닥모닥
+      </a>
+      <p>함께 만들어가는 따뜻한 캠핑 라이프. 합리적인 대여와 구매로 더 많은 사람이 캠핑을 즐길 수 있도록.</p>
+    </div>
+    <div class="footer-col">
+      <h5>서비스</h5>
+      <a href="#">대여하기</a>
+      <a href="#">구매하기</a>
+      <a href="#">캠핑장 예약</a>
+      <a href="#">날씨 정보</a>
+      <a href="#">이용가이드</a>
+    </div>
+    <div class="footer-col">
+      <h5>마이페이지</h5>
+      <a href="#">회원정보</a>
+      <a href="#">예약 내역</a>
+      <a href="#">주문 내역</a>
+      <a href="#">찜 목록</a>
+      <a href="#">장바구니</a>
+    </div>
+    <div class="footer-col">
+      <h5>고객지원</h5>
+      <a href="#">공지사항</a>
+      <a href="#">자주 묻는 질문</a>
+      <a href="#">1:1 문의</a>
+      <a href="#">이용 약관</a>
+      <a href="#">개인정보처리방침</a>
+    </div>
+    <div class="footer-col footer-contact">
+      <h5>고객센터</h5>
+      <p class="phone">1588-0000</p>
+      <p class="hours">평일 09:00 — 18:00<br>주말 · 공휴일 휴무</p>
+      <a href="mailto:hello@modakmodak.com">hello@modakmodak.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 모닥모닥. All Rights Reserved.</p>
+    <div class="footer-links">
+      <a href="#">이용약관</a>
+      <a href="#">개인정보처리방침</a>
+      <a href="#">청소년보호정책</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── CHATBOT FAB ── -->
+<div class="chatbot-fab">
+  <span class="fab-label">챗봇 문의</span>
+  <button class="fab-btn" onclick="openChat()">💬</button>
+</div>
+
+<!-- ── RECENT VIEWED BAR ── -->
+<div class="recent-bar" id="recentBar">
+  <span class="recent-label">최근 본 상품</span>
+  <div class="recent-items">
+    <div class="recent-item"><span class="recent-item-img">⛺</span><span class="recent-item-name">스노우피크 랜드록</span></div>
+    <div class="recent-item"><span class="recent-item-img">🔥</span><span class="recent-item-name">일산화탄소 경보기</span></div>
+    <div class="recent-item"><span class="recent-item-img">🍳</span><span class="recent-item-name">코베아 쿡웨어</span></div>
+  </div>
+  <button class="recent-close" onclick="closeRecent()">✕</button>
+</div>
+
+<!-- ── SEARCH OVERLAY ── -->
+<div class="search-overlay" id="searchOverlay" onclick="closeSearch(event)">
+  <div class="search-box" onclick="event.stopPropagation()">
+    <div class="search-input-row">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35" stroke-linecap="round" stroke="var(--brown3)" fill="none" stroke-width="1.5"/></svg>
+      <input type="text" class="search-input" placeholder="텐트, 침낭, 캠핑장 검색..." id="searchInput">
+    </div>
+    <p class="search-tags-title">인기 검색어</p>
+    <div class="search-tags">
+      <span class="search-tag" onclick="fillSearch('텐트')">텐트</span>
+      <span class="search-tag" onclick="fillSearch('침낭')">침낭</span>
+      <span class="search-tag" onclick="fillSearch('일산화탄소 경보기')">일산화탄소 경보기</span>
+      <span class="search-tag" onclick="fillSearch('취사도구')">취사도구</span>
+      <span class="search-tag" onclick="fillSearch('랜턴')">랜턴</span>
+      <span class="search-tag" onclick="fillSearch('캠핑 의자')">캠핑 의자</span>
+      <span class="search-tag" onclick="fillSearch('가평 캠핑장')">가평 캠핑장</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// Recent viewed bar
+setTimeout(()=>{document.getElementById('recentBar').classList.add('visible')},3000);
+function closeRecent(){document.getElementById('recentBar').classList.remove('visible')}
+
+// Search
+function openSearch(){document.getElementById('searchOverlay').classList.add('open');document.getElementById('searchInput').focus()}
+function closeSearch(e){if(e.target===document.getElementById('searchOverlay'))document.getElementById('searchOverlay').classList.remove('open')}
+function fillSearch(v){document.getElementById('searchInput').value=v}
+
+// Stubs
+function openLogin(){alert('로그인 페이지로 이동합니다')}
+function openSignup(){alert('회원가입 페이지로 이동합니다')}
+function openChat(){alert('챗봇 상담을 시작합니다')}
+function toggleMenu(){alert('전체 메뉴를 표시합니다')}
+
+// Scroll reveal
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='1';e.target.style.transform='translateY(0)'}})},{threshold:0.1});
+document.querySelectorAll('.fade-up').forEach(el=>{el.style.transition='opacity 0.6s ease, transform 0.6s ease';observer.observe(el)});
+</script>
+</body>
+</html>
